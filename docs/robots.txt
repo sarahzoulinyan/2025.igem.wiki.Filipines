@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sarahzoulinyan.github.io/2025.igem.wiki.Filipines/sitemap.xml
+Sitemap: https://sarahzoulinyan.github.io/igem-2025-wiki/sitemap.xml
