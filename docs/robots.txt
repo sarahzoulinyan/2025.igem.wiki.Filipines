@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sarahzoulinyan.github.io/2025.igem.wiki.Filipines/sitemap.xml
