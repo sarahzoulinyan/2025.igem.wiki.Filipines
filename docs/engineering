@@ -1,0 +1,1316 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="https://static.igem.wiki/common/icons/favicons/igem-2022.svg" />
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/" />
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+
+
+    <!-- Bootstrap CSS (v5) -->
+    <link href="static/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="static/style.css" rel="stylesheet" />
+
+
+   <!-- GSAP - Try jsDelivr CDN -->
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+
+    <title>Engineering Success | Project - iGEM 2025</title>
+  </head>
+
+
+  <body class="">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-black">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand" href="index.html">
+      <span class="visually-hidden">Project home</span>
+    </a>
+
+    <!-- Mobile toggler -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="description">Description</a></li>
+
+        <!-- Project dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="nav-project" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">Project</a>
+          <ul class="dropdown-menu" aria-labelledby="nav-project">
+            <li><a class="dropdown-item" href="contribution">Contribution</a></li>
+            <li><a class="dropdown-item" href="engineering">Engineering</a></li>
+          </ul>
+        </li>
+
+        <!-- Specializations dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="nav-specializations" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">Specializations</a>
+          <ul class="dropdown-menu" aria-labelledby="nav-specializations">
+            <li><a class="dropdown-item" href="hardware">Hardware</a></li>
+            <li><a class="dropdown-item" href="model">Modeling</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+    <!-- Header -->
+    <header class="default-hero py-5 mb-5">
+      <div class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-lg-12">
+            <div class="d-flex align-items-center">
+              <h1 class="hero-typing display-4 mt-5 mb-2">Engineering Success</h1>
+            </div>
+            <p class="lead mb-5"></p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- Star Navigation System -->
+    <div id="star-nav" class="star-nav">
+      <div class="star-rail" id="star-rail">
+        <div id="star-nav-heading" class="star-nav-heading">Jump to...</div>
+        <div id="star-header-display" class="star-header-display"></div>
+        <!-- Stars will be populated by JavaScript -->
+      </div>
+    </div>
+
+    <main id="main" class="page-narrow">
+  
+
+<!--check to-do with ctrlf "to do"!!!!!!!!!!!!!!!!!!-->
+<!--to do: format figcaption using class-->
+<!--to do: upload wet lab figures-->
+<div>
+  <h1 class = "h1" id="wl">Overview</h1>    <br>  
+  <div class="wrap">
+    <div id="cycle">
+      <img src="https://static.igem.wiki/teams/5717/engineeringsuccess/dbtl.webp" width="400px" alt="iGEM Engineering Cycle">
+    </div>
+    <div class="page-right" id="wlov">
+      <p>Our goal with PRoSPER is to engineer <span class="span">a novel co-culture system</span> to first reduce perchlorates and then sequester chlorides. Since existing perchlorate-reducing pathways exist only in extremophiles which are difficult to grow and engineer, we utilized E. coli as a chassis to express and characterize the perchlorate reducing pathways. We propose that <i>Synechococcus</i> PCC. 7002 can be co-cultured alongside <i>E. coli </i>, leveraging its natural abilities to sequester chlorides while providing a carbon source for E. coli.</p>
+    </div>
+  </div>
+
+  <p>Exeter 2018 successfully transformed pcrCD and cld into <i>E. coli </i>, but were unsuccessful with pcrAB. While pcrA was included in a separate operon than pcrBCD, all the blocks were digested into a single plasmid. Likely, the failed correct expression of pcrAB is due to how large the genes are as <i>E. coli </i> can only take on so many extra genes before there's too much metabolic stress. The pcrA protein is also very large, so there would likely be some issues with secretion and folding as well. </p>
+  <p>To address the concern, the current Wet Lab (WL) approach is to separate the genes into two separate plasmids, focusing on inserting pcrA first as the largest and most difficult to express protein. Upon successful insertion of pcrA, we will take those colonies and add in the plasmid with pcrBCD and cld. Finally, to ensure compatibility with the ARC bioreactor, curli genes were expressed to promote biofilm formation.</p>
+  <p>For Product Development (PD), we drew from key interviews such as our conversation with an external advisor to guide the development of an ARC bioreactor. The Product Development project group first focused on the main structural design, which went through four generations of iteration. The MKIV version eventually became the prototype for ARC. Meanwhile, the electronic circuit was also under active prototyping. We divided circuit development into three phases: the MKI-MKII stage, the MKIII-MKIV stage, and the final integrated circuit assembly and testing. Sensor testing was then conducted to validate system responsiveness. After the major stages of development were completed, we carried out Engineering Validation Testing (EVT), which included subsystem efficiency tests, stress tests, and a full-system wet run.</p>
+
+    <h2 class="h2">Cycle 1 - <i>E. coli </i> Expression of Perchlorate Reductase A (pcrA)</h2>
+
+      <h3 class="h3">Outline</h3>      
+        <p>The Perchlorate Reductase (pcr) complex was first identified in <i>Dechloromonas aromatica</i>, a gram negative facultative anaerobe originally isolated from the Potomac River Sludge. This bacterium is notable for its capability to degrade harmful environmental contaminants, such as perchlorate which is  a persistent pollutant found in ground and freshwater sources throughout the country, and in the case of PRoSPER, concentrated in Martian regolith. <i>D. aromatica</i> reduces perchlorate through a series of stepwise reactions catalyzed by the perchlorate reductase complex, ultimately converting it into chloride ions and carbon dioxide. The perchlorate reductase complex itself is composed of four subunits located in the periplasm of the bacteria of the bacterium with the subunits being  PcrA, PcrB, PcrC and lastly PcrD. Among them, PcrA serves as the primary catalytic site responsible for actual reduction of perchlorate.</p>
+        <p>For PRoSPER, instead of relying on <i>D.aromatica</i> native mechanism, we focused on engineering <i>E. coli </i> to express the perchlorate reductase pathway. This approach was chosen due to the difficulties in working with maintaining anaerobes in the appropriate environmental conditions and limited previous works in manipulating their genetics. In contrast,  <i>E. coli </i> has been extensively studied making it the ideal chassis for expressing the enzymatic complex. Additionally, there is also precedent from the Exeter 2018 iGEM project group, who attempted a similar strategy in engineering <i>E. coli </i> to express pcrACBD. While they successfully expressed the PcrBCD subunits, they were unable to express PcrA, the largest catalytic subunit of the complex responsible for the main perchlorate reduction process (927 amino acids).</p>
+        <p>PRoSPER's strategy focused not only on verifying the expression of the PcrBCD subunits previously demonstrated by the Exeter project group but also on successfully expressing PcrA. To do this, we used a dual-plasmid system designed to reduce oxidative stress and improve transformation efficiency in <i>E. coli </i>.  The perchlorate reducing operon codes for the four subunits of perchlorate reductase, chlorite dismutase, and additional coenzymes. Rather than express the entire operon at once, pcrA is first engineered to be expressed in <i>E. coli </i>. Due to its larger size of pcrA, we anticipate that its expression in the periplasmic space will be hindered. Coupled with the numerous other cofactors and subunits, we hypothesize that the functionality of the entire perchlorate reducing pathway cannot occur in wild-type <i>E. coli </i>. Instead, we turn to an <i>E. coli </i> strain which contains a lipoprotein knockout, allowing for increased space in the periplasm.This first cycle of our experimental timeline focused on expressing the pcrA gene block in the engineered <i>Nissle 1917</i> strain lipoprotein knockout strain that will be further discussed below. </p>
+      
+      <h3 class="h3">Design</h3>
+        <p>The primary challenge that Exeter encountered when expressing PcrA was its large size—about 2.8 kb in length, encoding a 927-amino-acid protein. Large, multi-domain and complex proteins are often difficult to express in <i>E. coli </i> due to the oxidative and folding stress it imposes on the cell, which can lead to poor transformation efficacy, expression yield and misfolded aggregates [6]. In native perchlorate reducers, expression of perchlorate reductase pathway occurs in the periplasm. As such, wetlab incorporated a signal peptide to allow for the transport of folded recombinant proteins from the cytosol to the periplasm. </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/newtransparentimages/updatedpcra-operon.avif" alt="pcrA Operon" width="700px">
+            <figcaption class="figure-caption">Figure 1. pcrA Expression Construct with His-tag to enable protein purification, TAT Peptide signal for transport to the periplasm, and pcrA</figcaption>
+              <br>
+        <p>To explore other ways to express large protein constructs, we interviewed an external advisor, our an external advisor. and she recommended an <i>E.Coli </i> strain with a Braun's lipoprotein (Lpp) knockout (Figure 2). This specific strain was engineered via CRISPR CAS9 for enhanced membrane permeability and peptide secretion to the periplasm. This modification weakens the connection between the outer membrane and peptidoglycan layer of the bacteria allowing for increased membrane permeability to occur. To test this approach, we used the following two engineering <i>Nissle 1917</i> strains: one with the Δlpp knockout and one wild-type control (no Δlpp knockout ), allowing us to directly compare the efficiency of PcrA expression between the two.</p>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/newtransparentimages/lipoprotein-knockout.webp" alt="Lipoprotein Knockout">
+          <figcaption class="figure-caption">Figure 2. Structural comparison between the wild-type and engineered lipoprotein knockout (<i>E. coli Nissle 1917</i>) strains. The knockout strain lacks Braun's lipoprotein, which normally anchors the outer membrane to the peptidoglycan layer. The absence of this linkage weakens the outer membrane structure, increasing its permeability and allowing for more efficient protein secretion and surface localization</figcaption>
+            <br>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/final-pcra-pus212.webp">
+          <figcaption class="figure-caption">Figure 3. Plasmid map (Snapgene) of the PcrA gene block insert constructed using the pUS212 backbone, featuring a tetracycline-inducible promoter (TetR) for regulated expression, TorA signal peptide for TAT pathway, and a 6×His tag for downstream protein detection and purification via SDS-PAGE.</figcaption>
+            <br>
+
+      <h3 class="h3">Build</h3>
+        <p>Our build process for pcrA had several iterations, each improving on the last. We began by preprocessing and amplifying our primers, the pcrA gene, and plasmid backbone. After receiving the gene and primers, we resuspended and performed PCR. In addition, we liquid cultured the pUS212 agar stab and miniprepped, with the following nanodrop results:</p>
+        <table>
+          <tr>
+            <th></th>
+            <th>pcrA</th>
+            <th>pUS212</th>
+          </tr>
+          <tr>
+            <td>Mean 260/280</td>
+            <td>1.7765</td>
+            <td>1.876</td>
+          </tr>
+          <tr>
+            <td>Mean ng/μL</td>
+            <td>353.819</td>
+            <td>9.974</td>
+          </tr>
+        </table>        
+          <figcaption class="figure-caption">Table 1. pcrA after PCR and mini prepped psU212 nanodrop</figcaption>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/1-untitled-slide.webp">
+<!--to do fill figure#--> <figcaption class="figure-caption">Figure 4. Workflow for PcrA construct design, illustrating the process from initial pcrA gene block preparation through final protein purification and confirmation.</figcaption>
+          <br>
+        <p>Although we had promising pcrA ng/nL and 260/280 results, after running gel electrophoresis, we did not get any visible bands, indicating that our DNA concentration was too low. We started a new cycle of the process, this time ensuring that we had high enough DNA concentration before proceeding and increasing the number of runs per component.</p>
+        <p>We restarted the liquid culture for the pUS212 plasmid, and performed PCR on the miniprep result as well as on the pcrA insert. The nanodrop results are as follows:</p>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>pUS2I2 run 1</th>
+                <th>pUS2I2 run 2</th>
+                <th>pUS2I2 run 3</th>
+                <th>pUS2I2 run 4</th>
+                <th>pcrA run 1</th>
+                <th>pcrA run 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mean 260/280</td>
+                <td>1.790</td>
+                <td>1.724</td>
+                <td>1.752</td>
+                <td>1.747</td>
+                <td>1.884</td>
+                <td>1.769</td>
+              </tr>
+              <tr>
+                <td>Mean ng/µL</td>
+                <td>526.06</td>
+                <td>363.56</td>
+                <td>366.37</td>
+                <td>338.53</td>
+                <td>259.95</td>
+                <td>145.61</td>
+              </tr>
+            </tbody>
+          </table>
+            <figcaption class="figure-caption">Table 2. pcrA and psU212 nanodrop results after PCR</figcaption>
+        <p>A gel was run with the ladder, pcrA samples 1 and 2, plasmid samples 1 through 4, and ladder. The expected lengths of the plasmid and pcrA insert were 2808bp and 2879bp, respectively.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/cycle1-figure4.avif">
+            <figcaption class="figure-caption">Figure 5. Gel showing ladder (lane 1) pcrA samples 1 and 2 (lanes 2, 3) & plasmid samples 1 through 4 (lanes 4, 5, 6, 7)</figcaption>
+              <br>
+        <p>With all inserts determined to be around the expected ~3000 bp, we then proceeded with Gibson assembly and transformation. We plated 2 transformed <i>E. coli </i> Nissle Δlpp (Braun's lipoprotein knockouts) cultures, 1 transformed <i>E. coli </i> Nissle without Δlpp culture, and untransformed negative controls on kanamycin-resistance selection media.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/img-7311.webp" style="transform: rotate(90deg);">
+            <figcaption class="figure-caption">Figure 6. Initial transformation results of pcrA. Top middle:  Transformed <i>E. coli </i> Nissle without Δlpp, bottom left: Transformed <i>E. coli </i> Nissle Δlpp (culture 1), bottom middle: Transformed <i>E. coli </i> Nissle Δlpp (culture 2), bottom right: Untransformed <i>E. coli </i>, tri-divided into <i>E. coli </i> Nissle without Δlpp, <i>E. coli </i> Nissle Δlpp (culture 1), and <i>E. coli </i> Nissle with Δlpp (culture 2)</figcaption>
+              <br>
+        <p>We did not observe any colonies after 24 hours. To validate our Gibson assembly procedure, we performed PCR with test primers spanning the ligation junction. The gel confirmed a successful assembly with the expected 1000bp band. Cell competency was suspected to be the limiting factor. In our subsequent rounds, we experimented with <i>E. coli </i> DH5α and added a CaCl<sub>2</sub> incubation step pre-transformation.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/cycle1-figure6.webp">
+            <figcaption class="figure-caption">Figure 7. Gel showing ladder (lanes 1, 4), and 2 samples of pcrA-pUS212 construct (lanes 2, 3).</figcaption>
+              <br>
+        <p>Having used up all of our Gibson product for previous transformations and diagnostics, we assembled the pcrA-pUS212 construct again and reran our transformations, with <i>E. coli </i> DH5α in addition. This time, we saw growth after around 36 hours in the plates using <i>E. coli </i> Nissle cells. The growth seemed to be similar in the knockout and no knockout plates.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/cycle1-figure7.webp" style="transform: rotate(90deg);">
+            <figcaption class="figure-caption">Figure 8. Second transformation of pcrA. Left: Transformed <i>E. coli </i> Nissle without Δlpp Right: Transformed <i>E. coli </i> Nissle Δlpp</figcaption>
+              <br>
+        <p>Unfortunately, after colony PCR and gel electrophoresis of the transformed cultures, we realized the Gibson assembly for this round had actually failed after sequencing results came back. Only the plasmid backbone was taken up, conferring chloramphenicol resistance without the pcrA insert.</p>
+        <p>After reperforming Gibson assembly and transformation, the project was able to successfully liquid culture transformed Nissle cells (both Δlpp and without Δlpp). We sent out the transformed construct via sequencing and SDS-page of expressed proteins.</p>
+
+      <h3 class="h3">Test and Learn</h3>
+        <p>After transformation, we grew constructs in liquid culture and induced them with tetracycline. Cells were lysed and fractionated, isolating periplasmic and cytosolic components. An SDS-PAGE gel was run to assess the efficiency of TAT transport, comparing expression of pcrA between the cytosol and periplasm. </p>>
+          <div class="wrap">
+            <img class="figure-img-sm" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/sds1.webp" width="400px"><img class="figure-img-sm" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/sds2.webp" width="400px">
+          </div>
+        <figcaption class="figure-caption">Figure 9. SDS-Page of Periplasmic and Cytosolic Components, Total Soluble Proteins, and Cell Debris</figcaption>
+                    <br>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Well 1</th>
+                          <th>Well 2</th>
+                          <th>Well 3</th>
+                          <th>Well 4</th>
+                          <th>Well 5</th>
+                          <th>Well 6</th>
+                          <th>Well 7</th>
+                          <th>Well 8</th>
+                          <th>Well 9</th>
+                          <th>Well 10</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Gel 1</td>
+                          <td>Ladder</td>
+                          <td>His Tagged Δlpp 1 periplasm</td>
+                          <td>His Tagged Δlpp 1 cytosol</td>
+                          <td>His Tagged no Δlpp 1 periplasm</td>
+                          <td>His Tagged no Δlpp 1 cytosol</td>
+                          <td>total soluble Δlpp 1 periplasm</td>
+                          <td>total soluble Δlpp 1 cytosol</td>
+                          <td>total soluble no Δlpp 1 periplasm</td>
+                          <td>total soluble no Δlpp 1 cytosol</td>
+                          <td>Ladder</td>
+                        </tr>
+                        <tr>
+                          <td>Gel 2</td>
+                          <td>Ladder</td>
+                          <td>His Tagged Δlpp 2 periplasm</td>
+                          <td>His Tagged Δlpp 2 cytosol</td>
+                          <td>His Tagged no Δlpp 2 periplasm</td>
+                          <td>His Tagged no Δlpp 2 cytosol</td>
+                          <td>cell debris Δlpp 1</td>
+                          <td>cell debris Δlpp 2</td>
+                          <td>cell debris no Δlpp 1</td>
+                          <td>cell debris no Δlpp 2</td>
+                          <td>Ladder</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                      <figcaption class="figure-caption">Table 3. SDS-Page Gel Results</figcaption>
+        <p>We hypothesized that the successful transformation but inconclusive sequencing results were due to errors in the mini-prep procedure. The second gel contained the positive control of cell debris, which had limited expression. This suggests that the protein purification step likely failed because of incorrect lysozyme concentrations used during cell lysis. If successful, each lane of the first gel should have had bands at 105 kDa for pcrA. We also hypothesized that a lipoprotein knockout would increase the expression of pcrA in the periplasm due to increased secretion of proteins to the periplasm, which would have been characterized with SDS-page. </p>
+        <p>Despite the failed gel results, the troubleshooting process proved highly valuable for the project. Through repeated experimentation, the wet lab members enhanced transformation efficiency by incorporating CaCl<sub>2</sub> solution into the protocol. After performing multiple rounds of Gibson assembly with varying primer designs and fragment lengths, we successfully generated a complete construct. </p>
+        <p>Moving forward, the project plans to re-run the transformation, cell induction, cell fractionation, and protein purification protocols. Given that our treatment groups include both knockout and wild-type strains, we aim to characterize the effect of the knockout on periplasmic protein expression. Additionally, we intend to express GFP prior to expressing pcrA to facilitate quantification of expression levels and further examine the impact of the lipoprotein knockout. Finally, we plan to test different signal peptides to identify the most efficient transport systems within the <i>E. coli  Nissle 1917</i>strain.</p>
+
+    <h2 class="h2">Cycle 2 - <i>E. coli </i> Expression of Perchlorate Reductase BCD (pcrBCD)</h2>
+      <h3 class="h3">Outline</h3>
+        <p>Having confirmed the expression of PcrA in our engineered <i>Nissle 17</i> strain, we then moved on to expressing the remaining PcrBCD subunits in a second construct. This step aimed to reconstitute the full perchlorate reductase complex in <i>Nissle 17</i>, allowing us to evaluate proper assembly, stability, and potential perchlorate-reducing activity under controlled conditions.</p>
+        <p>After analyzing the perchlorate reduction island of other microorganisms, The PcrB, PcrC, and PcrD subunits play a critical role specifically in the downstream electron transfer roles within the complex.  PcrC functions as a membrane-bound <i>c-type cytochrome</i> that receives electrons from the respiratory chain and transfers them to PcrB, an <i>iron-sulfur protein</i> that acts as the primary electron shuttle. From there, PcrB delivers these electrons to PcrA, enabling the catalytic reduction of perchlorate (ClO₄⁻) to chlorate (ClO₃⁻). Meanwhile, PcrD is believed to assist in the assembly, maturation, and stabilization of the PcrABC complex in the periplasmic space, ensuring proper enzyme function.</p>
+        <p>The Exeter 2018 iGEM project group confirmed expression of three perchlorate reductase subunits using Western blot analysis. Building on their work, we aimed to replicate and extend these results by reconstituting the full PcrABCD complex and verifying its expression in our engineered <i>E. coli </i> strain. </p>
+      
+      <h3 class="h3">Design</h3>
+        <p>The pcrBCD construct was designed using the same pUS212 backbone and the gene block for pcrBCD ordered from Integrated DNA Technologies (IDT). The pUS212 backbone was used as it contains a tetracycline inducible promoter (TetR) allowing us to make the entire pcrABCD protein to be tetracycline inducible for more efficient expression of the protein. The plasmid's chloramphenicol (CAM) resistance allowed for selectivity, ensuring that the <i>E. coli </i> containing the plasmid was cultured.  </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/newtransparentimages/updatedpcrbcd-workflow.webp">
+            <figcaption class="figure-caption">Figure 10. pcrBCD Expression Construct with His-tag to enable protein purification, TAT Peptide signal for transport to the periplasm, and pcrB, pcrC, and pcrD</figcaption>
+              <br>
+        <p>In addition, this construct contains a 6x His tag, allowing the purification of the expressed pcrBCD protein to be purified by nickel affinity chromatography. This allows the project to confirm the expression of the pcrBCD operon through later techniques such as cell fractionation, as anti-His antibodies allow for easy detection of the tagged proteins in western blot assays. This addition will allow us to have confirmation of functionality following transformation. </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/final-pus212-pcrbcd-final.avif">
+            <figcaption class="figure-caption">Figure 11. Plasmid map (Benchling) of the PcrBCD gene block insert constructed using the pUS212 backbone, featuring a tetracycline-inducible promoter (TetR) for regulated expression and a 6×His tag for downstream protein detection and purification via SDS-PAGE.</figcaption>
+              <br>
+
+      <h3 class="h3">Build</h3>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/newtransparentimages/pcrbcd.webp">
+          <figcaption class="figure-caption">Figure 12. Workflow for PcrBCD construct design, illustrating the process from initial pcrBCD gene block preparation through final protein purification and confirmation.</figcaption>
+            <br>
+        <p>The process of expressing pcrBCD was similar to that of pcrA in that the project went through multiple trials, working towards successful transformation building off of past mistakes. </p>
+        <p>After designing the gene blocks and primers for pcrB, pcrC, and pcrD, we amplified the primers and plasmid backbone, followed by their resuspension and PCR. The following are results from the nanodrop giving the concentrations of the amplified gene blocks and plasmid replicates as well as their corresponding base pair lengths.</p>
+          <table>
+            <colgroup>
+              <col />
+              <col />
+              <col />
+            </colgroup>
+      
+            <thead>
+              <tr>
+                <th scope="col">sample</th>
+                <th scope="col">avg ng/ul</th>
+                <th scope="col">bp length</th>
+              </tr>
+            </thead>
+      
+            <tbody>
+              <tr>
+                <td>pUS212 #2</td>
+                <td>50.6</td>
+                <td>2808</td>
+              </tr>
+              <tr>
+                <td>pUS212#3</td>
+                <td>212.6</td>
+                <td>2808</td>
+              </tr>
+              <tr>
+                <td>pcrB</td>
+                <td>259.475</td>
+                <td>1368</td>
+              </tr>
+              <tr>
+                <td>pcrC</td>
+                <td>144.05</td>
+                <td>1068</td>
+              </tr>
+              <tr>
+                <td>pcrD</td>
+                <td>25.05</td>
+                <td>1046</td>
+              </tr>
+            </tbody>
+          </table>
+            <figcaption class="figure-caption">Table 4. pcrB, pcrC, pcrD, and psU212 nanodrop results</figcaption>
+                <br>
+        <p>A gel was run on the PCR product to confirm the correct sizes for each DNA fragment. The wells containing the pUS212 plasmid and gene blocks aligned in size with that expected, indicating successful PCR. </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/cycle2-figure11-1.avif">
+            <figcaption class="figure-caption">Figure 13. Gel Electrophoresis Confirming PCR for pUS212 insert, pcrB, pcrC, and pcrD </figcaption>
+              <br>
+            <table>
+                <thead>
+                  <tr>
+                    <th>Well 1</th>
+                    <th>Well 2</th>
+                    <th>Well 3</th>
+                    <th>Well 4</th>
+                    <th>Well 5</th>
+                    <th>Well 6</th>
+                    <th>Well 7</th>
+                    <th>Well 8</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Ladder</td>
+                    <td>pUS2I2 plasmid</td>
+                    <td>pUS2I2 plasmid</td>
+                    <td>pUS2I2 plasmid</td>
+                    <td>pcrB geneblock</td>
+                    <td>pcrC geneblock</td>
+                    <td>pcrD geneblock</td>
+                    <td>Ladder</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>2808 bp</td>
+                    <td>2808</td>
+                    <td>2808</td>
+                    <td>1368</td>
+                    <td>1068</td>
+                    <td>1046</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+            </table>
+                <figcaption class="figure-caption">Table 5. Gel Electrophoresis Lanes for PCR Confirmation</figcaption>
+                  <br>
+        <p>The nanodrop results showed a high amount of DNA amplification and a gel on the PCR product confirmed the correct sizes for each DNA fragment and plasmid. Thus we continued with DNPI digest to remove the methylated template DNA and DNA cleanup to remove unwanted components from PCR and purify the products. Then, we proceeded to the Gibson Assembly. </p>
+        <p>Based on the successful transformation results of pcrA, we proceeded to attempt transformation of the pcrBCD operon into <i>E.  Coli </i>. However, after an unsuccessful transformation, we realized that the Gibson Assembly of the pcrBCD cycle had not been successful. </p>
+        <p>We are currently working on constructing a new pcrBCD construct, utilizing new forward and reverse test primers producing a 1kb band that is engineered to be more rigorous in verifying the results of the gibson assembly. Our gel below shows that there was successful amplification of pcrB, pcrC, and pcrD fragments, however, that another accessory band was also subsequently amplified. This points towards a problem with our primer and settings during PCR amplification. Although the project attempted to isolate and perform gel extraction, the acquired DNA concentrations were much too low. the project is currently working on finding a PCR time cycle and primers that will not result in double amplification. </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/img-8564.webp">
+            <figcaption class="figure-caption">Figure 14. Gel electrophoresis on two replicates each of pcrB, pcrC, and pcrD </figcaption>
+              <br>
+        <p>Following the construction of the pcrBCD plasmid, transformation will be verified through miniprep and external sequencing by Plasmidsaurus. the project is currently working on utilizing these changes to guarantee a future successful transformation. </p>
+      
+      <h3 class="h3">Test</h3>
+        <p>Similar to the expression confirmation process used for <b>pcrA</b>, the expression of <b>pcrBCD</b> in our engineered <i>E. coli </i> Nissle 1917 strain was evaluated through cell fractionation, separating the cytoplasmic and periplasmic components prior to SDS-PAGE analysis. However, no visible protein bands corresponding to the PcrBCD subunits were detected on the gel, even after induction. This observation, along with the lack of colonies during initial transformation and PlasmidSaurus sequencing results confirming unsuccessful transformation of the mini prepped colonies, supported our suspicion that there were errors in the Gibson assembly of the construct.</p>
+      
+      <h3 class="h3">Learn</h3>
+        <p>Although the gel above shows successful amplification of the three subunits (Figure 12), we observed several smaller, unexpected bands between the 100-250 bp range. This was likely due to non-specific amplification caused by primer mis-annealing or secondary structure formation during PCR, even though we optimized our primers using Benchling and SnapGene to determine the ideal annealing (Ta) and melting (Tm) temperatures. From these results, we learned that our failure in the Gibson assembly may have stemmed from the overall complexity of assembling three tightly linked subunits in a single construct. In addition, literature has shown that other similar reductase complexes for other chemicals often contain multiple iron-sulfur protein and cytochrome-associated motifs, which are encoded by GC-rich and repetitive sequences that are also present in pcrBCD [8]. These regions are prone to forming stable secondary structures that interfere with the overlap annealing and extension steps in Gibson assembly, making accurate assembly more difficult—an observation consistent with findings from previous research into similar reductase complexes, which reported decreased cloning efficiency for GC-rich fragments in similar multi-part assembly systems [5].</p>
+        <p>For future cycles, we plan to take a more stepwise assembly approach by first focusing on smaller subassemblies of PcrC (1028 bp) and PcrD (986 bp). This will simplify the Gibson reaction by reducing fragment complexity and minimizing the number of overlapping junctions that must anneal at once. Testing these smaller constructs individually will also let us confirm each intermediate through sequencing, ensuring proper junction assembly before moving on to the full operon. We're also considering testing Golden Gate assembly as an alternative, since its use of restriction enzymes offers greater specificity (prevent secondary structure formation and nonspecific primer binding) and reliability compared to Gibson's focus on homology. </p>
+
+    <h2 class="h2">Cycle 3 - Optimization of <i>Synechococcus</i> Culturing Conditions</h2>
+      <h3 class="h3">Outline</h3>      
+        <p>Though Synechococcus has a considerably short doubling of time for cyanobacteria (12 hours), when compared to our <i>E. coli </i> culturing workflow with a doubling time of 10 minutes we had to significantly change the structure and execution of our experiments. </p>
+        
+      <h3 class="h3">Design and Build</h3>
+        <p class="listtitle">We tested three different culturing methods for <i>Synechococcus</i>:</p>
+          <ol>
+            <li>25 mL Liquid Culture</li>
+            <li>Agar Slants/Plates</li>
+            <li>700 mL Liquid Culture in ARC-P (Photobioreactor)</li>
+          </ol>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/newtransparentimages/synechoccus-diff-culture.webp">
+          <figcaption class="figure-caption">Figure 15. <i>Synechococcus</i> cultures grown under three different conditions to determine the most efficient growth method.</figcaption>
+            <br>
+
+      <h3 class="h3">Test and Learn</h3>
+        <p>For the first few weeks of the culture, there was poor growth and yellowing of the <i>Synechococcus</i>. Despite incorporating increased air flows, slant plate expression, and incorporation of a bubbler, growth remained slow. Doing some literature review, the project realized that cobalamin (Vitamine B12) is a chemical necessary for <i>Synechococcus</i> growth and proliferation [7]. This explains the early struggles with our <i>Synechococcus</i> culture. After the addition of vitamin B12, the culture was able to immediately increase expression of viable <i>Synechococcus</i>. Within just 3 days, there was a visible increase in green growth. </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/synechfinal.webp">
+            <figcaption class="figure-caption">Figure 16. Synechococcus growth after inclusion of Vitamin B12. Dramatic increase in growth, proliferation, and strong green color after only 5 days</figcaption>
+              <br>
+
+    <h2 class="h2">Cycle 4 - Putting it All Together! Curli genes and Final Constructs</h2>
+
+      <h3 class="h3">Outline</h3>      
+        <p>	After conversations with our product development project group, we learned that bioreactor design would require biofilm formation to prevent bacteria buildup within the effluent. This construct would require full functionality of perchlorate reduction as well, necessitating addition of coenzymes and proteins to mediate electron protein. We propose a consecutive transformation workflow for the expression of biofilm forming, perchlorate reducing <i>E. coli </i> that can be easily scalable in our ARC bioreactor system. </p>
+
+      <h3 class="h3">Design</h3>
+        <p>The bioreactor design by Product Development utilizes a biofilm to secure the transformed <i>E. coli </i> in the bioreactor module. In an attempt to support this bioreactor design and increase the frequency and efficiency of biofilm formation in the transformed <i>E. coli </i>, the curli gene was identified as a gene of interest. Curli nanofibers are functional amyloid fibers produced by certain bacteria, and promote cell community behavior through biofilm formation in the extracellular matrix. The produced nanofiber network is able to immobilize site specific enzymes, such as pcrABCD, and stabilize enzymes under harsh environmental conditions (Botyanszki et. al 2015). The curli fibers are coded by two operons in <i>E. coli </i>, csgBAC and csgEFG. The plasmid shown in Figure X is designed to be an arabinose-inducible csgBACEFG operon for curli fiber synthesis, with the additional tag of a GFP-specific nanobody onto csgA. </p>
+        <div class="wrap">
+          <img class="figure-img" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/final-pcra-pus212.webp" width="300px"><img class="figure-img" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/final-ansa-plasmid.webp" width="300px"></div>
+        <figcaption class="figure-caption">Figure 17. Plasmid map (SnapGene) of the curli plasmid alongside plasmid map of completed construct with additional coenzymes</figcaption>
+                    <br>
+
+      <h3 class="h3">Build</h3>
+        <p>The pBbB8k-csg-NbGFP plasmid was ordered from Addgene in the form of an agar stab. In order to isolate the plasmid, so WL has control over the strain and the option to express both curli and other genes, plasmid miniprep was performed on the stab. </p>
+        <p>To insert the plasmid into E. coli subsequently, we utilized Mix and Go! Competent Cells DH5 Alpha from Zymo Research, in order to increase simplicity and efficiency. </p>
+        <p>Following the transformation with the plasmid, colonies were observed in the LB plates prepared with the antibiotic kanamycin, indicating successful uptake of the plasmid by <i>E Coli </i>. </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/wl/cycle4-figure16.webp">
+            <figcaption class="figure-caption">Figure 18. Growth of DH5α cells containing Curli Plasmid </figcaption>
+              <br>
+      <h3 class="h3">Test and Learn</h3>
+        <p>To evaluate the effect of curli expression, <i>E. coli </i> was grown and observed for cell growth and biofilm formation.  Arabinose was added to induce expression of GFP linkers. To further characterize curli, a shear bioreactor system will be utilized to assess the mechanical properties of the amyloid fibers on <i>E. coli </i> retention. Surface treatments, like sintering, may also increase retention of <i>E. coli </i> within the bioreactor design. Fluid flow simulations with Ansys will be run in the future to determine maximum shear stresses that can be exposed to <i>E. coli </i> before detachment occurs. In addition, future experiments will elucidate the relationship between curli amyloid fibers and periplasmic protein expression.</p>
+        <p>With the characterization of curli and proposed functionality of the perchlorate reductase island, we propose the following workflow for integration within biofilm-formation based bioreactors. By first incorporating the perchlorate reducing genes with the chloramphenicol selection marker, the efficiency of reduction can be assessed. Finally, to integrate with our bioreactor we express curli genes which allow for expression of amyloid fibers.</p>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/newtransparentimages/updated-synechococcus-culturetype.webp">
+           <figcaption class="figure-caption">Figure 19. Overview of the integration of the ANSA plasmid (perchlorate reductase complex) and the Curli plasmid (biofilm formation) into the <i>E. coli </i> Nissle 1917 strain.</figcaption>
+            <br>
+</div>
+
+<!------------------------------------PRODUCT DEVELOPMENT--------------------------->
+
+<div>
+  <h1 class = "h1">Product Development</h1>
+</div>
+       
+<div>
+  <h2 class="h2">Main Structure Design</h2>
+   
+  <div>
+    <div>
+      <p>
+        In the early stages of development, the design focused on exploring different reactor types and defining the workflow for implementing the wet lab plan. We established a general direction: the system would require a <span class="span">perchlorate reduction chamber</span> (<i>E.coli </i>) and a <span class="span">desalination chamber</span> (<i>Synechococcus</i>).
+      </p>
+    </div>
+
+    <h3 class="h3">MKI</h3>
+        <p>
+          Mark I was a continuous flow reactor system that involved two <b>liquid</b> bacterial cultures, the outflow of which then combined in a desalination chamber.
+        </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-1.webp" alt="Bioeactor Layout">
+            <figcaption class="figure-caption">Figure 20. MKI Layout</figcaption>
+                    <br>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-2.webp" alt="MKI Workflow">
+            <figcaption class="figure-caption">Figure 21. Workflow for MKI</figcaption>
+                    <br>
+        <p>
+          The <b>desalination chamber</b> is kept in a dark environment, as <i>Synechococcus</i> needs to enter the desalination phase. The subsequent outflow then passes through a <b>basalt column filter</b> for cell removal before proceeding to the effluent.
+        </p>
+                <br>
+        <p class="listtitle">Problems:</p>
+          <ul>
+            <li>Both the <i>Synechococcus</i> and <i>E. coli </i> growth share one cultivation medium. This is inappropriate given their different requisites for growth.</li>
+            <li>The <i>Synechococcus</i> media has heavy metals. These heavy metals will not be removed by the column filter and may lodge in the soil.</li>
+            <li>The liquid culture design requires a column filter. The column filter needs to be constantly replaced and disposed of. If the cells are not removed completely, the soil can be contaminated with cells and media.</li>
+          </ul>
+
+    <h3 class="h3">MKII</h3>      
+      <p>In MKII, we conducted a full DBTL cycle.</p>
+        <h4 class="h4">Design</h4>
+        <p class="listtitle">Improvements after MKI:</p>
+        <ol>
+          <li><b>Replace liquid culture reactors with biofilm reactors.</b> The biofilm is pre-colonized in the growth chamber and then placed into the treatment chamber, where it comes into contact with the soil flowthrough to degrade perchlorate.</li>
+          <li>The bacterial growth media will not mix with the soil flowthrough, and therefore a filtration column will no longer be required.</li>
+          <li>Biofilms are more resistant and require less maintenance than liquid cultures. If a biofilm degenerates, another can come in to replace it.</li>
+        </ol>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-3.webp">
+            <figcaption class="figure-caption">Figure 22. A continuous flow model that involves a shared treatment chamber. Biofilm carriers from the <i>E. coli </i> and <i>Synechococcus</i> growth chambers will be transferred manually to the treatment chamber. </figcaption>
+                          <br>
+          <p>After deciding to use biofilms, we conducted research and reviewed the literature, ultimately choosing between two types of biofilm reactors: <b>fixed bed biofilm reactor (FBBR)</b> and <b>moving bed biofilm reactor (MBBR)</b>.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-4-2.webp">
+            <figcaption class="figure-caption">Figure 23. Biofilm Carrier Considerations</figcaption>
+                          <br>
+
+        <h4 class="h4">Build</h4>
+          <p>We decided to adopt a fixed-bed biofilm reactor design due to operational and structural considerations. We then designed an <b>FBBR growth chamber</b>. In this reactor, we introduced the bacterial liquid culture and immersed <b>3D-printed transparent PLA carriers</b> in the culture to promote biofilm formation. </p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-5.webp">
+              <figcaption class="figure-caption">Figure 24. MKII FBBR Growth Chamber</figcaption>
+                          <br>
+
+        <h4 class="h4">Test</h4>
+          <p>To evaluate the biofilm-forming capability of the carriers, we designed a <b>biofilm inoculation test setup</b> based on a conical tube and conducted a <b>two-week biofilm growth experiment</b>. The strain used for inoculation testing is wild type Nissle 1917. </p>
+            <div class="wrap">
+              <img class="figure-img-sm" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-6-1.webp">
+              <img class="figure-img-sm" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-6-2.webp"></div>
+              <figcaption class="figure-caption">Figure 25. MKII Biofilm Carrier Inoculation Testing</figcaption>
+                          <br>
+
+        <h4 class="h4">Learning</h4>
+ <p>During this period, we conducted an IHP interview focused on biofilm inoculation, in which our discussion with an external advisor had a significant impact on our experimental setup.</p>
+            <ol>
+              <li>Biofilms need to form with shear stress. We had initially assumed shaking would cause biofilms to detach, but we learned instead that shaking or stirring is necessary to promote their formation.</li>
+              <li><b>Glass wool</b> was highly recommended as a biofilm carrier material.</li>
+              <li>Recommended considering heterologously expressing genes that enhance biofilm formation (eg. Curli gene).</li>
+              <li>Artificial selection can be applied by retaining part of the media, which may, over time, enrich for colonies more inclined to adhere and form biofilms.</li>
+            </ol>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-7.webp">
+                <figcaption class="figure-caption">Figure 26. Slight amount of biofilm found in 2 out of 3 biofilm testing setups</figcaption>
+                          <br>
+          <p>After two weeks, the inoculation results were less than ideal, with only a small amount of biofilm appearing at the top of the carriers—the portion close to air. We believe that although we replaced the LB medium daily while retaining part of the culture, the sealed conical tube limited aeration to the lower portion of the carriers. This likely slowed bacterial growth in those regions. If the air-to-medium ratio inside the conical tube were higher, inoculation efficiency might improve.</p>
+                  <br>
+          <p class="listtitle">We decided to make the following changes in the next iteration:</p>
+            <ol>
+              <li>First, adopt the IHP feedback to use glass wool as the carrier material.</li>
+              <li>Incorporate the IHP feedback to heterologously express the Curli gene. The PD project group will collaborate with Wetlab to purchase the Curli gene and perform the transformation. The newly engineered strain will then be used with glass wool for a new round of biofilm inoculation tests.</li>
+              <li>Regarding the workflow, we found that placing <i>Synechococcus</i> and <i>E. coli </i> biofilms in the same chamber makes it difficult to control the reaction kinetics, as their perchlorate degradation and chloride ion uptake rates differ. Furthermore, the synergistic effects of both biofilms in one chamber remain unclear. This issue will be addressed in the next version.</li>
+            </ol>
+
+    <h3 class="h3">MKIII</h3>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-8.webp">
+          <figcaption class="figure-caption">Figure 27. Instead of one combined treatment chamber, two chambers are utilized. </figcaption>
+                        <br>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-9.webp">
+          <figcaption class="figure-caption">Figure 28. Workflow Diagram</figcaption>
+                        <br>
+      <p>This diagram represents our design during the transition from MKII to MKIII. At the top are two biofilm growth chambers, each containing the corresponding flat-sheet carriers (<span class="span">changed to rods in MKIII</span>). Conversations with an external advisor and an external advisor helped spur these design changes. At the bottom is the treatment workflow: the soil flowthrough starts on the far left, then enters two treatment chambers. In this version, a divider was placed in the middle of the treatment chamber to separate the two model organisms. In later designs, <span class="span">these two chambers will be completely separated</span>.</p>
+      <p class="listtitle">In addition to separate chambers, MKIII also introduced the 	following changes:</p>
+        <ol>
+          <li>
+            The biofilm carriers now have an updated “control rod” design, which is similar to the carrier shape used in the conical tube inoculation test. With the glass wool selected as carrier material, the new biofilm carrier consists of rod-shaped glass wool secured in place by a 3D-printed structure.
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-10.webp">
+              <figcaption class="figure-caption">Figure 29. Glass Wool Biofilm Carrier, Glass Wool is fixed between cages</figcaption>
+                <br>
+          </li>
+          <li>
+            Considering that adding another chamber increased the demand for liquid transfer, more motors were required. We decided to <b>modularize</b> the motors, adopting a “backpack” design that allows each motor to become a <b>quickly attachable and detachable module</b>, so that motors can be placed exactly where they are needed.
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-11.webp">
+              <figcaption class="figure-caption">Figure 30. Water Pump Backpack. L298N motor driver board and the motor are housed together. This housing can be mounted onto the reactor via a sliding slot design.</figcaption>
+                <br>
+          </li>
+        </ol>
+      <p class="listtitle">Problems:</p>
+        <ol>
+          <li>Each motor requires three control wires from the Arduino. Relocating motor modules still requires wiring, which reduces the ease of modular use. </li>
+          <li>The L298N controls only one motor, leaving its full capacity underutilized.</li>
+          <li>The motor “backpack” is relatively bulky. If heat pads and LED panels also need to be placed around the reactor, space may become insufficient.</li>
+        </ol>
+      
+      <h3 class="h3">MKIV</h3>       
+        <p>Building on the “backpack” motor module design concept, we began to wonder <span class="span">why not take it a step further and make the LED panels and heat pads modular as well?</span> Key interviews with an external advisor and an external advisor informed these changes. This shift later became the primary focus of our hardware development. In the MKIV design, we fully considered the needs of PRoSPER and synthetic biology applications for a bioreactor.</p>
+        <p class="listtitle">We believe the bioreactor should have:</p>
+          <ol>
+            <li>Compact hardware footprint with large culture capacity.</li>
+            <li>Given the remoteness of Mars mission, ARC should be able to serve as a versatile benchtop bioreactor for laboratory applications.</li>
+            <li>Compatible with sterilization protocol.</li>
+            <li>Rapid adaptability to new model organisms.</li>
+            <li>User friendly operation.</li>
+          </ol>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-12.webp">
+          <figcaption class="figure-caption">Figure 31. Adaptive Reaction Chamber (ARC) Prototype Design, an early iteration</figcaption>
+            <br>
+        <p class="listtitle">For MKIV, we introduced the following key changes:</p>
+          <ol>
+            <li>The reactor main body now uses a 1L glass beaker, which is more accessible and can be autoclaved.</li>
+            <li>The heat pad, LED, and motor—originally fixed around the reactor—were modularized, placing these components into easily swappable modules.</li>
+            <li>Full circuit was integrated into the base of the reactor, with magnetic connectors (MagPin) used to link the modules, completely resolving the wiring issue.</li>
+          </ol>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-13.webp">
+            <figcaption class="figure-caption">Figure 32. MagPin Connectors</figcaption>
+              <br>
+        <p>We divided the structural development of ARC into two parts and carried out DBTL cycles for both: <b>Main Body and Modules</b></p>
+        
+        <h4 class="h4">Main Body DTBL</h4>
+          <h5 class="h5">Design</h5>
+            <p>To secure the beaker as the main structural component, <span class="span">the first part we designed was the Rim</span>. After precisely measuring the beaker's dimensions, we CAD and printed a structure that encircles the top of the beaker while leaving space for the beaker's spout. Six M3 screw holes were reserved on the top of the Rim.</p>    
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-14.webp">
+              <figcaption class="figure-caption">Figure 33. Beaker and the Rim</figcaption>
+                <br>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-15.webp">
+              <figcaption class="figure-caption">Figure 34. The Rim with Inserted Nuts</figcaption>
+                <br>
+            <p>Covering the Rim is the Top Mount, <span class="span">which secures all agitators, sensors, and input/output.</span></p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-16.webp">
+                <figcaption class="figure-caption">Figure 35. An Early Iteration of Top Mount</figcaption>
+                  <br>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-17.webp">
+                <figcaption class="figure-caption">Figure 36. Top Mount for ARC-B, with Biofilm Carrier Slots</figcaption>
+                  <br>  
+            <p><span class="span">The next component is the base</span>, which encloses most of the electronic components including the Arduino. It is also equipped with <b>six MagPins</b> for connecting to the modules.</p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-18.webp">
+                <figcaption class="figure-caption">Figure 37. The base, Electronics Enclosure</figcaption>
+                  <br>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-19.webp">
+                <figcaption class="figure-caption">Figure 38. Electronics Enclosure (left), Cover (right)</figcaption>
+                  <br> 
+                
+            <p>Above the base are six pillars, with precisely measured spacing to securely hold the beaker in place without movement. Each pillar is fitted with <b>two magnetic strips</b>, and each strip contains <b>three 20 x 5 x 2 mm magnets.</b></p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-20.webp">
+                <figcaption class="figure-caption">Figure 39. The base and the Pillars</figcaption>
+                  <br> 
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-21.webp">
+                <figcaption class="figure-caption">Figure 40. The Pillars with Insert Nuts</figcaption>
+                  <br>       
+
+          <h5 class="h5">Build</h5>
+            <p><b>This section serves as a complete build guide. All step 3D files and 3MF print files are included at the end of this section. If a separate assembly manual is needed, this portion along with the corresponding electronic circuit assembly guide has also been compiled into a seperate PDF for reference.</b></p>
+            <p class="listtitle">Construction Process:</p>
+              <ol>
+                <li>The entire structure was first printed in PLA to test fitment, alignment, and tolerances between components.</li>
+                <li>Magnets and magnetic strips were affixed using industrial adhesive.</li>
+                <li>M3 injection-molded nuts were installed.</li>
+                <li>Full system assembly was tested.</li>
+              </ol>
+            <p>In the early stages of hardware development for MKIV, most of the work focused on <b>extensive CAD design and print verification</b>. From the initial prototype to the current iteration, the project has gone through over a hundred Fusion 360 file versions and ten major revisions. We define a major revision as a version that has been <b>fully printed and assembly-tested.</b></p> 
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-22.webp">
+                <figcaption class="figure-caption">Figure 41. Printing Setting with The Pillars </figcaption>
+                  <br>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-23-min.webp">
+                <figcaption class="figure-caption">Figure 42. Printing Setting with The Rim </figcaption>
+                  <br>      
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-24-min.webp">
+                <figcaption class="figure-caption">Figure 43. Biofilm Carrier Test Printing</figcaption>
+                  <br>        
+            <p>After each print, in addition to basic support removal, sanding, and surface finishing, we use a soldering iron tip to heat and insert threaded brass inserts. These inserts are commonly used in industrial plastic products to provide screw fastening for assembly or operational purposes. In the ARC main body, we standardized all fasteners to the M3 metric screw.</p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-25-min.webp">
+                <figcaption class="figure-caption">Figure 44. Adding Insert Nuts with Soldering Iron Tip</figcaption>
+                   <br>   
+            <p>The Rim, Top Mount, and Base Cover <span class="span">all require the installation of threaded brass inserts</span>. After installing, each screw should be fully tightened and then removed once to ensure that the screw channels are clear.</p>
+            <p>The next step is to <b>install the magnets for the Pillars</b>. Each magnetic strip contains three magnets, which are then secured with a cover piece. The magnets are installed using adhesive. <span class="span">It is crucial to pay close attention to the N-S orientation of each magnet</span>. </p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-26-min.webp">
+                <figcaption class="figure-caption">Figure 45. The magnetic strips on modules are installed using the same method.</figcaption>
+                  <br>  
+            <p>The next step is to assemble the entire structure. Slide the Rim onto the beaker from the bottom, then place the Top Mount on top and partially tighten the screws. Next, insert the six pillars into the Base. If the base circuitry is already prepared, secure the Pillars with screws. Align the six upper Pillar sockets beneath the Rim and insert them carefully. <b>Once all Pillars are in place, fully tighten the remaining Top Mount screws to complete the assembly.</b></p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-27-min.webp">
+                <figcaption class="figure-caption">Figure 46. Base with all six pillars installed</figcaption>
+                  <br>  
+            <p>Finally, depending on the specific ARC configuration being built, <span class="span">select and install the appropriate top attachments, such as the agitator, aeration or tubing connectors, bubbler stone, and other functional fittings as required.</span></p>
+            
+          <h5 class="h5">Test</h5>
+            <p class="listtitle">During testing, we identified several issues, with the most significant ones listed below:</p>
+              <ul>
+                <li>
+                  Starting from the top section, we found that the agitator was difficult to secure. In addition to limiting its horizontal movement, we also needed to find a way to vertically fix it to the top mount. Furthermore, the agitator's rotational speed was too low, and due to the limited space on the top surface, our options for compatible motors were very restricted.
+                  <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-28-min.webp">
+                    <figcaption class="figure-caption">Figure 47. The Agitator</figcaption>
+                      <br> 
+                </li>
+                <li>Initially, we designed the Rim and Top Mount to be autoclaved together with the beaker, along with the internal tubing. However, during assembly, we discovered that the Rim, which is slightly larger than the beaker's diameter, often slipped off. To address this, we needed a locking mechanism. We tried 3D-printed clips, but they were too tight and made disassembly difficult. Moreover, if the Rim were made of aluminum alloy, they would be too rigid to flex during installation.</li>
+                <li>Even after adding the pillars to secure the Rim and Top Mount, the internal beaker still wobbled due to the small gap between it and the top structure, significantly reducing overall stability. </li>
+                <li>When the bioreactor was tilted at certain angles, we found that the magnetic force between modules was insufficient, causing them to occasionally detach. </li>
+              </ul>
+
+          <h5 class="h5">Learning</h5>
+            <p class="listtitle">To address the issues mentioned above, we implemented the following improvements:</p>
+              <ol>
+                <li><b>Redesigned the agitator structure</b> and upgraded the liquid-culture version of ARC with a <b>BLDC motor</b>. The brushless DC motor provides up to 500 rpm of high torque output, making it ideal for mixing high viscosity media.</li>
+                <li><b>Added threaded brass inserts</b> to both the Rim and the Base. This allows screws to be partially tightened during assembly, preventing the Rim from slipping off. This is already demonstrated in the earlier build section.</li>
+                <li><b>Refined the Pillar design</b> by adding precisely dimensioned internal protrusions. These ensure a snug fit that stabilizes the beaker without applying excessive pressure. The beaker now remains completely stable with no movement.</li>
+                <li><b>Enhanced magnetic stability by using larger and more magnets</b>. The modules now attach with significantly stronger magnetic force, <span class="span">particularly the COB LED and heating modules</span>.</li>
+              </ol>
+
+        <h4 class="h4">Module DTBL</h4>
+
+          <h5 class="h5">Design</h5>
+            <p>All modules follow a <span class="span">unified design language and philosophy</span>, consisting of a <b>main body</b> that houses the core functional components of the module and <b>a cap</b>. Inside each module, necessary heat dissipation or insulation elements are installed to ensure optimal thermal performance. Finally, all modules have been precisely measured against the corresponding real-world components to guarantee high build quality in the final product.</p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-29-min.webp">
+                <figcaption class="figure-caption">Figure 48. Exploded View of Heat Module (left), COB LED Module (Middle), and Pump Module (Right)</figcaption>
+                  <br> 
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-30-min.webp">
+                <figcaption class="figure-caption">Figure 49. COB LED Module</figcaption>
+                  <br> 
+            <p>This is the structure of the COB LED module. The main body features two rows of three magnets each on the front. At the center is the 12V, 16W COB LED panel. Since the panel generates considerable heat at maximum power, an aluminum heat sink is mounted on the back for thermal dissipation. The outermost layer is the module cap, which includes openings for cooling. At the bottom is the MagPin connector, which connect the module with the main reactor body.</p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-31-min.webp">
+                <figcaption class="figure-caption">Figure 50. Heating Module</figcaption>
+                  <br> 
+            <p>The following is the Heating Module. Because of its heat generating nature, we incorporated multiple layers of thermal insulation and heat distribution design. At the front, a thermal pad, which is commonly used for PC motherboard cooling, is attached. It serves to evenly distribute the heat generated by 2x 12V, 12W heat pads and efficiently transfer it to the beaker. On the outside, to minimize heat loss, we used aerogel based insulation tape and insulation pads, both capable of withstanding extremely high temperatures.</p>  
+            <p>Moreover, due to the pillar design, there is a gap between the module and the beaker. To address this, we designed a central protrusion in the Heating Module that allows the heat pad to extend outward. Then heat is then evenly distributed via a thermal pad, improving the reactor's overall thermal performance.</p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-32-min.webp">
+                <figcaption class="figure-caption">Figure 51. Pump Module</figcaption>
+                  <br> 
+            <p>Lastly, the Pump Module comes in two versions, an air pump and a water pump. Both share the same main structure, consisting of a motor holder and a rear cover. The motor holder provides firm support for the motor while leaving sufficient space for wiring. The module cover is carefully shaped to match the motor's form, featuring two internal arcs that fully enclose it and provide lateral structural support. This design effectively suppresses vibration during high speed operation.</p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-33-min.webp">
+                <figcaption class="figure-caption">Figure 52. Small Locking Clips</figcaption>
+                  <br> 
+            <p>For all the above modules, to ensure the module cap can be securely mounted to the main body, we designed small locking clips. During assembly, a slight amount of force is sufficient for the cover to snap into the main structure and remain firmly in place.</p>
+
+          <h5 class="h5">Build</h5>
+            <p>The module construction process followed the same development sequence as the main body. First, we 3D-printed the core structure, module cap, and magnet cover. It is worth noting that we took at least 3-5 iterations to establish stable and reliable slicing settings. Due to factors such as limited printing experience and inconsistent printer maintenance, failed prints occurred frequently due to poor bed adhesion or inaccurate Y-axis calibration. In later stages, we developed optimized print parameters tailored to each component, especially focusing on the design of effective support structures.</p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-34-min.webp">
+                <figcaption class="figure-caption">Figure 53. Module Main Body Slicing Setting, Green branches are supports</figcaption>
+                  <br> 
+            <p>Afterwards, we installed the magnets just as we did with the pillars, and then proceeded to solder the internal circuit. During soldering, the electrodes of the heat pads, LED panels, or motors are connected to the MagPin connector. After completing the solder joints, we applied UV glue over them. Once exposed to ultraviolet light, the glue cured and fixed the solder points in place, <span class="span">effectively preventing short circuits</span>. Finally, we inserted the MagPin into its designated slot. </p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-35-min.webp">
+                <figcaption class="figure-caption">Figure 54. MagPin in Slot</figcaption>
+                  <br> 
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-36-min.webp">
+                <figcaption class="figure-caption">Figure 55. COB LED Module Components</figcaption>
+                  <br>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-37-min.webp">
+                <figcaption class="figure-caption">Figure 56. Heating Module Components</figcaption>
+                  <br>        
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-38-min.webp">
+                <figcaption class="figure-caption">Figure 57. Tubing for Pump Module</figcaption>
+                  <br>        
+
+          <h5 class="h5">Test</h5>
+            <p>Structurally, the combination between the modules and the main body did not present major issues. After strengthening the magnets, the modules fit securely, and the MagPin at the base also provided additional support for electrical connection. The only issue we encountered early on was that the initial locking clip design was placed on both the top and bottom of the module cap. When the rear cover was attached, it caused friction against the clip, leading to gradual wear over time and eventually making the module cap prone to detachment. Additionally, because of the clip on both sides, the modules could no longer be printed vertically.</p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-39-min.webp">
+                <figcaption class="figure-caption">Figure 58. Earlier iteration for the Clip</figcaption>
+                  <br>     
+          <h5 class="h5">Learning</h5>
+            <p>To address this issue, we repositioned the clip to the side. This not only allowed for a more secure assembly but, more importantly, enabled vertical printing of the module cap, greatly improving print success rates. </p>
+              <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-40-min.webp">
+                <figcaption class="figure-caption">Figure 59. Final Build Quality</figcaption>
+                  <br>     
+            <p>The final modules also achieved the build quality we aimed for. By the WikiFreeze, we had completed building four COB LED modules, four heating modules, and two pump modules with one air pump and one water pump.</p>
+          
+  </div>
+  <div>
+    <h2 class="h2">Electronics and Circuits</h2>
+      <h3 class="h3">MKI and MKII Electronics DBTL</h3>
+      
+        <h4 class="h4">Design</h4>
+          <p>The primary goals with our electronics system were <b>compactness and efficiency</b>. The electronics project group's objectives can be summarized as follows:</p>
+            <ol>
+              <li>Test functionality with individual electronic components.</li>
+              <li>Miniaturization of circuit, include soldering instead of breadboard.</li>
+              <li>Integration of full circuit with central arduino.</li>
+            </ol>
+          <p>During early design stages between MKI to MKII. We knew that our plan involving a biofilm reactor requires heat, light, and motors. The parts related would include LED panels, heat pads, and motors. More specifically, we selected a WS2812 LED panel, a 5V heat pad, and a conventional 12V water pump.</p>
+          <p>For microcontrollers, we are using the Arduino Pro Micro for prototyping. For the motor driver, we are testing the tb6612fng and the l298n. While the tb6612fng is smaller and supports standby, the l298n driver supports a larger voltage, which our motors may need.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-41-min.webp">
+              <figcaption class="figure-caption">Figure 60. tb6612fng motor driver, l298n motor driver, Arduino Pro Micro</figcaption>
+                <br> 
+
+        <h4 class="h4">Build</h4>
+          <p>After designing the circuits for each individual part, the actual circuit was made. We used Arduino IDE to code to the microcontroller. The first part designed was the LED panel, using a 8 digit ws2812 led strip for testing. After, the motor designs were made.</p>
+          <p>We made two builds for the motor design: one with the tb6612fng driver and another with the l298n driver. Connections were made to control the motor number, speed, and direction of each motor. The designs slightly differed due to the standby pin on the tb6612fng.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-42-min.webp">
+              <figcaption class="figure-caption">Figure 61. Arduino Soldering</figcaption>
+                <br> 
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-43-min.webp">
+              <figcaption class="figure-caption">Figure 62. LED unit testing</figcaption>
+                <br> 
+
+        <h4 class="h4">Test</h4>
+          <p>With 8 digit LED lights, indexing and a delay function can control which light turns on first, the color of the light when it turns on, and how long after each initiation the next light would turn on. A full panel of LEDs, which is what is needed for the full build, has yet to be tested. </p>
+          <p>Motors testing was successful. We were able to control the speed and direction at which each motor operated. One issue was a lack of voltage to power certain motors. </p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-44.webp">
+              <figcaption class="figure-caption">Figure 63. Testing L298N Motor H-Bridge</figcaption>
+                <br> 
+
+        <h4 class="h4">Learning</h4>
+          <p>First, creating the circuits was a huge learning experience as much of the PD project group hadn’t had experience with Arduinos and electronics before. This stage provided significant support for our subsequent large scale circuit design and soldered circuit assembly. From a circuit design perspective, we identified several issues. </p>
+          <p class="listtitle">Problems:</p>
+            <ol>
+              <li><b>WS2812 generates significant heat</b>. Using multiple modules would result in a total power consumption of around 150 W. This is highly impractical for our setup. </li>
+              <li>Initial <b>5V heat pad power output was insufficient for effective heating</b>. We later upgraded to a 12V heat pad to meet thermal requirements.</li>
+              <li>For the motor driver, the L298N module is too bulky for integration. <span class="span">We subsequently switched to the L9110S for motor control</span>. In the final stage of the project, it was upgraded again to the DRV8871 to improve system stability.</li>
+              <li>If we are considering more than three motors during operation, <b>Arduino Promicro has an insufficient amount of I/O pins for operation</b>. We would need to switch to a microcontroller with more pins. </li>
+            </ol>
+
+      <h3 class="h3">MKI and MKII Electronics DBTL</h3>
+
+        <h4 class="h4">Design</h4>
+          <p>To replace ws2812 for the led module, we found the chip-on-board (COB) Led Panel as a promising solution. The COB Led panel provides bright white light in a compact light source. It is very energy efficient while providing extremely strong light intensity.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-45.webp">
+              <figcaption class="figure-caption">Figure 64. 120mm x 36mm 12V 16W COB LED Panel</figcaption>
+                <br> 
+          <p>After the designs for the LED panel and the motors were finalized, the design for the heat pad was created. A heat pad requires an n-channel MOSFET to control the temperature of the heat pad as well as diodes and resistors to prevent shortages and burning. We decided to get a 400W Mosfet module that had all of these features to save space. </p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-46.webp">
+              <figcaption class="figure-caption">Figure 65. 400W Mosfet Module</figcaption>
+                <br> 
+          <p>The design for the HM-10 Bluetooth module was also created to allow users to remotely control features of the bioreactor from a remote device. We used the Bluetooth module to test all of our components in separate circuits. </p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-47.webp">
+              <figcaption class="figure-caption">Figure 66. HM-10 Bluetooth Module</figcaption>
+                <br> 
+          <p>We then began the integration circuit design. Since Arduino Promicro was not enough for our needs. As a result, we selected the Arduino Mega 2560 Pro, which proved to be highly suitable for our application. This is because it supports the familiar Arduino development environment while offering 54 I/Os just like an Arduino Mega but a much smaller size.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-48.webp">
+              <figcaption class="figure-caption">Figure 67. Arduino Mega 2560 Pro</figcaption>
+                <br> 
+          <p>Another aspect of the integration circuit is the power supply design. At this stage, we explored the idea of using a PD trigger module to enable the bioreactor to be powered by a standard laptop charger. The PD trigger module converts PD protocol input into multiple levels of DC output. Although this approach was later replaced by a traditional DC power supply due to power limitations, all tests during this phase were conducted using the PD trigger module as the power source.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-49.webp">
+              <figcaption class="figure-caption">Figure 68. PD Decoy Trigger</figcaption>
+                <br> 
+          <p>With both the microcontroller and power system determined, we conducted our first full circuit design. The design centered on a 12V main power supply, from which a DC-DC buck converter generated a secondary 5V circuit. Separate MOSFET modules were assigned to the LED and heat pad circuits, each extended through a parallel output branch so that multiple LED or heat pads could be activated simultaneously. For motor control, three L9110S modules were used, providing up to six motor driver channels. The HM-10 Bluetooth module was also integrated and powered through the 5V circuit.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-50.webp">
+              <figcaption class="figure-caption">Figure 69. Early iteration of the mega circuit</figcaption>
+                <br> 
+
+        <h4 class="h4">Build</h4>
+          <p>During the construction phase, we first used the HM-10, PD trigger module, and Arduino Pro Micro to build separate circuits for the LED and heating pad. To test Bluetooth control in the full circuit setup ahead of time, we included a DC-DC buck converter to power the Arduino and Bluetooth module, rather than supplying the Arduino directly from a computer's USB port.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-51.webp">
+              <figcaption class="figure-caption">Figure 70. Heat Pad Circuit Build</figcaption>
+                <br> 
+          <p>At this stage, the prototype of the COB LED module had already been completed, so we used it directly for testing. The MagPin connectors were also incorporated into the build to link the circuits, allowing us to verify whether the MagPin could withstand continuous high-load operation.</p>
+
+        <h4 class="h4">Test</h4>
+          <p class="listtitle">During the testing phase, we encountered several issues that we hope can provide valuable insights for other teams:</p>
+            <ol>
+              <li><b>Communication issues between the Bluetooth module and Arduino</b><br>The Bluetooth module could be detected and connected from a mobile device using a BLE connection app. However, we found that many times while the Arduino could send data to the Bluetooth module, it could not receive any in return. This problem was eventually resolved by switching the promicro's connection from digital pins to the RX/TX serial interface.</li>
+              <li><b>Input string interpretation</b><br>When setting LED brightness levels via the Bluetooth app, with values ranging from 0 to 10, inputs from 0-9 worked correctly, but entering “10” was interpreted as “0.” The bug appeared repeatedly but was ultimately resolved by standardizing the newline character handling across the code.</li>
+              <li><b>Output load briefly activating then shutting off</b><br>Both the COB LED board and the heat pad exhibited a behavior where they would turn on for only one to two seconds before immediately shutting off. This issue was less noticeable on the heat pad because residual heat persisted for a short time, but later analysis confirmed the heating only lasted a few seconds. The root cause was identified as a for-loop logic error in the control code.<br>In the end, we successfully achieved full system operation powered by a single power source, controlled through one HM-10 Bluetooth module. Using a computer or smartphone as the terminal, we were able to adjust both the heat pad and LED brightness. The test shown below demonstrates a COB LED module powered via a PD trigger module, which also validated the reliability of the MagPin connection.</li>
+            </ol>
+
+        <h4 class="h4">Learning</h4>
+          <p>During this stage, we completed all subsystem testing before going to final integration. Since Bluetooth was incorporated as the primary control method, we gained extensive experience in Arduino and Bluetooth module programming. Throughout this process, we also identified several issues that would inevitably arise in future system integration. </p>
+          <p class="listtitle">Problems:</p>
+            <ol>
+              <li>To accommodate the bioreactor's structural design, a smaller alternative to the breadboard is required.</li>
+              <li>Using two 12V,12W heat pads per module would result in a high peak power demand, making it difficult for a PD charger to supply sufficient power.</li>
+              <li>If the circuit is placed inside the main reactor body, the indicator LEDs on the Bluetooth module will no longer be visible. An external indicator light is therefore needed to display the Bluetooth connection status.</li>
+            </ol>
+          <iframe class="figure-img-ctr" title="Project: ARC Bioreactor LED Testing (2025)" width="560" height="315" src="https://video.igem.org/videos/embed/tXf1MDtG8q8JYadFakprKN" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" style="border: 0px;"></iframe>
+      
+      <h3 class="h3">Full Circuit Integration DBTL</h3>
+
+        <h4 class="h4">Design</h4>
+          <p class="listtitle">To address the issues identified during the earlier DBTL cycle, we made the following improvements while designing the integrated circuit:</p>
+            <ol>
+              <li>
+                A 2 cm x 8 cm PCB prototyping board was used. By soldering together each row of pads with a continuous line of solder, we effectively recreated the functionality of a breadboard. After a simple layout design, all parallel circuit requirements could be integrated onto this compact board.
+                <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-52.webp">
+                  <figcaption class="figure-caption">Figure 71. 2x8 PCB Prototyping board</figcaption>
+                    <br>
+              </li>
+              <li>The power supply was switched from the PD trigger module back to a 12 V 10 A DC adapter, which not only saved space but also provided sufficient current for stable operation.</li>
+              <li>
+                We added a 19-pixel WS2812 flexible LED strip to serve as a status indicator. To enable the Arduino to detect Bluetooth connection status, the status pin on the HM-10 module was also connected to the Arduino.
+                <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-53.webp">
+                  <figcaption class="figure-caption">Figure 72. Circuit Layout Design</figcaption>
+                    <br>
+              </li>
+              <li>
+                Final small change is we added a switch to the electronics enclosure. So, future models don't need to unplug the power to close the system. 
+                <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-54.webp">
+                  <figcaption class="figure-caption">Figure 73. Circuit Layout Design</figcaption>
+                    <br>
+              </li>
+            </ol>
+
+        <h4 class="h4">Build</h4>
+          <p>During the assembly stage, we first start with a PCB prototyping board soldering. This effectively replicated the structure of a traditional breadboard. Next, we connected all electronic components, through soldering the wires directly to the pins on chips. For modules such as the HM-10 that require Dupont connectors, we used female Dupont connectors on one end, while trimming and soldering the other end directly onto the Arduino pins.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-55.webp">
+              <figcaption class="figure-caption">Figure 74. Building the first integrated circuit</figcaption>
+                <br>
+          <p>Another key consideration during soldering was the <b>main power connection</b>. We used thicker wires for the main power input since it carries high current under maximum load. The thicker wiring helps manage heat generation and maintain circuit stability during operation.</p>
+
+        <h4 class="h4">Test</h4>
+          <p>For testing, we built two complete sets of circuits. The first round of testing focused on verifying the functionality of the Bluetooth module and its ability to control three different modules. During this process, we collaborated with the Wiki project group to develop the Arduino IDE code. Using a third-party BLE connection app, we first established a connection and then sent predefined commands from the phone to control the entire circuit.</p>
+          <p>After integrating the WS2812 RGB LED strip, we conducted additional tests to visualize the Bluetooth connection status in real time. The LED strip glows <b>blue</b> when Bluetooth is connected, <b>red (breathing)</b> when disconnected, and <b>yellow or other colors</b> to indicate different reactor states.</p>  
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-56.webp">
+              <figcaption class="figure-caption">Figure 75. Full circuit testing with 4x COB LED Module with power meter</figcaption>
+                <br>
+          <p>Finally, we performed a full <b>wet-run test</b> combining the complete circuit with the rest of the hardware. This validated both the electrical stability of the system and the correct execution of the control code. More information about this testing is in the final Engineering Validation Testing section. </p>
+
+        <h4 class="h4">Learning</h4>
+          <p>During this process, we identified a major issue. As more components were soldered, the wiring around different chips became increasingly messy. This poses a significant short circuit risk and makes the setup unsuitable for long-term operation.</p>
+          <p>To address this, we coordinated with the base's structural design to incorporate <span class="span">threaded brass inserts</span> at the screw-hole positions corresponding to each chip. After printing the base, these inserts were installed, allowing the components to be securely mounted with screws after soldering. This approach greatly improved organization, reduced wiring clutter, and ensured a clean and stable circuit layout.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-57.webp">
+              <figcaption class="figure-caption">Figure 76. integrated circuit with screw fastening</figcaption>
+                <br>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-58.webp">
+              <figcaption class="figure-caption">Figure 77. Comparison of circuit with/without screw fastening</figcaption>
+                <br> 
+  </div>
+
+  <div>
+  <h2 class="h2">Sensors</h2>
+
+    <h3 class="h3">Combined Sensor Circuit DBTL</h3>
+      <p>This cycle pertained to the sourcing and proper integration of sensors required for our bioreactor design into a single, arduino-based circuit. Namely, those for temperature, pH, and perchlorate ion concentration. </p>
+      
+      <h4 class="h4">Design</h4>
+        <p>From previous years in which bioreactors were created, the project already had temperature and pH sensors, those being DFRobot's DS18B20 and SEN0161, respectively. </p>
+        <p>However, the principal sensor, for perchlorate ions, could only be sourced from specialty suppliers. It became clear a perchlorate ion-selective electrode (ISE) would be necessary due to its specific and highly accurate concentration readings. We have decided on the MSE Supplies LS0012. The combined electrode and reference design minimizes footprint and allows simpler integration into the circuit. However, a signal modulator was needed to connect to the arduino board; we opted for an Atlas Scientific EZO-pH circuit snapped into its isolated carrier. This board provides the tera-ohm input impedance, minimizing effects, buffers the sensor/reference pair, digitises the signal with a 24-bit ADC, and ships data over an I²C bus the Arduino already understands.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-59.webp">
+            <figcaption class="figure-caption">Figure 78. Atlas Scientific EZO-pH circuit</figcaption>
+              <br> 
+        <p>Because ion-activity depends on temperature, the temperature probe DS18B20 is wired to any spare digital pin (with a 4.7 kΩ pull-up) so the firmware can push real-time °C measurements to compensate in code via the Nernst equation for both pH and perchlorate readings.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-60.webp">
+            <figcaption class="figure-caption">Figure 79. Modeled sensor circuit with probes not imaged, utilizing an Arduino promicro</figcaption>
+              <br> 
+
+      <h4 class="h4">Build</h4>
+        <p>For each of the temperature, pH, and perchlorate sensors, we followed the designed circuit. They successfully delivered power and assumedly, readings for each, once they were connected to the probes themselves. </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-61.webp">
+            <figcaption class="figure-caption">Figure 80. Powered circuit, containing temperature, pH and perchlorate sensors with the probes removed.</figcaption>
+              <br> 
+        <p>The DFRobot default pH calibration software was used, alongside the Dallas Temperature code repository for the DS18B20 temperature sensor. For the perchlorate ISE, some basic querying code was written to receive the correct signal from the EZO Boards. </p>
+
+      <h4 class="h4">Test</h4>
+        <p>According to the designed circuit, the temperature sensor worked as expected, and required little adaptation. However, when testing pH sensors, it became clear that last year's ph probe had been improperly stored, requiring the purchase of a new probe. Additionally this new probe had quite differing mV outputs from what was expected in the old design, requiring the development of a proprietary calibration software.</p>
+        <p>It averages the probe's ADC readings, converts them to millivolts, and applies a two-point calibration (pH 7 and pH 4) stored in EEPROM. From these references it computes a Nernst slope normalized to 25 °C, temperature-compensates it each loop using a DS18B20, and then computes pH by offsetting from the pH-7 voltage. Serial commands (cal7, cal4, calph) capture the reference voltages and save the 25 °C slope for (re)calibration.</p>
+        <p>Once this was complete, the probe proved accurate and stable in a variety of tested liquids, including 4.00, 7.00, and 10.00 reference solutions, with appropriate temperature sensitivity.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-62.webp">
+            <figcaption class="figure-caption">Figure 81. pH sensor calibration in 7.00 reference solution</figcaption>
+              <br> 
+        <p>Due to shipping delays, the Perchlorate ISE did not arrive during this cycle. </p>
+
+      <h4 class="h4">Learning</h4>
+        <p>In the design phase, there was significant learning around the electrochemistry involved in any ISE's functionality. Significant research had to be performed to integrate this ISE into the greater arduino-based circuit, which also improved understanding of its operation. Additionally the writing of calibration software for the pH sensor provides a basis to do the same for the perchlorate ISE, meaning the process will be more streamlined and straightforward than it otherwise would have been.</p>
+
+    <h3 class="h3">pH/Temperature Circuit Integration DBTL</h3>
+
+      <h4 class="h4">Design</h4>
+        <p>We decided to put pH and temperature sensors into one circuit, and the perchlorate ISE in a separate circuit. This is because perchlorate sensings are required to move between chambers. The pH and temperature, then, had to be included in the generic ARC circuit. DS18B20 and SEN0161's portions of the circuit were moved from the arduino promicro, to the arduino mega 2560 pro for the full design, and the coded outputs were routed from the IDE, to the HM-10 Bluetooth module. </p>
+
+      <h4 class="h4">Build</h4>
+        <p>When integrated and soldered into place, the heat and temperature sensors are now powered by an internal 5V circuit, and able to transmit their data to the new arduino. The code however, needed to be updated so as to route readings and commands through the HM-10.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-63.webp">
+            <figcaption class="figure-caption">Figure 82. pH and temperature sensors outputting data in running ARC-P</figcaption>
+              <br> 
+        <p>This was done by adding an additional serial, “Serial1” that communicates with the arduino’s tx0 and rx1 pins, which go on to the bluetooth module. All original serial commands were copied to the new pathway.</p>
+
+      <h4 class="h4">Test</h4>
+        <p>The pH and temperature sensors could send their data over the HM-10, and recalibration could be promoted from the ArcDash Terminal. As such, the isolation and transfer of the system was successful. </p>
+
+      <h4 class="h4">Learning</h4>
+        <p>When transitioning to an embedded, wireless telemetry pathway, creating a dedicated Serial1 abstraction improved firmware modularity and reduced side effects during refactoring. From a systems perspective, we confirmed that migrating from a Promicro to a Mega preserves timing determinism for sensor polling while enabling concurrent Bluetooth I/O. Finally, integrating recalibration over the ArcDash Terminal established repeatable, user-facing maintenance ability that can be applied to additional sensors without altering core control logic.</p>
+
+    <h3 class="h3">Perchlorate ISE Circuit DBTL</h3>
+      <p>The perchlorate ISE, as a specialty component, was separated from the greater circuit for future conversion into a module. The ISE itself arrived, and so its functionality also required confirmation.</p>
+      
+      <h4 class="h4">Design</h4>
+        <p>When designing the solitary perchlorate circuit, we took from the original circuit from the first sensor cycle, alongside some useful alterations. To free up the rx1 and tx0 pins for the HM-10 Bluetooth connection, and as a cost saving measure in the final design, we decided to route the Perchlorate ISE through a more typical analog signal modulator - like that of our pH sensor, instead of the digital EZO boards. It's data wires to an analog pin, instead.</p>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-64.webp">
+          <figcaption class="figure-caption">Figure 83. Modeled perchlorate circuit without probe, utilizing an Arduino Promicro controller</figcaption>
+            <br> 
+
+      <h4 class="h4">Build</h4>
+        <p>We remade the calibration software to be analogous to the pH sensor, with corresponding commands “cal100”, “cal1000”, and “calise”. As such the reference solutions used were 100 ppm and 1000 ppm of perchlorate ions. </p>
+      
+      <h4 class="h4">Test</h4>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/figure-65.webp">
+          <figcaption class="figure-caption">Figure 84. Calibrating Perchlorate ISE</figcaption>
+            <br> 
+        <p>When measured in stock ppm solutions, the perchlorate sensor had a higher noise, as compared to the pH sensor, and as such the sample number taken to average voltage was increased from 10 to 30. While minorly increasing time in between measurements, the measured ppm stabilized dramatically.  The results were confirmed during soil flow through testing, where relative error from the true perchlorate concentration was less than 4%.</p>
+
+      <h4 class="h4">Learning</h4>
+        <p>Decoupling the perchlorate ISE into a standalone module clarified interface requirements (power, analog signal, ground reference) and simplified future slot-in/out maintenance. The higher intrinsic noise floor—compared with the buffered/digitized EZO pathway—highlighted the value of acquisition-side mitigation (oversampling/averaging) and guided latency-precision trade-offs. The mirrored calibration UX (cal100, cal1000, calise) demonstrated that a unified operator workflow can be preserved across heterogeneous sensors, reducing training burden. Finally, reserving the primary UART for the HM-10 in the main system while keeping the perchlorate module analog-front-end-compatible sets clear boundaries for eventual modularization without revisiting ARC's core communications stack.</p>
+  
+  </div>
+  <div>
+  <h2 class="h2">Engineering Validation Testing (EVT)</h2>
+    <p>The overall procedure for engineering validation testing about the integrated ARC Bioreactor is analogous to the protocols collecting data for each individual component.</p>
+    <p class="listtitle">Objectives:</p>
+      <ol>
+        <li>Determine power usage when each module is at power level 1-8 at scale of 10.</li>
+        <li>Perform stress testing</li>
+      </ol>
+
+    <h3 class="h3">DBTL Cycle for Soil Flowthrough Validation</h3>
+
+      <h4 class="h4">Design</h4>
+        <p>The goal of our project is to create soil suitable for plant growth and safe for consumption. We aimed to quantify perchlorate leaching from martian soil using the flowthrough setup and identify the soil-to-water ratio that maximizes perchlorate output to reach this goal. </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-66.webp">
+            <figcaption class="figure-caption">Figure 85. Soil Flowthrough Setup</figcaption>
+              <br> 
+
+      <h4 class="h4">Build</h4>
+        <p>To accomplish this, the soil flowthrough system was tested using sand containing 0.5 wt% perchlorates to simulate Martian soil composition. The setup consisted of a jar, 3D printed lid and column, cheesecloth nozzles, and tubing. The circuitry included a motor, motor driver, and arduino to create the vacuum through the hoses attached to the nozzles on the top of the jar lid.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-67.webp">
+            <figcaption class="figure-caption">Figure 86. Soil Flowthrough Testing Setup</figcaption>
+              <br> 
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-68.webp">
+            <figcaption class="figure-caption">Figure 87. Soil Flowthrough Circuit</figcaption>
+              <br> 
+
+      <h4 class="h4">Test</h4>
+        <p>With a constant sand mass of 20.0g placed in the column above the cheesecloth,  varying water volumes (0.02 L, 0.03 L, 0.04 L, 0.05 L, and 0.06 L) were tested. Data on the water volume perchlorate concentration used and in the effluent was recorded for all of the trials, to yield figures on the dependency of water consumption on the change in moles of perchlorates, percent of perchlorates, and volume of water retained in the soil.</p>
+
+      <h4 class="h4">Learning</h4>
+        <p>The below figures were generated to illustrate the minimum water usage (Figure 69, 70), and vacuum strength (Figure 71).</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-69.webp">
+            <figcaption class="figure-caption">Figure 88. Change in Moles of Perchlorates (mol) vs. Water Usage (L)</figcaption>
+              <br>    
+        <p>The number of moles of perchlorates remaining in the soil after running water through the column decreased exponentially with an increase in water. At higher water volumes, the perchlorates remaining decreases and asymptotically approaches zero. The goal was to identify the minimum water needed to flush the soil to make it suitable for plant growth, and according to the testing a water usage of 0.06L for 20g of sand was sufficient.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-70.webp">
+            <figcaption class="figure-caption">Figure 89. % Perchlorates out of the Sand vs. Water Usage (L)</figcaption>
+              <br> 
+        <p>With an increase in water usage, the percentage of perchlorates out of the sand increased, as shown in Figure 70. This demonstrates that the more water is used, the higher percentage of perchlorates are removed.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-71.webp">
+            <figcaption class="figure-caption">Figure 90. Volume of Water Retained in the Soil (L) vs. Water Usage (L)</figcaption>
+              <br> 
+        <p>We hypothesized that the volume of water retained in the soil is dependent only on volume of soil and vacuum strength. To verify this, we measured the volume of water before and after running the flowthrough setup in the six different water usages (0.02 L, 0.03 L, 0.04 L, 0.05 L, and 0.06 L). Figure 71 supports this as at a constant amount of soil, the volume of water retained was constant over varying water uses.</p>
+        <p>Thus, this testing yielded that a water consumption of 0.06 L for 20g of soil was sufficient for clearing the soil. Assuming similar efficiency when scaled, approximately 3 L of water are required to leach perchlorates from 1 kg of soil. If 1 metric ton of Martian soil was to be treated, theoretically about 3,000 L would be needed which would be recycled in the real system.</p>
+        <p>For reference, the protocol for soil flowthrough testing is summarized in a <a href="https://docs.google.com/document/d/12-JZdXYYwnixzUTOR-GfvUFbHYfzCStCR5Q8eONhPkU/edit?tab=t.0">separate document</a>.</p>
+
+      <h3 class="h3">DBTL Cycle for Full System Wet Run</h3>
+        <h4 class="h4">Design</h4>
+          <p>After testing all subsystems and the integrated circuit, we conducted full-system wet run testing. Two trials were performed, one with <i>Synechococcus</i> and the other with <i>E. coli </i>.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-72.webp">
+              <figcaption class="figure-caption">Figure 91. An unit of ARC-B was made</figcaption>
+                <br> 
+          <p>We also aim to test the ability of the device to handle long term stress as well as whilst continuously promoting the growth of the bacterium to a certain point. The testing would also need to assess damage and/or wear to each module. Finally, the testing should demonstrate the ability of the bioreactor components to be autoclaved or cleaned for further use. </p>
+
+        <h4 class="h4">Build</h4>
+          <p>We assembled two ARC units for testing. Since this stage primarily focused on evaluating hardware stability and monitoring liquid culture growth, each unit was equipped with only one biofilm carrier. Both units also featured a dual-channel air pump connected to two internal bubbler stones to provide aeration within the reactor.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-73.webp">
+              <figcaption class="figure-caption">Figure 92. Dry Run of am ARC-P</figcaption>
+                <br> 
+
+        <h4 class="h4">Test</h4>
+          <p>We began by autoclaving all components capable of withstanding sterilization. This served both to prevent contamination during the wet run and to evaluate the autoclave durability of these components, which included the beaker, hose barbs, tubing, and bubbler stones.</p>
+          <p>After autoclaving, we poured the media into the system in ARC's autoclaved configuration. Both trials used 700 mL of medium, and inoculation was performed under a flame to maintain sterility. <i>Synechococcus</i> was inoculated directly from previously grown agar plates, while <i>E. coli </i> was inoculated using 10 mL of liquid culture.</p>
+          <p>The remaining components were then assembled under sterile conditions, and the modules were magnetically attached. For the agitator, power was supplied via a direct wire connection routed from the top to the integrated circuit at the base, where we had reserved a PH 2.0 2 pin interface.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-74.webp">
+              <figcaption class="figure-caption">Figure 93. Agitator Wiring to the Electronic Enclosure</figcaption>
+                <br> 
+          <p>Notably, at this stage the heating module's temperature control logic was still under development, so the E. coli trial was conducted in a 37 °C incubator, while the <i>Synechococcus</i> run was performed at room temperature.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-75.webp">
+              <figcaption class="figure-caption">Figure 94. Bubbler in E.coli ARC-L</figcaption>
+                <br>
+
+        <h4 class="h4">Learn</h4>
+          <p>The <i>Synechococcus</i> trial ran continuously for four days, during which the agitator operated at full speed and both bubblers were maintained at around 80 on a 0-255 PWM scale. Throughout the four days of operation, the system performed flawlessly: the COB LED module maintained stable brightness around 20%, and the air pumps functioned normally. It is worth noting, however, that Synechococcus growth was suboptimal, likely due to an insufficient inoculum, which we plan to increase in future runs.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-76.webp">
+              <figcaption class="figure-caption">Figure 95. Synechococcus ARC ran for 4 days</figcaption>
+                <br>
+          <p>For the <i>E. coli </i> wet run, the reactor was placed inside an incubator, which left insufficient space to mount the agitator. Consequently, only one air pump module and one COB LED module for observation were installed. During this test, we observed that high power bubbling generated substantial foam inside the reactor, highlighting foam control as a key consideration. Under extreme conditions, with both bubblers operating at high output, foam overflow could occur. To mitigate this, we operated a single bubbler at minimal power, which provided adequate aeration while preventing excessive foaming. After two days of operation, we achieved a high-density <i>E. coli </i> culture.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/productdevelopment/evt/figure-77.webp">
+              <figcaption class="figure-caption">Figure 96. E.coli culture after 2 days</figcaption>
+                <br>
+          <p>In the next phase, we plan to perform additional wet runs. We will refine the heating module's control logic and conduct full-system testing in combination with the agitator. Overall, the ARC reactor demonstrated a strong foundation, capable of operating continuously for over four days without overheating or any signs of module fatigue. These results provide substantial validation for the system's stability and guide the next stages of our development.</p>
+
+    </div>  
+    <div class="row mt-5">
+      <div class="col">
+        <button id="entrepreneurshipDropdownBtn" class="entrepreneurship-dropdown-btn">
+          References
+          <span class="entrepreneurship-dropdown-icon">+</span>
+        </button>
+        <div id="entrepreneurshipDropdown" class="entrepreneurship-dropdown-content">
+       
+          <div class="references-content">
+            <ol>
+              <li>Youngblut, Matthew D, et al. “Perchlorate Reductase Is Distinguished by Active Site Aromatic Gate Residues.” Journal of Biological Chemistry, vol. 291, no. 17, 22 Apr. 2016, pp. 9190-9202, https://doi.org/10.1074/jbc.m116.714618. Accessed 21 Apr. 2023.</li>
+              <li>Evans, Margery L., and Matthew R. Chapman. “Curli Biogenesis: Order out of Disorder.” Biochimica et Biophysica Acta (BBA) - Molecular Cell Research, vol. 1843, no. 8, Aug. 2014, pp. 1551-1558, https://doi.org/10.1016/j.bbamcr.2013.09.010.</li>
+              <li>Melnyk, Ryan A., and John D. Coates. “The Perchlorate Reduction Genomic Island: Mechanisms and Pathways of Evolution by Horizontal Gene Transfer.” BMC Genomics, vol. 16, no. 1, 26 Oct. 2015, https://doi.org/10.1186/s12864-015-2011-5.</li>
+              <li>Jack, Rachael L, et al. “Coordinating Assembly and Export of Complex Bacterial Proteins.” The EMBO Journal, vol. 23, no. 20, 23 Sept. 2004, pp. 3962-3972, https://doi.org/10.1038/sj.emboj.7600409. Accessed 2 Nov. 2020.</li>
+              <li>Lundqvist, Magnus, et al. “Solid-Phase Cloning for High-Throughput Assembly of Single and Multiple DNA Parts.” Nucleic Acids Research, vol. 43, no. 7, 20 Apr. 2015, p. e49, pubmed.ncbi.nlm.nih.gov/25618848/#affiliation-1, https://doi.org/10.1093/nar/gkv036. Accessed 30 Oct. 2020.</li>
+              <li>Baneyx, François, and Mirna Mujacic. “Recombinant Protein Folding and Misfolding in Escherichia Coli.” Nature Biotechnology, vol. 22, no. 11, Nov. 2004, pp. 1399-1408, https://doi.org/10.1038/nbt1029.</li>
+              <li>Pérez, Adam A, et al. “Complementation of Cobalamin Auxotrophy in Synechococcus Sp. Strain PCC 7002 and Validation of a Putative Cobalamin Riboswitch in Vivo.” Journal of Bacteriology, vol. 198, no. 19, Sept. 2016, pp. 2743–52, pubmed.ncbi.nlm.nih.gov/27457714/, https://doi.org/10.1128/JB.00475-16.</li>
+              <li>Bertero, Michela G, et al. “Insights into the Respiratory Electron Transfer Pathway from the Structure of Nitrate Reductase A.” Nature Structural & Molecular Biology, vol. 10, no. 9, 10 Aug. 2003, pp. 681-687, https://doi.org/10.1038/nsb969. Accessed 24 Oct. 2023.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+</main>
+    <!-- Floating UI (kept outside the normal flow) -->
+    <div class="rocket-container" aria-hidden="true">
+      <img src="https://static.igem.wiki/teams/5717/main/rocketship.webp" class="rocket" alt="Rocket" />
+      <div class="flame"></div>
+    </div>
+    <div class="rocket-track" aria-hidden="true"></div>
+
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        io.unobserve(e.target); // animate once
+      }
+    });
+  }, { threshold: 0.2 });
+
+
+  document.querySelectorAll('.span').forEach(el => io.observe(el));
+});
+</script>
+
+
+
+
+    <!-- Footer -->
+    <div class="page-full">
+      <footer class="pt-5 pb-5 footer py-5 mt-5">
+  <div class="container">
+<!-- Required license notice retained. -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <p><small>© 2025 - Content on this site is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a>.</small></p>
+      </div>
+  </div>
+</footer>
+
+
+
+    </div>
+
+
+    <!-- JS (load once, at the end) -->
+    <script src="static/bootstrap.bundle.min.js"></script>
+    <script src="static/script.js"></script>
+
+
+    
+   
+    <style>
+      .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, #641C33 0%, #24041C 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        /* Stars background animation */
+        .loading-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #E2E0DE, transparent),
+                radial-gradient(2px 2px at 40px 70px, #D47484, transparent),
+                radial-gradient(1px 1px at 50px 50px, #E2E0DE, transparent),
+                radial-gradient(1px 1px at 80px 10px, #E86B55, transparent),
+                radial-gradient(2px 2px at 130px 80px, #E2E0DE, transparent),
+                radial-gradient(1px 1px at 110px 120px, #D47484, transparent);
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.3;
+            animation: stars 120s linear infinite;
+        }
+
+
+        @keyframes stars {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-200px);
+            }
+        }
+
+
+        .loading-overlay.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(228, 107, 85, 0.2);
+            border-top-color: #E86B55;
+            border-right-color: #D47484;
+            border-radius: 50%;
+            animation: marsRotate 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(232, 107, 85, 0.5);
+        }
+
+
+        .loader::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #E86B55, #641C33);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(232, 107, 85, 0.8);
+        }
+
+
+        @keyframes marsRotate {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.1);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+
+        .loading-text {
+            font-size: 1.1rem;
+            color: #E2E0DE;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(226, 224, 222, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+
+        .progress-bar {
+            width: 250px;
+            height: 6px;
+            background: rgba(100, 28, 51, 0.5);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 116, 132, 0.3);
+        }
+
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #E86B55, #D47484, #E86B55);
+            background-size: 200% 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            animation: shimmer 2s linear infinite;
+            box-shadow: 0 0 10px rgba(232, 107, 85, 0.7);
+        }
+
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+    </style>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+        <div class="loading-text">Mission to Mars...</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+    </div>
+    <script>
+      // Loading screen functionality
+      (function() {
+          const overlay = document.getElementById('loadingOverlay');
+          const progressBar = document.getElementById('progressBar');
+         
+          let progress = 0;
+          const progressInterval = setInterval(() => {
+              progress += Math.random() * 15;
+              if (progress > 90) progress = 90; // Cap at 90% until page loads
+              progressBar.style.width = progress + '%';
+          }, 200);
+         
+          // When page is fully loaded
+          window.addEventListener('load', () => {
+              // Complete the progress bar
+              clearInterval(progressInterval);
+              progressBar.style.width = '100%';
+             
+              // Wait a moment, then fade out
+              setTimeout(() => {
+                  overlay.classList.add('loaded');
+                 
+                  // Remove from DOM after fade completes
+                  setTimeout(() => {
+                      overlay.remove();
+                  }, 500); // Match the CSS transition duration
+              }, 300);
+          });
+      })();
+    </script>
+
+
+  </body>
+</html>
+ 
