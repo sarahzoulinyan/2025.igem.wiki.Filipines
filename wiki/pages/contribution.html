@@ -1,0 +1,383 @@
+{% extends "layout.html" %}
+ 
+{% block title %}Contribution{% endblock %}
+{%block css %} <link rel="stylesheet" type="text/css" href="static/style.css"> {% endblock %}
+{% block page_content %}
+
+
+<div>
+  <h1>Wet Lab</h1>
+
+
+    <h2>Overview</h2>
+      <p>Project is contributing various basic parts from the perchlorate reducing operon found in <i>D. Aromatica</i>. pcrA, pcrB, pcrC, and pcrD are the four subunits of perchlorate reductase . In addition, the project characterized the effect of a lipoprotein knockout to increase expression of periplasmic proteins. Finally, to integrate seamlessly with our product development project group's ARC bioreactor, we characterized the effect of curli genes to increase biofilm formation of <i>E. coli </i>. </p>
+      <h3>Parts:</h3>
+        <table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Designer</th>
+      <th>Length(bp)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://registry.igem.org/parts/bba-25jib2tt">BBa\_25JIB2TT</a></td>
+      <td>Basic</td>
+      <td>pcrA from <i>D. aromatica</i></td>
+      <td>George Zeng</td>
+      <td>2694</td>
+    </tr>
+    <tr>
+      <td><a href="https://registry.igem.org/parts/bba-25sahpie">BBa\_25SAHPIE</a></td>
+      <td>Composite</td>
+      <td>
+        pcrA from <i>D. aromatica</i>, codon optimized for <i>E. Coli </i>. Contains native <i>E. coli </i> TAT tag for transport to the periplasm and His-tags for purification.
+        <br><br>
+        Components:
+        <br>
+        Shine-Dalgarno region
+        <br>
+        <i>E. coli </i> TorA signal peptide (Part:BBa\_K3114005)
+        <br>
+        His-tag
+      </td>
+      <td>George Zeng</td>
+      <td>2879</td>
+    </tr>
+    <tr>
+      <td><a href="https://registry.igem.org/parts/bba-25te3v5c">BBa\_25TE3V5C</a></td>
+      <td>Composite</td>
+      <td>
+        pcrBCD from <i>D. aromatica</i>, codon optimized for <i>E. Coli </i>. Contains native <i>E. coli<i> </i> </i> TAT tag for transport to the periplasm and His-tags for purification.
+        <br><br>
+        Components:
+        <br>
+        Shine-Dalgarno region
+        <br>
+        <i>E. coli </i> TorA signal peptide (Part:BBa\_K3114005)
+        <br>
+        His-tag
+      </td>
+      <td>
+        George Zeng,
+        <br>
+        Anousha Shadid,
+        <br>
+        Aaryaa Chiney,
+        <br>
+        Antone
+      </td>
+      <td>2952</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+      <h3>Composite Parts:</h3>
+      <br>
+      <br>  
+      <br>
+      <h3>Lipoprotein Knockout</h3>
+        <p><i>E. coli </i> on its own is often ineffective in expressing large proteins due to the lpp gene, which encodes Braun's lipoprotein (lpp). This protein stiffens the cell membrane of <i>E. coli </i> by covalently cross linking the outer layer of the membrane with the peptidoglycan layer (<a href="https://pubmed.ncbi.nlm.nih.gov/36662863/">src</a>). By knocking out this protein, the membrane becomes more permeable and large proteins can be expressed more freely. Lpp knockouts and mutants have previously been used to enhance the excretion of small molecules such as in organophosphate hydrolysis and L-carnitine synthesis (<a href="https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/10.1002/bit.21375">src</a>). Using an lpp knockout strain is crucial to our project as we hope to engineer <i>E. coli </i> to reduce perchlorate by expressing the perchlorate reductase (Pcr) gene block, which is fairly large with many enzymes (<a href="https://pubmed.ncbi.nlm.nih.gov/16030201/">src</a>). In addition, in order for the catalytic domain of Pcr to be functional, it must be localized to the periplasm, which we hope to ensure using an lpp knockout. </p>
+        <p>Our use of the lpp knockout is a novel contribution to the literature. While many lpp knockout applications focus on the release of peptides into surrounding media (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12137417/">src</a>), PRoSPER instead leverages the increased periplasmic space for greater expression of membrane-linked enzymes. Through the expression of additional auxiliary membrane-embedded linkers such as quinol dehydrogenase tetraheme cytochrome (QDH) and diheme c-type cytochrome (DHC), we ensure that perchlorate reductase is still anchored to the cell membrane and accessible to the electron-carrying quinone pool necessary for reduction.</p>
+        <p>Additionally, lpp can be beneficial to the co-culture of these bacteria. <i>Synechococcus</i> PCC. 7002 sequesters Cl-, takes in CO2, and outputs organic carbon, while the <i>E. coli </i> takes in organic carbon and perchlorates, then outputs water, Cl-, and CO2. This closed-loop system relies on the successful secretion and uptake of metabolites by <i>E. coli </i>, which would be further enhanced by the lpp knockout. This application of an lpp knockout to improve a bacterial co-culture is also a novel contribution to iGEM and broader research. </p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/engineeringsuccess/newtransparentimages/lipoprotein-knockout.webp" alt="Lipoprotein Knockout">
+            <figcaption class="figure-caption">Figure 1. Lpp PG-OM linking and effect of mutations on periplasmic volume (Mathelié-Guinlet et al. 2020)</figcaption>
+              <br>
+
+
+      <h3>New Composite Part - TAT System</h3>
+        <p>Important genes for perchlorate reduction, such as Cld, PcrA, PcrB, and PcrC, are transported to the periplasm using twin arginine translocation (TAT) signal peptides and the bacteria's TAT translocase, which transports folded proteins across the cell membrane. Exeter 2016 verified the efficacy of this TAT system by attaching GFP to target signaling peptides and showing that these fusion peptides had reached the periplasm. We will build upon this knowledge by applying the TAT system to subunits and enzymes central to the reduction of perchlorates in martian soil. In particular, with Pcr, the TAT system simultaneously allows its molybdenum cofactor subunit to be cytoplasmically integrated during folding, while other subunits are localized to the periplasm.</p>  
+ 
+      <h3>Culturing Guide of <i>Synechococcus</i> PCC. 7002</h3>
+        <p>This particular strain of <i>Synechococcus</i> PCC. 7002 was chosen for its short doubling time and demonstrated ability in past literature to be used in desalination processes. We obtained our seed stock through a generous sponsorship from Cultivarium and ATCC. We initially began culturing our <i>Synechococcus</i> in 25 mL liquid cultures under 24 hour LED plant grow lights, but found that they could not be sufficiently aerated for the necessary gas exchange. They grew slowly over two weeks before becoming increasingly yellow in color until growth appeared to stop.</p>
+        <p>We then decided to follow ATCC's culturing recommendations of agar slant and plated cultures. Following slant preparation protocols from Caprette (2016), we prepared several cultures within 15 mL screwcap tubes. We found that a 1% agar gel was best for slants, while 1.25% was best for plate preparation. One 25 mL liquid culture was spun down to concentrate cells at the bottom, forming a loose pellet. The concentrated stock was used to inoculate the new cultures. </p>
+        <p>Despite the low growth, we began a wet run with the ARC-P bioreactor. We inoculated 700 mL of media with our liquid cultures. All conditions were optimized for <i>Synechococcus</i> growth, but we weren't seeing any growth after a couple days.</p>  
+        <p>As mentioned in our <a href="engineering.html">Engineering Success page</a>, we then found that B12 is crucial for <i>Synechococcus</i> growth. Our final and most effective culturing method has been 10 mL liquid cultures in 15 mL tubes with the opening covered by a permeable material such as a Kimwipe. The tubes are cultured at a slant for optimal light exposure and gas exchange. In future experiments, we hope to use these to inoculate a new 700 mL culture in the ARC-P bioreactor.</p>  
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/contribution/synechococcus.avif">
+            <figcaption class="figure-caption">Figure 2. ><i>Synechococcus</i> culturing methods: 25 mL liquid cultures, slant cultures, plate cultures, and 700 mL photobioreactor liquid culture</figcaption>
+              <br>
+
+
+      <h3>Characterization of <i>Synechococcus</i> PCC. 7002 and Co-culture with <i>E. coli</i></h3>  
+        <p>An important aim of PRoSPER is to characterize the growth of <i>Synechococcus</i> PCC. 7002, and the metabolite linking cycle between <i>Synechococcus</i> PCC. 7002 and the transformed <i>E. coli </i>. Creating a co-culture between these two organisms allows us to perform toxin cycling to reduce perchlorate levels and salinity in Martian regolith, as well as nutrient cycling to make the co-culture more self-sufficient. In this closed-loop system, <i>E. coli </i> reduces perchlorate (ClO4-) to chloride (Cl-) using organic carbon as an energy source. The cyanobacteria <i>Synechococcus</i>   PCC. 7002 takes up chloride with atmospheric CO2 to produce organic carbon through photosynthesis, which can then support the growth of <i>E. coli </i>. For the first step to successfully characterize this co-culture, we modeled the growth of <i>E. coli </i> independently to observe how perchlorate concentration affects its growth (Figure 2). Future experiments will be conducted in conjunction with Product Development to assess and optimize the metabolite linking system for both organisms, taking into account their individual growth requirements. First, <i>Synechococcus</i> PCC. 7002 will be cultured and monitored in BG-11 media, which is suitable for cyanobacteria. Later experiments will include engineering <i>E. coli </i> to be resilient in high salinity and high perchlorate conditions, monitoring growth in the co-culture using absorbance and chlorophyll fluorescence, and measuring the overall perchlorate reduction rate.</p>
+          <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/contribution/cycle-contribution.webp" width="600px">
+            <br>
+
+
+  <h1>Product Development</h1>
+
+
+    <h2>Adaptive Reaction Chamber Family</h2>
+      <p>The Product Development project group designed and built the Adaptive Reaction Chamber (ARC) family for the PRoSPER project. Its original goal was to meet PRoSPER's deployment requirements for culturing two model organisms and conducting soil remediation. After multiple design iterations, we developed a fully modular, laboratory-scale microbial cultivation platform for the synthetic biology community. By assembling different modules, ARC can rapidly adapt to various microbial cultivation needs. Transforming from a CSTR to a photobioreactor takes only 30 seconds. This design serves as a comprehensive bioreactor solution for Project and synthetic biology community worldwide.</p>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/contribution/productdevelopment/snap-click-connected-32.avif">
+          <figcaption class="figure-caption">ARC Bioreactor Family</figcaption>  
+            <br>  
+      <p>The key to ARC's quick modular assembly lies in its interchangeable modules. Using MagPin, a 5-pin magnetic connector, we link the electronics of peripheral modules to the reactor's core circuits, enabling quick module replacement. For detailed module descriptions and demonstration videos, please visit <a href="/hardware">Hardware page</a>.</p>
+      <br>
+      <br>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/contribution/productdevelopment/magpin-1-1-2.avif" width="600px">
+          <figcaption class="figure-caption">MagPin</figcaption>  
+            <br>        
+        <div class="wrap">
+        <img class="figure-img-sm" src="https://static.igem.wiki/teams/5717/contribution/productdevelopment/motor-module-explosion.avif"><img class="figure-img-sm" src="https://static.igem.wiki/teams/5717/contribution/productdevelopment/heating-module-explode-1-0.avif">
+        </div>
+        <figcaption class="figure-caption">Pump (left) and heating (right) modules</figcaption>
+            <br>
+      <p>The following is the <b>general user manual</b> including operation guide and assembly guide for the ARC bioreactor family. The <b>user guide</b> covers how to initialize the reactor, perform an autoclave, configure modules according to experimental needs, and main structure assemble instructions. </p>
+ 
+
+
+      <p>We also conducted subsystem testings to all the modules, sensors, and the soil flowthrough system. The followings are the protocols:</p>
+
+
+      <br>
+      <br>
+      <br>
+      <br>
+      
+      <p>One of the major advantages of modular design is the ability to continuously expand with new modules. In conversation with many of our stakeholders, such as an external advisor, we considered various steps of bioreactor design. We hope that, with community support, ARC will continue to grow through future module updates. This is also why we are sharing all ARC 3D files. </p>
+      <p>The following are the STL files for ARC and Modules:</p>
+      <div style="max-width: 1000px; margin: 20px auto;">
+        <div style="margin-bottom: 20px; text-align: center;">
+          <label for="stl-file-select"><strong>Select STL File:</strong></label>
+          <select id="stl-file-select"
+                  aria-label="Select STL File"
+                  style="padding: 10px 20px; font-size: 16px; border: 2px solid #333; border-radius: 4px; background: white; cursor: pointer; margin-left: 10px; min-width:320px;">
+            <option value="" disabled selected hidden>-- Choose a component --</option>
+    
+            <optgroup label="Mainbody">
+              <option value="the-rim-upload.stl">3D Printing Version of The Rim</option>
+              <option value="top-mount.stl">3D Printing Version of Top Mount</option>
+              <option value="one-pillar.stl">STL Files for One Pillar</option>
+              <option value="electronic-enclosures.stl">Electronics Enclosure</option> 
+              <option value="electronics-enclosure-cover.stl">Electronics enclosure cover</option>
+            </optgroup>
+    
+            <optgroup label="CNC Version">
+              <option value="cnc-the-rim.stl">CNC version of The Rim</option>
+              <option value="cnc-top-mount.stl">CNC version of ARC-B Top Mount</option>
+            </optgroup>
+    
+            <optgroup label="Modules">
+              <option value="cob-led-module-main-body.stl">COB LED Module Main Body</option>
+              <option value="cob-led-module-cover.stl">COB LED Module Cover</option>
+              <option value="heating-module-main-body.stl">Heating Module Main Body</option>
+              <option value="heating-module-cover.stl">Heating Module Cover</option>
+              <option value="motor-module-main-body.stl">Pump Module Main Body</option>
+              <option value="pump-module-cover.stl">Pump Module Cover</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+    
+      <div id="loading" style="display: none; text-align: center; padding: 20px; font-size: 18px; color: #666;">Loading 3D model...</div>
+        <canvas id="stl-canvas" style="width: 100%; height: 600px; background: linear-gradient(to bottom, #e0e0e0, #ffffff); border: 2px solid #333; border-radius: 4px; display: block; cursor: grab;"></canvas>
+        
+        <p style="margin-top: 15px; text-align: center; font-size: 14px; color: #666;">
+          <strong>Controls:</strong> Left click + drag to rotate | Scroll to zoom | Right click + drag to pan
+        </p>
+      </div>
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+      <script>
+        let scene, camera, renderer, controls, currentMesh;
+          const canvas = document.getElementById('stl-canvas');
+          const selector = document.getElementById('stl-file-select');
+          const loading = document.getElementById('loading');
+          const fileInfo = document.getElementById('current-file-info');
+  
+          // Initialize Three.js scene
+          function initScene() {
+              scene = new THREE.Scene();
+              scene.background = new THREE.Color(0xf0f0f0);
+  
+              camera = new THREE.PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+              camera.position.set(0, 0, 100);
+  
+              renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+              renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+              renderer.shadowMap.enabled = true;
+  
+              // Lighting
+              const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+              scene.add(ambientLight);
+  
+              const directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
+              directionalLight1.position.set(1, 1, 1);
+              scene.add(directionalLight1);
+  
+              const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+              directionalLight2.position.set(-1, -1, -1);
+              scene.add(directionalLight2);
+  
+              // Simple orbit controls using mouse events
+              let isDragging = false;
+              let isPanning = false;
+              let previousMousePosition = { x: 0, y: 0 };
+              let rotation = { x: 0, y: 0 };
+              let zoom = 100;
+  
+              canvas.addEventListener('mousedown', (e) => {
+                  if (e.button === 0) { // Left click
+                      isDragging = true;
+                  } else if (e.button === 2) { // Right click
+                      isPanning = true;
+                  }
+                  previousMousePosition = { x: e.clientX, y: e.clientY };
+              });
+  
+              canvas.addEventListener('mousemove', (e) => {
+                  if (isDragging && currentMesh) {
+                      const deltaX = e.clientX - previousMousePosition.x;
+                      const deltaY = e.clientY - previousMousePosition.y;
+                      
+                      rotation.y += deltaX * 0.01;
+                      rotation.x += deltaY * 0.01;
+                      
+                      currentMesh.rotation.y = rotation.y;
+                      currentMesh.rotation.x = rotation.x;
+                  } else if (isPanning) {
+                      const deltaX = e.clientX - previousMousePosition.x;
+                      const deltaY = e.clientY - previousMousePosition.y;
+                      
+                      camera.position.x -= deltaX * 0.1;
+                      camera.position.y += deltaY * 0.1;
+                  }
+                  previousMousePosition = { x: e.clientX, y: e.clientY };
+              });
+  
+              canvas.addEventListener('mouseup', () => {
+                  isDragging = false;
+                  isPanning = false;
+              });
+  
+              canvas.addEventListener('wheel', (e) => {
+                  e.preventDefault();
+                  zoom += e.deltaY * 0.1;
+                  zoom = Math.max(20, Math.min(200, zoom));
+                  camera.position.z = zoom;
+              });
+  
+              canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+  
+              // Handle window resize
+              window.addEventListener('resize', () => {
+                  camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                  camera.updateProjectionMatrix();
+                  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+              });
+  
+              animate();
+          }
+  
+          function animate() {
+              requestAnimationFrame(animate);
+              renderer.render(scene, camera);
+          }
+  
+          // Load STL file
+          function loadSTL(filename) {
+              loading.style.display = 'block';
+              
+              // Remove existing mesh
+              if (currentMesh) {
+                  scene.remove(currentMesh);
+              }
+  
+              // STL Loader
+              const loader = new THREE.STLLoader();
+              
+              // Update this path to match your actual STL file location
+              const filepath = `https://static.igem.wiki/teams/5717/contribution/stlfiles/${filename}`;
+              
+              loader.load(
+                  filepath,
+                  (geometry) => {
+                      const material = new THREE.MeshPhongMaterial({ 
+                          color: 0x808080,
+                          specular: 0x111111,
+                          shininess: 200
+                      });
+                      
+                      currentMesh = new THREE.Mesh(geometry, material);
+                      
+                      // Center the geometry
+                      geometry.computeBoundingBox();
+                      const center = new THREE.Vector3();
+                      geometry.boundingBox.getCenter(center);
+                      geometry.translate(-center.x, -center.y, -center.z);
+                      
+                      // Scale to fit view
+                      const size = new THREE.Vector3();
+                      geometry.boundingBox.getSize(size);
+                      const maxDim = Math.max(size.x, size.y, size.z);
+                      const scale = 50 / maxDim;
+                      currentMesh.scale.set(scale, scale, scale);
+                      
+                      scene.add(currentMesh);
+                      loading.style.display = 'none';
+                      
+                      fileInfo.textContent = `Now viewing: ${filename}`;
+                  },
+                  (xhr) => {
+                      const percentComplete = (xhr.loaded / xhr.total) * 100;
+                      loading.textContent = `Loading 3D model... ${Math.round(percentComplete)}%`;
+                  },
+                  (error) => {
+                      console.error('Error loading STL:', error);
+                      loading.style.display = 'none';
+                      fileInfo.textContent = `Error loading ${filename}. Please ensure the file exists at the correct path.`;
+                  }
+              );
+          }
+  
+          // Initialize on page load
+          initScene();
+  
+          // Handle file selection
+          selector.addEventListener('change', (e) => {
+              const filename = e.target.value;
+              if (filename) {
+                  loadSTL(filename);
+              }
+          });
+      </script>
+      <p>We recommend printing the modules vertically for the best results. For detailed assembly instructions, please refer to the Engineering Success section or the user manual.</p>
+      <p>Our vision is that any iGEM or lab project group can quickly get started with the ARC bioreactor using the above documents. With just a 3D printer and some basic electronics knowledge, <span class="span"><strong>anyone can build their own ARC.</strong></span></p>
+  
+
+
+
+
+  <h1>Policy and Practices</h1>
+    <h2>Space Policy Handbook</h2>  
+      <p>Together, the project created a space and ethics policy handbook. We were originally inspired for this handbook by various interviews and our policy research. the project, we found that there was no universal law or policy about space and space colonization. Instead, various countries had their own policies and views about how space exploration should be executed. This motivated us to create a handbook that includes various laws and policies from countries around the world in order to streamline access to this kind of information. We also proposed laws and policies we thought could be helpful in the ongoing debates and discussions surrounding this kind of legislation. Our suggestions were inspired by our own personal research, conversations we had with people during outreach events, and stakeholder input during interviews. </p>
+      <p>We hope that this handbook can be utilized by the projects that compete in the space village in the future. Currently, there is not a lot of research and time put into space law and legislation and we hope that this is a starting point to open up conversations with other iGEM teams about how we can tackle the policy ethics of space travel. </p>
+
+
+    <h2>Podcast</h2>
+      <p>This season, the project premiered our podcast on Spotify. We were inspired to start this podcast to bring educational information to people in a more digestible format. A lot of times, people do not have time or interest in reading about science development, so we thought that this could be an interesting new medium to help relay important information to the public. On our podcast, we interviewed various project participants about different topics like our brainstorming process or wet lab protocols. We also made educational episodes about PRoSPER and how our research is important to the world. Not only this, but we also interviewed other iGEM teams from different universities, like the University of Michigan and the University of Maryland. This helped us bring in different perspectives to our podcast and help our listeners learn from a variety of different people.</p>  
+      <p>We hope that we can continue to use this podcast to educate not only the public but also release information into the iGEM community. A lot of times, our podcast episodes focused on things like how to get interviews or how to build a digestible wiki. We found that these conversations, especially those with other teams, were very helpful for iGEM teams overall, which was also a big motivation for us to post these episodes publicly. These episodes can be used by university students around the world who are looking to start an iGEM project group but just are not sure where to start. </p>
+
+
+    <h2>Social Media </h2>
+      <p>Another important aspect of our education and outreach efforts was our social media. We had two main forms of social media this season: both Instagram and LinkedIn. Our Instagram had many educational posts about PRoSPER and synthetic biology, along with lighthearted posts about the project's culture. Our LinkedIn took a more serious approach, posting our educational materials along with infographics.</p>
+      <p>On both of our social media platforms, we were able to build a community with other iGEM teams. Through this we were able to connect with other teams and answer questions and collaboration requests that other teams sent our way. Being active on social media allowed us to interact and contribute to the community by sharing helpful posts, like ones that outline our methodologies. Our social media efforts are ongoing, and we post on our social media throughout the year. We hope to continue to post both educational and fun content in the upcoming seasons to strengthen and foster a sense of community within iGEM. </p>
+     
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+
+

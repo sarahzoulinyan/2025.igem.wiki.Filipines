@@ -1,0 +1,497 @@
+{% extends "layout.html" %}
+  
+{% block title %}Model{% endblock %}
+
+{% block page_content %}
+
+<div>
+<h1>Wet Lab Executive Summary</h1>
+<p>PRoSPER aims to engineer robust perchlorate-reduction capability by expressing the perchlorate reductase complex (PcrAB) [8]. This system would be paired with a <i>Synechococcus</i> system, able to uptake chlorides and fix carbons to ultimately form a novel co-culture system [9]. To help guide our experiments, Project pursued modeling to validate and understand the biochemical systems under investigation before wet lab resources are invested.</p>
+<p>Project implemented a series of Michaelis-Menten based computational models, alongside analyzing structural components and co-culture dynamics. Our modeling efforts focused on capturing multiple layers of the system, from enzyme kinetics to whole-community interactions:</p>
+<ol>
+    <li>Quantify the catalytic activity of perchlorate reductase A and B</li>
+    <li>Understand the structural components of pcrAB and how they relate to function</li>
+    <li>Model the inhibition of pcrAB activity in the presence of oxygen</li>
+    <li>Stochastic Simulation to capture inherent randomness</li>
+    <li>Evaluate the closed-loop co-culture system between <i>E. coli</i> and <i>Synechococcus</i></li>
+</ol>
+<p>This workflow bridges enzyme kinetics, molecular structure, stochastic system dynamics, and co-culture conditions to provide insight into the behavior of perchlorate reduction pathways under varying environmental conditions. </p>
+
+<h2>Structural and Enzyme Kinetic Analysis of Perchlorate Reductase Subunits A and B</h2>
+<h3>Michaelis Menten Overview</h3>
+<p>Michaelis Menten is used to understand the rate of activity found in perchlorate reductase subunits A and B. K<sub>cat</sub> and K<sub>m</sub> values have been found for this reaction, so we assume the Michaelis Menten model applies to all reactions of interest for the project [8]. This approach was used to model the perchlorate reductase reduction dynamics in the transformed <i>E. coli.</i> </p>
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-1-1.avif" alt="Michaelis-Menten">
+        <figcaption class="figure-caption">Equation 1.1. Michaelis-Menten Equation</figcaption>
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-1-2.avif" alt="MM Enzyme Kinetics">
+        <figcaption class="figure-caption">Equation 1.2. Michaelis-Menten Enzyme Kinetics</figcaption>
+<p><u>Michaelis-Menten Assumptions:</u></p>
+<ol>
+    <li>Steady-state approximation: In our perchlorate reduction model, we assume that the rate of <i>PcrABCD–substrate complex formation</i> (enzyme binding to perchlorate or chlorate) quickly reaches a steady state where complex formation and breakdown occur at equivalent rates. This allows us to approximate the catalytic rate as constant over time.</li>
+    <li>Free ligand assumption: We assume the substrate concentration in this case perchlorate and its intermediates products (chlorate and chlorite) is significantly higher than the total enzyme concentration (PcrABCD or Cld). This allows us to assume the reaction rate depends primarily on the amount of substrate concentration that we have rather than the enzyme concentration.</li>
+    <li>Rapid equilibrium assumption: We assume that the enzyme–substrate binding and catalytic conversion steps proceed primarily in the forward direction (toward perchlorate reduction and oxygen/chloride generation), and that product rebinding is negligible.</li>
+</ol>
+<p>Michaelis Menten can be scaled further by analyzing its enzyme-substrate interactions and time-course concentrations across the pcrABCD and cld biological pathways. This can be used to determine specific rate-limiting steps and identify how to optimize specific enzyme and substrate concentrations for experimental design. Here, we first understand the effect of a single reaction mediated by the perchlorate reductase enzyme. </p>
+
+<h3>Michaelis Menten of Perchlorate Reduction</h3>
+<p>Perchlorate reductase (PcrABCD) is the periplasmic enzyme complex that reduces perchlorate (ClO<sub>4</sub><sup>-</sup>) to chlorite (ClO<sub>2</sub><sup>-</sup>), before which chlorite dismutase (Cld) catalyzes the conversion of chlorite to Cl<sup>-</sup> and O<sub>2</sub> [1]. Genes encoding this metabolism are located on the Perchlorate Reduction Genomic Island (PRI), which is horizontally transferred and tightly conserved in strains like <i>Azospira</i> and <i>Dechloromonas aromatica</i>. Within the perchlorate reduction pathway, pcrA encodes  the catalytic a-subunit while pcrB encodes the electron transfer beta-subunit. pcrC and pcrD are required coenzymes [8]: pcrC a periplasmic tetraheme c-type cytochrome which is responsible for electron transfer from the membrane quinone pool to pcrB while pcrD is a necessary coenzyme for the assembly of the pcrAB complex. </p>
+<p>As such, we chose to model the pcrAB complex given its catalytic function with Michaelis-Menten kinetics. PcrAB both act in concert during perchlorate reduction, further motivating the decision to model them together. To better study the relationship between pcrA and pcrB, a point mutation was modelled at residue number 461. This point mutation replaces tryptophan (W) with glutamic acid (E), which functionally deactivates pcrA.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Wild <i>Azospira</i></th>
+      <th>Mutated <i>Azospira</i></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>K<sub>m</sub> (µM)</td>
+      <td>6.0 ± 2.1</td>
+      <td>314.1 ± 14.1</i></td>
+    </tr>
+    <tr>
+      <td>k<sub>cat</sub> (1/min)</td>
+      <td>27.1 ± 1.9</td>
+      <td>54.1 ± 4.1</td>
+    </tr>
+    <tr>
+      <td>k<sub>cat</sub>/K<sub>M</sub> (min<sup>-1</sup>/µM<sup>-1</sup>)</td>
+      <td>4.52</td>
+      <td>0.17</td>
+    </tr>
+  </tbody>
+</table>
+<figcaption class="figure-caption">Table 1. Michaelis-Menten Parameters for pcrAB in <i>Azospira</i></figcaption>
+
+<img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/analysis-of-pcrab-wild-type.avif" alt="Wt vs mutation">
+    <figcaption class="figure-caption">Figure 1. Range of enzyme kinetics for the wild type <i>Azospira</i> (blue) compared to <i>Azospira</i> (functionally inactive pcrAb) (red).</figcaption>
+
+<p>After plotting the Michaelis-Menten curves dependent on the band of uncertainty around k<sub>m</sub> and k<sub>cat</sub> values, a significant drop in enzyme affinity and rate occurs at lower concentrations in the <i>Azospira</i> strain with a mutation. Despite a higher apparent k<sub>cat</sub> at saturating substrate, the mutated azospira has a ~26× drop in catalytic efficiency (k<sub>cat</sub>/K<sub>m</sub>) which indicates severely reduced performance at environmental ClO<sub>4</sub><sup>-</sup> (Figure 1). This suggests impaired long-range electron transfer or substrate gating when the PcrAB wiring is disrupted. The loss in catalytic efficiency observed in the mutated <i>Azospira</i> strain indicates that disruption of the PcrAB complex severely impairs substrate binding and electron transfer. Thus, the W461E mutation found here can serve as a negative control, and establishes that both PcrA and B are required for effective perchlorate reduction. </p>
+
+<h3>Understanding Structural Components of pcrAB</h3>
+<p> Seeing the effect of a small point mutation, the project. Using PyMOL, molecular visualization of pcrAB helped visualize binding sites and better understand the electron transfer. To further elucidate the structural basis for this relationship between PcrA and PcrB, the structure of the perchlorate reductase complex was modelled to visualize how the catalytic (α) and electron-transfer (β) subunits cooperate to facilitate Mo-centered reduction.</p>
+<img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/normal-perchlorate-reductase.avif" alt="Normal pcr">
+    <figcaption class="figure-caption">Figure 2.1. Normal view of pcrA.</figcaption>
+<img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/mutated-view.avif" alt="Mutated pcr">
+    <figcaption class="figure-caption">Figure 2.2. Mutated view: Effect of a single point mutation near molybdenum</figcaption>
+
+<p>A key mutation is the effect of changing the residue #461 from tryptophan to glutamic acid [1], visualized in pink on the above figure. This mutation occurs near the molybdenum (Mo) cofactor pocket and forms part of an aromatic gate that stabilizes substrate entry and controls product retention. The negative charge of the glutamic acid repels electrons, which prevents electrons from being coordinated by the molybdenum atom during perchlorate reduction. Perchlorate Reductase is part of the Type II DMSO Reductase Protein family, which is part of the larger DMSO Reductase Protein Family that includes proteins like nitrate reductase. All proteins of this family Type II DMSO Reductase Protein Family require molybdenum (Mo) that is buried in the catalytic (α) subunit inside a bis-molybdopterin guanine dinucleotide (bis-MGD) cofactor pocket. Initially, Mo has an oxidation state of +4 with 2 bonds to sulfur, 1 double bond to oxygen and 1 amino acid side chain bond (typically Asp in Type II DMSO Reductase Protein Family), Mo is able to strip one oxygen from the substrate (in this case perchlorate) to produce a form of oxidation state +6 with all of its previous coordinate bonds plus an additional double bond to oxygen. The Mo (VI) is able to reversibly form water with 2 additional electrons from the Fe-S centers and 2 protons. In the presence of atmospheric oxygen, Mo will double with 3 oxygens instead of the normal 2. This “kills” the enzyme in a sense as due to oxygen’s high electronegativity it is able to pull the electron density away from the Mo, reducing its effective energy state and reactivity (Figure 2.1). The Mo becomes electron poor and unlikely to further react in redox reactions where its role is to act as a temporary oxygen holder before being moved elsewhere.</p>
+<img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/vacuum-electrostatic-potential.avif" alt="VEP">
+    <figcaption class="figure-caption">Figure 3. Vacuum electrostatic potential map of the PcrAB catalytic pocket surrounding the molybdenum (Mo) cofactor. Mutated above, normal below.</figcaption>
+
+<p>To further visualize the effect of the point mutation at residue 461, the electrostatic surface potential (ESP) was calculated using the Adaptive Poisson–Boltzmann Solver (APBS) under vacuum conditions, meaning the surrounding environment was treated as empty space without solvent or ionic effects.</p>
+<p>In the unmutated PcrAB complex, the Mo pocket exhibits a predominantly neutral to slightly positive potential (blue) surrounding the substrate entry channel, while the deeper regions near the cofactor and coordinating aspartate residue show localized negative potential (red) arising from oxygen and carboxylate groups. These charge distributions collectively form a balanced electrostatic landscape that is favorable for stabilizing the incoming perchlorate (ClO<sub>4</sub><sup>-</sup>) substrate.</p>
+<p>Following structural and electrostatic modeling, wet lab experiments were designed first to express pcrAB alongside necessary cofactors pcrC and D. Following this, it would be possible to validate the proposed role of pcrA and pcrB in catalysis and electron transfer within the perchlorate reductase complex. The overarching aim of these experiments is to experimentally confirm that both subunits are necessary for efficient perchlorate reduction, as suggested by our structural data and kinetic modeling.</p>
+<p>As seen in the structure of pcrB, the electron transfer mediated by subunit B plays a large role. Thus, the project hypothesized that the presence of changes to the system which affect electron transport would decrease efficiency of the system. Indeed, another perturbation to the system is the effect of oxygen, as it competes for electrons that cannot be shuttled to perchlorate and potentially damages sensitive perchlorate reducing enzymes [8]. </p>
+
+<h2>Effect of O<sub>2</sub> on Perchlorate Reduction via Stochastic Simulation</h2>
+<p>Biological redox systems, especially those operating under microaerobic conditions, often exhibit fluctuations that cannot be captured by purely deterministic models. The perchlorate reductase (PcrAB) complex operates in a periplasmic environment where stochastic changes in oxygen concentration and electron donor availability can significantly affect catalytic turnover. While our deterministic Michaelis–Menten analysis describes the mean behavior of PcrAB, it does not capture the inherent randomness of molecular interactions or the probabilistic nature of Mo redox cycling under O<sub>2</sub> stress [3]. Since cld catalyzes the reaction of chlorate to oxygen and chlorides, we hope to demonstrate the inverse effect between oxygen production and perchlorate reduction.</p>
+<p>To further investigate how oxygen exposure influences PcrAB catalysis, we developed a stochastic simulation of the perchlorate reduction reaction network. This approach accounts for biological noise and simulates discrete reaction events over time rather than relying on continuous rate laws and structural analysis. </p>
+<p>To account for stochasticity, we reformulated our kinetic rate equations into propensity functions and implemented the <b>Gillespie algorithm</b>, or stochastic simulation algorithm (SSA). This method captures the probabilistic evolution of enzyme–substrate interactions in time, allowing us to explore transient behaviors such as partial inhibition, random reactivation, and oxygen-dependent quenching of the Mo cofactor.</p>
+<p>We modeled the minimal pathway with discrete events:</p>
+<ol>
+    <li>ClO<sub>4</sub><sup>-</sup> --(PcrAB)-> ClO<sub>3</sub><sup>-</sup></li>
+    <li>ClO<sub>3</sub><sup>-</sup> --(PcrAB)-> ClO<sub>2</sub><sup>-</sup></li>
+    <li>ClO<sub>2</sub><sup>-</sup> --(Cld)-> O<sub>2</sub> + Cl<sup>-</sup></li>
+</ol>
+<p>We included an <b>O<sub>2</sub> inflow</b> term (to mimic leakage or microaerobic exposure) and allowed O<sub>2</sub> to <b>inhibit PcrAB</b> by reducing its effective catalytic propensity. O<sub>2</sub> would also be formed within the pathway as a byproduct of perchlorate reduction.</p>
+<p>The following parameters were used for our model of the entire perchlorate reduction pathway:</p>
+<!--figure 4-->
+<p>Enzyme Parameters [8]</p>
+<table>
+  <tbody>
+    <tr>
+      <td>pcrAB K<sub>m</sub> (µM)</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <td>pcrAB K<sub>cat</sub> (1/min)</td>
+      <td>27.1</td>
+    </tr>
+    <tr>
+      <td>Cld k<sub>M</sub> (µM)</td>
+      <td>162</td>
+    </tr>
+    <tr>
+        <td>Cld K<sub>cat</sub> (1/min)</td>
+        <td>114</td>
+  </tbody>
+</table>
+<figcaption class="figure-caption">Table 2. pcrAB and cld enzyme parameters.</figcaption>
+
+<p>O<sub>2</sub> Inflow, Alongside O<sub>2</sub> Production </p>
+<table>
+    <tbody>
+        <tr>
+            <td>pcrAB K<sub>m</sub> (µM)</td>
+            <td>6.0</td>
+        </tr>
+        <tr>
+            <td>pcrAB K<sub>cat</sub> (1/min)</td>
+            <td>27.1</td>
+        </tr>
+    </tbody>
+</table>
+<figcaption class="figure-caption">Table 3. O<sub>2</sub> parameters.</figcaption>
+
+<h3>Altering O<sub>2</sub> Levels</h3>
+<p>To assess the effects of having O<sub>2</sub> in culture alongside, we tested 3 scenarios. First at low O<sub>2</sub> inflow, mimicking effects of having a perfectly anaerobic environment for microbes. Moderate O<sub>2</sub> inflow might be a more realistic model that captures systems that could be recreated in our lab with non-zero but small O<sub>2</sub> inflow. Finally we also included high O<sub>2</sub> inflow, indicative of a leak of O<sub>2</sub>.</p>
+<img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/stochastic-simulation.avif" alt="Stochastic">
+    <figcaption class="figure-caption">Figure 5. Stochastic simulation modeling perchlorate buildup depending on O<sub>2</sub> in-flow from low to high O<sub>2</sub>.</figcaption>
+<p>In this model, we fit the effect of O<sub>2</sub> to gradually reduce the propensity for the catalyzation of perchlorate (ClO<sub>4</sub><sup>-</sup>). We incorporated the effect of the inhibitory effect on perchlorate reduction, which was clearly demonstrated in our simulation. As O<sub>2</sub> levels increased, perchlorate levels began to build up, clearly demonstrating the negative feedback from O<sub>2</sub> production catalyzed by cld. </p>
+<p>At low O<sub>2</sub> levels, pcrAB runs close to its deterministic mean as perchlorate levels drop steadily. There is little to no perchlorate buildup. However, at high O<sub>2</sub> levels, PcrAB activity drops sharply, and perchlorate begins to accumulate due to the persistent inhibitory environment. The enzyme’s catalytic events become sporadic, with long pauses between active states as O<sub>2</sub> concentration overwhelms the system. This results in noticeable perchlorate buildup even though the enzyme remains present and theoretically capable of turnover. The stochastic model captures these fluctuations, showing that the enzyme’s behavior is dominated by oxygen-induced inhibition rather than substrate availability.</p>
+<p>Overall, the simulation highlights the self-limiting nature of the perchlorate reduction pathway under oxygen exposure. As Cld generates O<sub>2</sub> from chlorite, the accumulating O<sub>2</sub> feeds back to suppress PcrAB activity, producing an oscillatory pattern of brief activity followed by inhibition. This dynamic demonstrates how even small oxygen inflows can disrupt efficient perchlorate reduction, emphasizing the importance of tightly controlled redox conditions for maintaining pathway efficiency under microaerobic stress.</p>
+
+<h3>Altering Perchlorate Levels</h3>
+<!--stochastic figure 6-->
+<p>At low perchlorate concentrations, PcrAB operates efficiently and maintains steady turnover with minimal buildup. The enzyme functions close to its optimal catalytic rate since substrate levels remain within its high-affinity range, allowing continuous reduction of perchlorate to chlorate and chlorite. In this regime, the reaction proceeds smoothly, and the stochastic simulation closely matches the deterministic prediction, showing stable product formation and low residual perchlorate levels.</p>
+<p>At high perchlorate concentrations, however, the system exhibits strong substrate inhibition, leading to significant perchlorate buildup. Excess perchlorate molecules crowd the active site and the access tunnel of PcrAB. As a result, catalytic efficiency declines despite the abundance of substrate. In the stochastic simulation, this appears as prolonged inactive periods, sporadic turnover events, and accumulation of perchlorate over time. The outcome clearly demonstrates how PcrAB’s high-affinity design favors low-substrate environments but becomes self-limiting under perchlorate-rich conditions, resulting in measurable buildup.</p>
+<p>This phenomenon was described by past literature [10] where pcrAB demonstrates efficiency at low levels of perchlorate due to the presence of high affinity active sites. This demonstrates that a limit of perchlorate concentration can be reached before enzyme efficiency drops.</p>
+
+<h2>Co-culture Conditions and Metabolite Linking between <i>E. coli</i> and <i>Synechococcus</i> sp. PCC. 7002</h2>
+<p>To further optimize perchlorate reduction efficiency in E. coli and enhance metabolite exchange within our closed-loop, two-microbe co-culture system, Project employed two computational approaches to guide our experimental conditions and predictive analysis [7]. The first approach relies on MIchaelis-Menten kinetics as detailed in earlier sections.</p>
+<p>However, the cooperative co-culture system between <i>E. coli</i> and <i>Synechococcus</i> sp. PCC 7002 can be further effectively modeled using logic computing frameworks designed for bacterial consortia. Specifically, the perchlorate reduction mechanism performed by the <i>E. coli</i> and the chloride uptake and carbon fixation performed by the <i>Synechococcus</i> can be modeled using a XOR gate design. As described in Figure 1 , the XOR gate employs Boolean logic to model the mechanism of the two model organisms in which each strain performs a complementary function towards an unified biological function.</p>
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/xor-logic-gate.avif" alt="AND Gate">
+    <figcaption class="figure-caption">Figure 7. AND logic gate only produces true (1) output response when every input is true. </figcaption>
+
+<p>This formalized logic gate framework allows the project to simplify the complex mechanism into simpler biologically-implementable units (AND, OR and NOT Gates) and ordinary differential equations (ODEs) that can be used to model the two microbial cooperative behaviors across a series of assumptions and mathematical interpretations. In our co-culture system, the E. coli's perchlorate reductase complex protein (pcrABCD) and chlorite demutase (cld) will serve as the input responses while the <i>Synechococcus</i> acts as more of a downstream processing microbe that consumes the chloride and recycles the fixed carbon back to E.coli in the form of sucrose. This system design seeks to emulate the quorum-sensing mechanism exhibited by many microbial species in the environment. In the case of a co-culture system, both microbial species must exhibit quorum sensing and symbiotic behaviors to accurately stimulate the closed microbial metabolic system.
+</p>
+<p>A series of ODEs are used to simulate the gene expression dynamics, metabolite exchange, and system-wide response underlying varying environmental conditions. These parameters include diffusion constants to model the exchange of chloride and sucrose between the two microbes, degradation rates to simulate the consumption of metabolite, and both species' growth dynamic and Michaelis-Menten constants to predict the enzyme-substrate catalytic reactions in the <i>E. coli</i>.
+</p>
+<p>This approach allows us to minimize the wiring complexity in the biological system while also creating a predictive model that not only provides us with a mechanistic understanding of the complex molecular and metabolic dynamics, but also guides the optimization of experimental conditions. Through stimulating time-course behavior of essential metabolites (e.g. perchlorate, chloride, sucrose), this approach allows us to better anticipate gene expression level, enzymatic behaviors and metabolite exchange rates that are key in developing a scalable application such as Martian regolith remediation on a greater scale.
+</p>
+
+<ol>
+<li><u>Co-Culture Logic Gate:</u> Using an AND-gate framework and a series of Boolean logic operations, we can model the interaction between <i>E. coli</i> and <i>Synechococcus</i> sp. PCC 7002 to better understand how each microbe responds to different environmental inputs (light limitation, available carbon source, chloride concentration, gas exchange) and contributes to the overall metabolite cycle in the co-culture. In this system, <i>E. coli</i> acts as the upstream processor by reducing perchlorate into chloride, while <i>Synechococcus</i> functions as the downstream strain that uptakes the chloride and produces sucrose to support <i>E. coli</i> growth.</li>
+    <ol>
+        <li><i><u>Upstream Process - <i>E. coli</i> Perchlorate Reductase (Pcr) and Chlorite dismutase (Cld):</u></i> Using the AND Gate framework, we can treat E. coli as the upstream processor: PcrABCD (perchlorate reductase complex) reduces perchlorate to chlorite, and Cld (chlorite dismutase) converts chlorite to CO<sub>2</sub> and Cl<sup>-</sup>. The two enzymes must act simultaneously to complex the detoxification process and feed into the <i>Synechococcus</i> system. Using a standard Hill's coefficient of n = 2, we can standardize the inducers to model similarly to a moderately switch-like behavior that allows for expression to rise sharply around a specific threshold dissociated constant (Kd) for each enzyme while minimizing the effects of leaky basal expression. As seen in Figure 1.1, this strategy also allows us to ensure each individual enzyme output is symmetric and co-limiting.
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/figure-1-3.avif" alt="AND Gate Behavior">
+            <figcaption class="figure-caption">Figure 8.1. AND-gate behavior of Pcr and Cld module. Final Detox output (nM) at steady state: Both Off ≈ 0 nM, pcrABCD, pcrABD Only ≈ 20 nM (Half-response), Cld Only ≈ 20 nM (Half-response), Both On ≈ 40 nM.  
+            </figcaption>
+
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/figure-1-4.avif" alt="Detoxification Output">
+            <figcaption class="figure-caption">Figure 8.2. Steady-state detoxification output heatmap. With the blue stripes/areas representing zero input confirming AND dependence; rapid transition at red plateau regions to indicate sharp activation response near Kd and max flux when box inducer are at a high concentration
+            </figcaption>
+
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/figure-1-5.avif" alt="3D AND Gate">
+            <figcaption class="figure-caption">Figure 8.3. The 3D surface plot provides another visualization of the detoxification output at varying inducer concentrations and enzyme activation. With the “steep wall" area indicating that the gate is thresholded and saturating: sharp activation around Kd, then near-max flux across most of the interior. The symmetry indicates Pcr and Cld are co-limiting and balanced.
+            </figcaption>
+            <p>	At very low Kd (~0.1 nM), the promoters for pcrABCD and cld are very sensitive to their inducers. Even the tiniest amount of inducer can cause strong enzyme expression, resulting in high detoxification (accumulation of CO<sub>2</sub>  and Cl<sup>-</sup>) output from the perchlorate reductase pathway. As a result, the system behaves more like an OR gate since either one enzyme complex can drive a substantial response. However, at the intermediate Kd range (~3-10 nM), both the pcrABCD and cld must reach a sufficient threshold of induction before the system reaches the maximal detoxification output, allowing for the most distinct AND-like response when both inducers are present. At very high Kd (>30 nM), the enzymatic system becomes less responsive, as a high concentration (strong induction) is needed from both inputs to achieve activation; however, the actual detoxification output decreases as the enzyme expression saturates out under maximal induction.</p>
+            <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/figure-1-6.avif" alt="Sensitivity Analysis">
+            <figcaption class="figure-caption">Figure 9. Sensitively Analysis of varying Kd values to evaluate detoxification output of Cl<sup>-</sup> and CO<sub>2</sub></figcaption>
+            <p>Both the detoxification output of the upstream <i>E. coli</i> system feeds into two time-resolved fluxes that become the sources of input for the <i>Synechococcus</i> module. With the chloride production rate from the chlorite dismutase feeding into the chlorite capacity of the <i>Synechococcus</i> module and the CO<sub>2</sub> production rate from the perchlorate reductase feeding into the available inorganic carbon (DIC) rate. With these two inputs, we're able to examine the <i>Synechococcus</i> organic carbon fixation rate via its available biomass and also sucrose formation.</p>
+        </li>
+        <li><i><u>Downstream Process -  Halorhodopsin (Chloride Uptake) and Sucrose Fixation</u></i>:</li>
+            <p>As <i>E. coli</i> reduces perchlorate and releases CO<sub>2</sub> and Cl<sup>-</sup> into the co culture medium, <i>Synechococcus</i> takes up those outputs and converts the inorganic carbon into fixed carbon such as sucrose. In this closed loop, Cl⁻ acts as a cofactor or quota that can throttle photosynthesis if undersupplied, while DIC (dissolved inorganic carbon = CO₂ + HCO₃⁻) is the actual substrate for carbon fixation. As the Synechococcus medium is salt water, its higher alkalinity and a pH near 8 shift the carbonate equilibrium (CO<sub>2</sub> + H<sub>2</sub> ⇌ H<sub>2</sub>CO<sub>3</sub> ⇌ H<sup>+</sup>) + HCO<sub>3</sub><sup>-</sup>) toward bicarbonate, so much of the dissolved CO<sub>2</sub> exists as HCO<sub>3</sub><sup>-</sup>. If the recipe includes NaHCO<sub>3</sub> or carbonate, that also provides bicarbonate directly. In practice we treat DIC as CO<sub>2</sub> plus HCO<sub>3</sub><sup>-</sup> and allow rapid interconversion via carbonic anhydrase inside the cell, which is why HCO<sub>3</sub><sup>-</sup> must be included as a substrate in the model [4].<i>Synechococcus</i> can import chloride via halorhodopsin (HR), a retinal binding microbial rhodopsin originally described in haloarchaea and expressed here heterologously, which uses light energy to pump Cl<sup>-</sup> inward through a photoisomerization cycle that moves chloride from outside to inside the cell [5]. </p>
+            <p>For our co culture, expressing HR in <i>Synechococcus</i> is a practical way to boost effective chloride uptake under light, reducing the chance that a chloride quota limits photosynthetic carbon fixation, especially when external chloride is low. If we do not model DIC explicitly, <i>Synechococcus</i> would keep fixing carbon even after the medium runs out of CO<sub>2</sub> or HCO<sub>3</sub><sup>-</sup>, which is not realistic. Most of the equations below are adapted from Mangan et al.’s quantitative CCM model for cyanobacteria [6], which formalizes CO<sub>2</sub>/HCO<sub>3</sub><sup>-</sup> transport, carboxysome carbonic anhydrase conversion, and RuBisCO fixation; we applied these forms (with Monod/Hill simplifications) to our <i>Synechococcus</i> module. The equations used below are [6]:</p>
+            <ol>
+                <li>f<sub>L</sub>(I) = (I) /( K<sub>I</sub> + I), describes the light limitations on photosynthesis
+                    <ol>
+                        <li>I = light intensity</li>
+                        <li>K<sub>I</sub> = half-saturation constant</li>
+                    </ol>
+                </li>
+                <li>v<sub>fixation</sub> =V<sub>fixation,max</sub> f<sub>L</sub>(I) * (DIC)/ (K<sub>Ci</sub>  + DIC), describes the max carbon fixation scaled by light and inorganic carbon availability. When DIC is low, fixation slows even when light intensity is high.
+                    <ol>
+                        <li>V<sub>fixation, max</sub> = max fixation rate per biomass (mmol C·gDW<sup>-1</sup>·min<sup>-1</sup>)</li>
+                        <li>DIC = dissolved inorganic carbon (CO<sub>2</sub> + HCO<sub>3</sub><sup>-</sup>) (nM)</li>
+                        <li>K<sub>Ci</sub> = half saturation constant for DIC (nM)</li>
+                    </ol>
+                </li>
+                <li>μ<sub>0</sub>=Y<sub>x/c</sub>​v<sub>fix</sub>−m<sub>syn</sub>, provisional growth rate based on available carbon (min<sup>-1</sup>)
+                    <ol>
+                        <li>Y<sub>x/c</sub> = biomass yield from fixed carbon (gDW<sup>-1</sup>·min<sup>-1</sup></li>
+                        <li>m<sub>syn</sub> = maintenance drain (min<sup>-1</sup>)</li>
+                    </ol>
+                </li>
+                <li>Chloride Need
+                    <ol>
+                        <li>Demand of Chloride: r<sub>cl, required</sub> = q<sub>cl</sub> μ<sub>0</sub> (Cl<sup>-</sup> quota per unit growth)
+                            <ol>
+                                <li>q<sub>cl</sub> = Cl needed per unit biomass growth</li>
+                                <li>r<sub>cl, required</sub> = Demand of chloride needed (mmol C·gDW<sup>-1</sup>·min<sup>-1</sup>)</li>
+                            </ol>
+                        </li>
+                        <li>Capacity of Chloride: v<sub>Cl, capacity</sub> = V<sub>Cl, max</sub>*(Cl<sub>medium</sub>)/(K<sub>Ci</sub>+Cl<sub>medium</sub>)
+                            <ol>
+                                <li>V<sub>Cl, max</sub>  = max uptake per biomass (mmol C·gDW<sup>-1</sup>·min<sup>-1</sup>)</li>
+                                <li>Cl<sub>medium</sub>  = concentration of chloride in medium (nM)</li>
+                                <li>K<sub>Ci</sub> = half saturation constant for chloride</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+                <li>Actual Chloride Uptake: v<sub>Cl</sub> = min(v<sub>Cl, capacity</sub> , r<sub>cl, required</sub>), units (mmol C·gDW<sup>-1</sup>·min<sup>-1</sup>)</li>
+                <li>Penalty when CI is low:
+                    <ol>
+                        <li>Min (1, v<sub>Cl,</sub> / (r<sub>cl, required</sub>)</li>
+                    </ol>
+                </li>
+                <li>Mass balances (bioreactor)
+                    <ol>
+                        <li>dCl<sub>medium</sub>/dt = J<sub>c1</sub><sup><i>E. coli</i></sup> - v<sub>Cl</sub> X<sub>Synechococcus</sub>, units (mM·min<sup>-1</sup>)
+                            <ol>
+                                <li>J<sub>c1</sub><sup><i>E. coli</i></sup> = Cl produced by <i>E. coli</i> in Cld step (mM·min<sup>-1</sup>)</li>
+                                <li>X<sub><i>Synechococcus</i></sub> = <i>Synechococcus</i> Biomass Concentration (gDW<sup>-1</sup>·L)</li>
+                            </ol>
+                        </li>
+                        <li>DIC Concentration and Pool
+                            <ol>
+                                <li>dDIC/dt =J<sub>CO<sub>2</sub></sub><sup>in</sup> - ((v<sub>fixation,eff</sub>X<sub>Synechococcus</sub> )/ (Y<sub>C, fixation</sub>))
+                                    <ol>
+                                        <li>J<sub>CO<sub>2</sub></sub><sup>in</sup> = CO<sub>2</sub> supplied from <i>E. coli</i> (mM·min<sup>-1</sup>)</li>
+                                        <li>Y<sub>C, fixation</sub> = mmol of DIC per mmol C fixed</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                        </li>
+                        <li>dX<sub><i>Synechococcus</i></sub> /dt = μX<sub><i>Synechococcus</i></sub> → Biomass of <i>Synechococcus</i></li>
+                        <li>d<sub>sucrose</sub>/dt = f<sub>sucrose</sub> v<sub>fixation,eff</sub> X<sub>Synechococcus</sub> - k<sub>sucrose</sub>[Sucrose]
+                            <ol>
+                                <li>f<sub>sucrose</sub> = fraction of fixed C secreted as sucrose (unitless)</li>
+                                <li>k<sub>sucrose</sub> = consumption/decay rate (min<sup>-1)</sup></li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        <p>The overview of the four plots (Figure 10) below tracks the shared medium and the Synechococcus module over 10 hour time periods. The tracked parameter include external chloride in mM, DIC in mM where DIC equals CO<sub>2</sub> plus HCO<sub>3</sub><sup>-</sup>, biomass X<sub>Synechococcus</sub> in gDW per liter, and sucrose in mM. The upstream <i>E. coli</i> gate provides CO<sub>2</sub> through respiration and Cl<sup>-</sup> through the Cld step, while light drives fixation in <i>Synechococcus</i>.</p>
+        <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/synechococcus-uptake-and-carbon-fixation-with-cl-quota.avif" alt="Synechococcus">
+        <figcaption class="figure-caption">Figure 10. <i>Synechococcus</i> uptake and carbon fixation with a chloride-quota constraint (10-hours) in terms of Cl<sup>-</sup>, DIC, Sucrose and  X<sub><i>Synechoccocus</i></sub></figcaption>
+        <p>From the plot, we can see that DIC concentration falls from 1 nM to nearly zero within the first 20-40 minutes. This rapid drop marks the transition from a pool-driven burst to a feed-limited condition (low DIC). In the case while the DIC is still available, the carbon fixation level and biomass concentration increase substantially, and sucrose also accumulates rapidly. After the DIC pool collapses, both biomass and sucrose increase at a near-constant slope that is set by the CO<sub>2</sub> feed into the liquid rather than by light or the maximum enzyme capacity. External chloride drops only slightly, from about 0.50 mM to about 0.48 mM, which indicates that chloride uptake capacity meets the growth quota and the penalty on fixation from chloride shortage is essentially one.</p>
+        <p>Under these current settings, the co-culture is more carbon limited rather than chloride limited. The downstream <i>Synechococcus</i> module behavior is controlled by the available DIC supply.  On the <i>E. coli</i> side, the AND-gate heatmaps show detox output peaking only when both inducers are ON at intermediate Kd (≈3–10 nM); low Kd leaks (OR-like), and high Kd gives weak absolute output. On the <i>E. coli</i> side, the AND-gate heatmaps show detox output peaking only when both inducers are ON at intermediate Kd (≈3–10 nM); low Kd leaks (OR-like), and high Kd gives weak absolute output. </p>
+<h2>Conclusion</h2>
+<h3>Structural Analysis</h3>
+<p>Reinforced wetlab’s decision to study the expression and enzyme kinetics of pcrAB, which requires necessary coenzymes pcrC for electron transfer from the quinone pool and pcrD which allows for assembly. Molecular visualization techniques were carried out to observe key electron-transfer sites, informing our decision to move to understanding the inhibitory effects of other electron carriers and acceptors.</p>
+<h3>Effect of O<sub>2</sub> on Perchlorate Reductase</h3>
+<p>Our stochastic simulations revealed a clear inverse relationship between oxygen availability and perchlorate reduction efficiency. As O<sub>2</sub> concentration increased, the catalytic propensity of PcrAB decreased proportionally, leading to a measurable buildup of perchlorate in the simulated system. This trend arises from the tendency for O<sub>2</sub> to be an electron acceptor, competing with electrons necessary for perchlorate reduction. This greatly informed the ARC bioreactor design, which incorporated an enclosed, airtight system and controlled CO<sub>2</sub>/O<sub>2</sub> sensors. Wet Lab hopes to better elucidate the relationship between oxygen concentration and corresponding effect of perchlorate reduction by tracking metabolite levels, before fitting kinetic models to corroborate our model. </p>
+<h3>Co-culture Conditions and Metabolite Linking</h3>
+<p>Our co-culture modeling shows the system is carbon-limited, not chloride-limited: DIC (CO<sub>2</sub> + HCO<sub>3</sub><sup>-</sup>) collapses early and pins <i>Synechococcus</i> growth and sucrose to the CO<sub>2</sub> feed. Upstream, the <i>E. coli</i> AND gate performs best at intermediate Kd (~3–10 nM), yielding strong detox only when pcrABCD and cld are both induced. Practically, this supports our WL design: stage PcrA → PcrBCD, use Δlpp for periplasm targeting, and keep the medium DIC-replete. These levers link metabolites across modules and provide clear knobs for ARC operation, such as promoter strength, aeration, and light to scale PRoSPER predictably.</p>
+
+<!-- idk what any of this is anymore
+<p>The graphs below show the Chloride concentration, DIC concentration, Sucrose concentration and <i>Synechococcus</i> biomass over the course of 10 hours. </p>
+
+<p>	The co-culture is carbon-limited, not chloride-limited. In the <i>Synechococcus</i> culture, DIC fell from ~1 mM to ~0 within ~20-40 min, so biomass and sucrose became pinned to the CO<sub>2</sub> feed. On the <i>E. coli</i> side, the AND-gate heatmaps show detox output peaking only when both inducers are ON at intermediate Kd (≈3-10 nM); low Kd leaks (OR-like), high Kd gives weak absolute output. 
+</p>
+<u>Flux Balance Analysis (FBA):</u> A constraint-based modeling approach used to simulate the metabolic exchange within the co-culture system as a complex network, allowing us to predict steady-state flux distributions based on mass balance and defined reaction constraints. This method helps us optimize key metabolic conditions—such as perchlorate turnover rates, chloride uptake efficiency, and sucrose fixation—and identify potential pathway knockouts that could enhance the production of critical enzymes involved in the system.
+
+</div>
+
+<div>
+    <h2>Enzyme Kinetics of Differing Perchlorate Reductase</h2>
+    <h3>Michaelis-Menten Assumptions:</h3>
+    <ol>
+        <li><u>Steady-state approximation:</u> In our perchlorate reduction model, we assume that the rate of PcrABCD-substrate complex formation (enzyme binding to perchlorate or chlorate) quickly reaches a steady state where complex formation and breakdown occur at equivalent rates. This allows us to approximate the catalytic rate as constant over time.</li>
+        <li><u>Free ligand assumption:</u>We assume the substrate concentration in this case perchlorate and its intermediates products (chlorate and chlorite) is significantly higher than the total enzyme concentration (PcrABCD or Cld). This allows us to assume the reaction rate depends primarily on the amount of substrate concentration that we have rather than the enzyme concentration.</li>
+        <li><u>Rapid equilibrium assumption:</u>We assume that the enzyme-substrate binding and catalytic conversion steps proceed primarily in the forward direction (toward perchlorate reduction and oxygen/chloride generation), and that product rebinding is negligible.</li>
+    </ol>
+
+    <h3>Modeling bacterial consortia using logic computing</h3>
+    
+</div>
+
+<div>
+<h2>Structural Modeling of pcrAB Construct</h2>
+<p>Perchlorate reductase (PcrABCD) is the periplasmic enzyme complex that reduces perchlorate (ClO<sub>4</sub><sup>-</sup>) to chlorite (ClO<sub>2</sub><sup>-</sup>), before which chlorite dismutase (Cld) catalyzes the conversion of chlorite to Cl<sup>-</sup> and O<sub>2</sub> [1]. Genes encoding this metabolism are located on the Perchlorate Reduction Genomic Island (PRI), which is horizontally transferred and tightly conserved in strains like <i>Azospira</i> and <i>Dechloromonas aromatica</i>. Within the perchlorate reduction pathway, pcrA encodes the catalytic a-subunit, electron transfer beta-subunit within pcrB. pcrC and pcrD are required coenzymes: pcrC a periplasmic tetraheme c-type cytochrome which is responsible for electron transfer from the membrane quinone pool to pcrB while pcrD is a necessary coenzyme for the assembly of the pcrAB complex.</p>
+<p>As such, we chose to model the pcrAB complex given its catalytic function with Michaelis-Menten kinetics. PcrAB both act in concert during perchlorate reduction, further motivating the decision to model them together. To better study the relationship between pcrA and pcrB, a point mutation was modelled at residue number 461. This point mutation replaces tryptophan (W) with glutamic acid (E), which functionally deactivates pcrA.
+</p>
+
+<p> To further elucidate the structural basis for this relationship between PcrA and PcrB, the structure of the perchlorate reductase complex was modelled to visualize how the catalytic (α) and electron-transfer (β) subunits cooperate to facilitate Mo-centered reduction.
+</p>
+
+<p>A key mutation is the effect of changing the residue #461 from tryptophan to glutamic acid [1], visualized in pink on the above figure. This mutation occurs near the molybdenum (Mo) cofactor pocket and forms part of an aromatic gate that stabilizes substrate entry and controls product retention. The negative charge of the glutamic acid repels electrons, which prevents electrons from being coordinated by the molybdenum atom during perchlorate reduction. Perchlorate Reductase is part of the Type II DMSO Reductase Protein family, which is part of the larger DMSO Reductase Protein Family that includes proteins like nitrate reductase. All proteins of this family Type II DMSO Reductase Protein Family require molybdenum (Mo) that is buried in the catalytic (α) subunit inside a bis-molybdopterin guanine dinucleotide (bis-MGD) cofactor pocket. Initially, Mo has an oxidation state of +4 with 2 bonds to sulfur, 1 double bond to oxygen and 1 amino acid side chain bond (typically Asp in Type II DMSO Reductase Protein Family),  Mo is able to strip one oxygen from the substrate (in this case perchlorate) to produce a form of oxidation state +6 with all of its previous coordinate bonds plus an additional double bond to oxygen. The Mo (VI) is able to reversibly form water with 2 additional electrons from the Fe-S centers  and 2 protons. In the presence of atmospheric oxygen, Mo will double with 3 oxygens instead of the normal 2. This “kills” the enzyme in a sense as due to oxygen's high electronegativity it is able to pull the electron density away from the Mo, reducing its effective energy state and reactivity (Figure 6). The Mo becomes electron poor and unlikely to further react in redox reactions where its role is to act as a temporary oxygen holder before being moved elsewhere.
+</p>
+
+
+<p>To further visualize the effect of the point mutation at residue 461, the electrostatic surface potential (ESP) was calculated using the Adaptive Poisson-Boltzmann Solver (APBS) under vacuum conditions, meaning the surrounding environment was treated as empty space without solvent or ionic effects. 
+</p>
+<p>In the unmutated PcrAB complex, the MO pocket exhibits a predominantly neutral to slightly positive potential (blue) surrounding the substrate entry channel, while the deeper regions near the cofactor and coordinating aspartate residue show localized negative potential (red) arising from oxygen and carboxylate groups. These charge distributions collectively form a balanced electrostatic landscape that is favorable for stabilizing the incoming perchlorate (ClO<sub>4</sub><sup>-</sup>) substrate.
+</p>
+
+<p>Following structural and electrostatic modeling, wet lab experiments were designed first to express pcrAB alongside necessary cofactors pcrC and D. Following this, it would be possible to validate the proposed role of pcrA and pcrB in catalysis and electron transfer within the perchlorate reductase complex. The overarching aim of these experiments is to experimentally confirm that both subunits are necessary for efficient perchlorate reduction, as suggested by our structural data and kinetic modeling. Another perturbation to the system is the effect of oxygen, as it competes for electrons that cannot be shuttled to perchlorate and potentially damages sensitive perchlorate reducing enzymes. 
+</p>
+</div>
+
+<div>
+    <h2>Effect of O<sub>2</sub> on Perchlorate Reduction via Stochastic Simulation
+    </h2>
+    <p>Biological redox systems, especially those operating under microaerobic conditions, often exhibit fluctuations that cannot be captured by purely deterministic models. The perchlorate reductase (PcrAB) complex operates in a periplasmic environment where stochastic changes in oxygen concentration and electron donor availability can significantly affect catalytic turnover. While our deterministic Michaelis-Menten analysis describes the mean behavior of PcrAB, it does not capture the inherent randomness of molecular interactions or the probabilistic nature of Mo redox cycling under O<sub>2</sub> stress [3]. Since cld catalyzes the reaction of chlorate to oxygen and chlorides, we hope to demonstrate a negative feedback loop in effect of perchlorate reduction is observed.
+    </p>
+    <p>To further investigate how oxygen exposure influences PcrAB catalysis, we developed a stochastic simulation of the perchlorate reduction reaction network. This approach accounts for biological noise and simulates discrete reaction events over time rather than relying on continuous rate laws and structural analysis. </p>
+        <p>To account for stochasticity, we reformulated our kinetic rate equations into propensity functions and implemented the Gillespie algorithm, or stochastic simulation algorithm (SSA). This method captures the probabilistic evolution of enzyme-substrate interactions in time, allowing us to explore transient behaviors such as partial inhibition, random reactivation, and oxygen-dependent quenching of the Mo cofactor.
+        </p>
+    <p>In this model, we fit the effect of O<sub>2</sub> to gradually reduce the propensity for the catalyzation of perchlorate (ClO<sub>4</sub><sup>-</sup>). We incorporated the effect of the inhibitory effect on perchlorate reduction, which was clearly demonstrated in our simulation. As O<sub>2</sub> levels increased, perchlorate levels began to build up, clearly demonstrating the negative feedback from O<sub>2</sub> production catalyzed by cld.
+    </p>
+    </div>
+
+<div>
+    <h2>Conclusion</h2>
+
+        <h3>Co-culture Conditions and Metabolite Linking</h3>
+
+    <h3>Structural Analysis</h3>
+    <p>Reinforced Wet Lab's decision to study the expression and enzyme kinetics of pcrAB, which requires necessary coenzymes pcrC for electron transfer from the quinone pool and pcrD which allows for assembly.</p>
+    <h3>Effect of O<sub>2</sub> on Perchlorate Reductase</h3>
+
+</div>
+-->
+<div>
+    <h2>References</h2>
+    <p>[1] Ji, Weiyue, et al. “A Formalized Design Process for Bacterial Consortia That Perform Logic Computing.” PLoS ONE, vol. 8, no. 2, 28 Feb. 2013, pp. e57482-e57482, <a href="https://doi.org/10.1371/journal.pone.0057482">https://doi.org/10.1371/journal.pone.0057482</a>. Accessed 30 Jan. 2025.</a></p>
+    <p>[2] Melnyk, Ryan A., and John D. Coates. “The Perchlorate Reduction Genomic Island: Mechanisms and Pathways of Evolution by Horizontal Gene Transfer.” BMC Genomics, vol. 16, no. 1, 26 Oct. 2015, <a href="https://doi.org/10.1186/s12864-015-2011-5">https://doi.org/10.1186/s12864-015-2011-5.</a></p>
+    <p>[3] Schaffner, Irene, et al. "Molecular Mechanism of Enzymatic Chlorite Detoxification: Insights from Structural and Kinetic Studies." ACS Catalysis, vol. 7, no. 11, 26 Oct. 2017, pp. 7962–7976, <a href="https://doi.org/10.1021/acscatal.7b01749">https://doi.org/10.1021/acscatal.7b01749.</a></p>
+    <p>[4] Dickson, Andrew. (2010). The carbon dioxide system in seawater: Equilibrium chemistry and measurements. Guide to Best Practices for Ocean Acidification Research and Data Reporting. 17-40. </p>
+    <p>[5] Hasegawa, M., Hosaka, T., Kojima, K., Nishimura, Y., Nakajima, Y., Kimura-Someya, T., Shirouzu, M., Sudo, Y., & Yoshizawa, S. (2020). A unique clade of light-driven proton-pumping rhodopsins evolved in the cyanobacterial lineage. <i>Scientific reports, 10</i>(1), 16752. <a href="https://doi.org/10.1038/s41598-020-73606-y">https://doi.org/10.1038/s41598-020-73606-y</a></p>
+    <p>[6] Mangan N, Brenner M. Systems analysis of the CO2 concentrating mechanism in cyanobacteria. Elife. 2014 Apr 29;3:e02043. doi: 10.7554/eLife.02043. Epub ahead of print. PMID: 24842993; PMCID: PMC4027813.</p>
+    <p>[7] Ji, Weiyue, et al. “A Formalized Design Process for Bacterial Consortia That Perform Logic Computing.” PLoS ONE, vol. 8, no. 2, 28 Feb. 2013, pp. e57482–e57482, <a href="https://doi.org/10.1371/journal.pone.0057482">https://doi.org/10.1371/journal.pone.0057482</a>.</p>
+    <p>[8] Melnyk, Ryan A., and John D. Coates. “The Perchlorate Reduction Genomic Island: Mechanisms and Pathways of Evolution by Horizontal Gene Transfer.” BMC Genomics, vol. 16, no. 1, 26 Oct. 2015, <a href="https://doi.org/10.1186/s12864-015-2011-5">https://doi.org/10.1186/s12864-015-2011-5</a>.</p>
+    <p>[9] Stamatakis, K, et al. “Sodium Chloride-Induced Volume Changes of Freshwater Cyanobacterium <i>Synechococcus</i> Sp. PCC 7942 Cells Can Be Probed by Chlorophyll <i>a</i> Fluorescence.” <i>Archives of Biochemistry and Biophysics, vol. 370</i>, no. 2, Autumn 1999, pp. 240–9, pubmed.ncbi.nlm.nih.gov/10510283/, <a href="https://doi.org/10.1006/abbi.1999.1366">https://doi.org/10.1006/abbi.1999.1366</a>.</p>
+    <p>[10] Youngblut, Matthew D, et al. “Perchlorate Reductase Is Distinguished by Active Site Aromatic Gate Residues.” <i>Journal of Biological Chemistry, vol. 291</i>, no. 17, 22 Apr. 2016, pp. 9190–9202, <a href="https://doi.org/10.1074/jbc.m116.714618">https://doi.org/10.1074/jbc.m116.714618</a>. Accessed 21 Apr. 2023.</p>
+</div>
+
+<div>
+<h1>Section 2: Product Development Modeling</h1>
+
+<h2>Thermal Modeling and Material Suitability under Martian Environment</h2>
+<h3>The Product Development modelling is divided into two major components.</h3>
+<p>The first focuses on future scale-up planning for Martian missions. Although the ARC bioreactor was originally designed based on current laboratory-scale requirements and the logistical constraints of Mars transportation, we must anticipate the potential bioreactor demands that ARC could face in future applications. A key consideration is how heat exchange between the bioreactor and its surrounding environment may affect overall performance. On Mars, this factor becomes particularly critical, as it directly determines the choice of construction materials, modifications to the operational workflow, and ultimately, how these findings can be integrated into large-scale use cases. In our case, large-scale Martian soil treatment.</p>
+<p>During the scale-up analysis, several key variables were identified as determinants of bioreactor performance:</p>
+<ol>
+    <li><b>External placement feasibility:</b>Given that human habitat space on Mars will be a highly limited resource, any scaled-up deployment may require locating bioreactors outside pressurized habitats. This introduces direct dependence on the convective heat transfer coefficient, which characterizes how efficiently heat is exchanged between the reactor surface and the external atmosphere.</li>
+    <li><b>Target reactor volume:</b>The required culture volume is closely tied to the volume of soil to be processed. As there are currently no empirical data from interplanetary missions to define realistic soil throughput demands, we conservatively estimate a reactor capacity of 10 L—sufficient for effective perchlorate degradation and soil remediation.</li>
+    <li><b>Material selection:</b>The chosen material must satisfy all preceding constraints—thermal compatibility with Martian environmental conditions, feasible mass and density for transport, and long-term structural stability. For these reasons, our current design validation is conducted at a laboratory scale, which substantially reduces prototyping cost, launch payload, and total transport volume while enabling meaningful thermal and material characterization for eventual extrapolation to Martian conditions.</li>
+</ol>
+
+<p>To quantitatively evaluate how these environmental and material constraints influence reactor performance under Martian conditions, we introduced Biot number (Bi) modelling as a thermal characterization framework.</p>
+<p>The Biot number, defined as Bi = hL/k, represents the ratio between external convective heat transfer (governed by the Martian atmosphere, with a low convective coefficient h) and internal conductive heat transfer (determined by the material's thermal conductivity k and reactor dimension L).
+</p>
+<p>By computing Bi values across different materials (borosilicate glass, stainless steel, AL-6XN, carbon steel, and aluminum alloy) and Martian convective conditions (0.6-9 W m<sup>-2</sup> K<sup>-1</sup>), we can identify which reactor configurations maintain sufficient thermal uniformity. Convective heat transfer coefficients under Martian surface conditions were taken from Soria-Salinas et al. (2015), Convective Heat Transfer Measurements at the Martian Surface, which reports h ≈ 0.6-9 W m<sup>-2</sup> K<sup>-1</sup> for wind velocities of 0.5-4 m/s at T ≈ 250 K and P ≈ 720 Pa.  This modelling serves as a quantitative link between the environmental assumptions of future Martian operations and the practical material and design decisions for the ARC bioreactor family.
+</p>
+<p>These values span more than two orders of magnitude, allowing us to compare materials ranging from highly insulative (glass) to highly conductive (aluminum). In this context, lower k values indicate poorer heat conduction and thus higher temperature gradients within the reactor, while higher k values promote rapid heat transfer and a more uniform internal temperature distribution. This wide range provides a clear physical contrast when analyzing how different reactor materials perform under Martian convective heat transfer conditions.
+</p>
+<p>To further investigate the scalability of the ARC bioreactor system for future Martian soil remediation missions, the modelling framework was extended from the baseline 1 L laboratory configuration to a 10 L conceptual design. This up-scaling reflects a realistic operational scale for in-situ perchlorate degradation, where larger culture volumes would be required to achieve meaningful soil treatment throughput under mission-level constraints.
+</p>
+<p>In this scenario, the reactor's characteristic length (L)was proportionally increased from 0.10-0.17 m (for 1 L) to 0.35-0.50 m, representing the expected geometric range for a 10 L vessel of similar aspect ratio. An increase in L therefore yields a proportional increase in Bi, implying greater potential for internal temperature gradients at larger volumes. This analysis enables quantitative assessment of whether each material can maintain Bi < 0.1, the threshold for near-isothermal performance, even at a 10 L scale. Through this comparative framework, we can determine which structural materials remain thermally viable for scaled-up ARC systems deployed in Martian environmental conditions.
+</p>
+<p>To translate the conceptual thermal framework into quantitative results, we developed a numerical simulation of Biot number variation under Martian environmental conditions. By iterating across a range of realistic h, k, and L values, we can visualize how different materials behave thermally when scaled to both laboratory and mission-scale reactors.
+</p>
+
+    <img class="figure-img-ctr" style="max-width: 70%;" rc="https://static.igem.wiki/teams/5717/modeling/blot-number-borosilicate-glass.avif" alt="borosilicate">
+    <figcaption class="figure-caption">Figure 9.1. Biot Number (Borosilicate Glass)</figcaption>
+
+    <img class="figure-img-ctr" style="max-width: 70%;" src="https://static.igem.wiki/teams/5717/modeling/blot-number-ss304-stainless-steel.avif" alt="SS304">
+    <figcaption class="figure-caption">Figure 9.2. Biot Number (Stainless Steel)</figcaption>
+
+    <img class="figure-img-ctr" style="max-width: 70%;" src="https://static.igem.wiki/teams/5717/modeling/blot-number-stainless-alloy.avif" alt="stainless alloy">
+    <figcaption class="figure-caption">Figure 9.3. Biot Number (Stainless Alloy)</figcaption>
+
+    <img class="figure-img-ctr" style="max-width: 70%;" src="https://static.igem.wiki/teams/5717/modeling/blot-number-carbon-steel.avif" alt="carbon steel">
+    <figcaption class="figure-caption">Figure 9.4. Biot Number (Carbon Steel)</figcaption>
+
+    <img class="figure-img-ctr" style="max-width: 70%;" src="https://static.igem.wiki/teams/5717/modeling/blot-number-anodized-aluminum-alloy.avif" alt="anodized aluminum">
+    <figcaption class="figure-caption">Figure 9.5. Biot Number (Anodized Aluminum)</figcaption>
+
+<p>The simulation was implemented in MATLAB, using parameter sweeps to generate a 3D surface plot of Biot number as a function of reactor height and material index (h/k).
+</p>
+<p>This approach allows us to identify which material-geometry combinations achieve Bi < 0.1, the threshold for near-isothermal operation, and which configurations fall into higher-Bi regimes where temperature gradients may arise.
+</p>
+<p>To further quantify this relationship, the model also allows the user to input a target Biot number (e.g., Bi = 0.05), enabling reverse identification of the corresponding h, k, and L values that achieve this thermal equilibrium condition.
+</p>
+<p>This workflow bridges the conceptual understanding of Martian convection with practical design parameters for the ARC bioreactor family.
+</p>
+<p>The five plots respectively illustrate how the Biot number varies across different materials under Martian environmental conditions (h = 0.6-9 W m<sup>-2</sup> K<sup>-1</sup>). The x-axis represents the reactor height L (0.10-0.17 m), the y-axis denotes the convective heat-transfer coefficient h, and the z-axis shows the calculated Biot number (Bi = h x L / k). The color gradient from blue to yellow indicates increasing Biot values. A smaller Biot number corresponds to a more uniform internal temperature distribution and higher thermal-transfer efficiency. In general, Bi > 0.1 implies a pronounced internal temperature gradient, whereas Bi < 0.1 indicates an effective isothermal system.
+</p>
+<p>For our bioreactor application, maintaining an isothermal chamber is advantageous—it ensures that all regions of the culture experience consistent reaction conditions. This thermal stability is particularly beneficial for maintaining co-culture balance and sustaining biofilm formation over long-term operation.
+</p>
+<p>Overall, borosilicate glass exhibits the lowest thermal conductivity among the tested materials. While this provides strong thermal insulation, it also limits internal heat diffusion, potentially creating localized hot or cold zones. However, at the laboratory scale of the ARC reactor (approximately 1 L), such local gradients are minimal, justifying our continued use of a glass beaker as the primary culture vessel. The other metallic materials demonstrate significantly higher conductivities, enabling more even temperature profiles—an important feature for larger-scale systems or precise temperature control.
+</p>
+<p>Among all tested materials, anodized aluminum alloy (k ≈ 170 W m<sup>-1</sup> K<sup>-1</sup>) stands out. Its exceptionally high conductivity results in nearly uniform temperature distribution (Bi < 0.01) even under low Martian convection coefficients. This characteristic makes it ideal for off-Earth applications, where external environmental fluctuations could otherwise destabilize internal conditions.
+</p>
+<p>In the ARC reactor design, these modeling insights directly informed our material selection. Stainless steel was initially considered but ruled out due to machining complexity and higher mass. In contrast, aluminum alloy offered excellent manufacturability via CNC milling, low weight, and superior heat-transfer capability. Consequently, we selected CNC-machined anodized aluminum for the top structure—a choice that aligns with both our engineering modeling results and the practical requirements of a lightweight, thermally stable Martian bioreactor.
+</p>
+
+</div>
+<br>
+<div>
+
+<h2>Modeling Population of Cells in Media</h2>
+<h3>Cell Concentration</h3>
+<p>The growth of cells in solution can be modeled with a whole host of equations: the Monod, Tessier, Contois, and Moser equations, among others. For the purposes of simplicity, a modified Monod equation will be utilized that allows for substrate inhibition of growth at higher concentrations.</p>
+
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-2-1.avif" alt="Equation 1">
+    <figcaption class="figure-caption">Equation 2.1. The first factor is the modification. The second factor is the general Monod equation. Cp is the product concentration, rg is the growth rate, Cp* is the product concentration when cellular metabolism goes to zero, μmax is the maximum specific growth reaction rate, Cs is the substrate concentration, Ks is the Monod constant, and n is a constant that can be found through experimentation.</figcaption>
+
+    <p>The death of cells can be modeled by the following equation.</p>
+
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-2-2.avif" alt="Equation 1">
+    <figcaption class="figure-caption">Equation 2.2. Equation modeling cell death rate rd. Ct is the concentration of a toxic material, and kd and kt are both constants for the death rate and toxic material buildup respectively. Ctkt can be zero if the term is irrelevant to the system of interest.
+    </figcaption>
+
+
+<h3>Substrate and Product Concentration</h3>
+<p>Since the Monod equation takes into account the product and substrate concentration as well, two other mass balances for the substrate and product should and can be determined in a similar manner to the cell mass balance. The equations are such:</p>
+
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-2-5.avif" alt="Equation 2.5">
+    <figcaption class="figure-caption">Equation 2.5. Equation modeling the change in substrate concentration over time in the growth phase. Ys/c is mass of substrate consumed for growth/mass of new cells, rsm is the substrate consumption rate for the maintenance of the cells (no growth). The constant ms/w is the ratio of mass of substrate consumed for maintenance divided by the dry weight of the cells and time.</figcaption>
+
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-2-6.avif" alt="Equation 2.6">
+    <figcaption class="figure-caption">Equation 2.6 Equation modeling the change in substrate concentration over time in the stationary phase.</figcaption>
+
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-2-7.avif" alt="Equation 2.7">
+    <figcaption class="figure-caption">Equation 2.7. Equation modeling the change in product concentration over time in the growth phase. Yp/c is the mass of a product divided by the mass of cells formed in the growth phase. The constant rp is the rate of production formation.</figcaption>
+
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-2-8.avif" alt="Equation 2.8">
+    <figcaption class="figure-caption">Equation 2.8. Equation modeling the change in product concentration over time in the stationary phase. Yp/s is the mass of a product divided by the mass of substrate needed by cells to form the product.</figcaption>
+
+<p>The above equations can be combined to model the growth of a bacterium at any point in its growth or stationary phase.</p>
+
+<h3>Modeling Accumulation of Biomass on Carrier Lattice</h3>
+<p>The following is from a paper authored by Picioreanu et al. 1997 in which they aimed to model the formation of biomass on a gel bead. The table was included to demonstrate all the various parameters that were taken into account in growing the biomass. Many of these parameters are of relevance to the first part of the task: modeling the growth of bacteria in the solution. </p>
+<p>Modeling the growth of biofilm on a lattice, a more geometrically complex structure than a gel bead, will no doubt have more factors associated with it. For purposes of practicality, using a complex mathematical model may not be in Project's best interest. While the growth of bacteria in the solution is easier to modulate, the growth of biofilm on the carrier may lead to more variable results depending on the carrier's structure.</p>
+
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/table-2-1.avif" alt="Table 2.1">
+    <figcaption class="figure-caption">Table 2.1. Table credits go to Picioreanu et al. 1997.</figcaption>
+
+<p>Here is where the creative element of the task comes into play. We can map the values of bacteria concentration in the solution to the numerical value of the cell count that adheres to the biofilm carrier over a given period. This is not a beautiful, mathematical solution, but what this calibration will do is allow the experimenter to optimize biofilm formation precisely by simply changing the cell concentration in the solution. We can assume, for the purposes of experimentation, that they are related by a constant and a function that is related to the ratio of product concentration and substrate concentration:</p>
+
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-2-9.avif" alt="Equation 2.9">
+    <figcaption class="figure-caption">Equation 2.9.</figcaption>
+
+<p>The fundamental guess here is that the mapping between cell count of the biofilm and the concentration of bacteria in the solution are related by a function whose input is the ratio between the product concentration and the remaining substrate concentration.</p>
+
+<h3>Computation of Biofilm Formation</h3>
+<p>Using the equations highlighted above, the mapping function is as follows:</p>
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-2-10.avif" alt="Equation 2.10">
+    <figcaption class="figure-caption">Equation 2.10.</figcaption>
+
+<p>Where Nbf is the attached biofilm (cells) per unit area, λ is the attachment coefficient, and <i>f(C<sub>p</sub>/C<sub>s</sub>)</i> is the heuristic function representing the product to substrate ratio affecting the attachment.
+If the following model had feedback inhibition, the heuristic function could be defined as follows:
+    <img class="figure-img-ctr" src="https://static.igem.wiki/teams/5717/modeling/equation-2-11.avif" alt="Equation 2.11">
+    <figcaption class="figure-caption">Equation 2.11.</figcaption>
+
+<p>This model shows the decrease in biofilm formation as there is an accumulation of biomass. The parameter n represents the Hill Coefficient. As biofilm attachment is non-linear, this is needed to control how sharply biofilm formation decreases as the ratio of product to substrate increases. If n is closer to 1, this means that the function follows Michaelis-Menten inhibition, if it is larger it follows more of a sinusoidal behavior, and if it is less it is less sensitive to biofilm build up. This coefficient can be found from experimental data of controlled substrate and product concentrations over time. To simulate this model, MATLAB will be used.</p>
+
+<h3>Limitations</h3>
+<p>After a series of multiple tests, it was determined that the rate of formation of the biofilm is quite a complex matter, and it is difficult to quantify biofilm formation. A mathematical model that can model the rate of biofilm growth would certainly be beautiful but may be inconsistent. The Product Development subproject participants will experiment with open minds and may look for other equations that better model biofilm formation as more experimental evidence comes to light.</p>
+
+<h3>Data Collection and Optimization of the Reactor Chambers</h3>
+<p>A methodology for finding the efficiency of each of the modules was defined in the Hardware section. Thus, depending on the experimental results, it is possible to find the power output levels where the ratio of valuable output to energy input is maximized. Operating in these conditions is ideal. As of now, testing has not begun, but once results are obtained, an outline of optimal operating conditions can be created. Mass and thermal balances can also be quantified, but again, without data, no concrete conclusions can be made. This is the next large priority for the PD project group.</p>
+
+<h3>Ansys Fluent</h3>
+<p>Ansys Fluent is a computational software that yields insights into the nature of fluid flow in various systems. This includes shear forces, flow vectors, contours, etc. The Product Development project group is currently working on modeling the fluid flow in our bioreactor using Ansys Fluent as a way to find inefficiencies in the system and to better understand the various fail-points in the setup.</p>
+
+<h3>Heat Transfer</h3>
+<p>The carrier used in the design is glass wool, which is an insulator. Glass wool works well as a carrier as it has high surface area which allows for easy attachment, but it has low effective thermal conductivity, therefore it impedes heat transfer. Therefore, maintaining 37°C could be a challenge and could have temperature gradients.</p>
+<p>To check whether the wool would be isothermal or if there would be internal gradients, the Biot number serves as an estimate.</p>
+<p>The Biot number, N<sub>Bi</sub>, is a heat transfer calculation that is commonly used in heat transfer calculations. This number is the ratio of internal conductive resistance and external convective resistance and it is dimensionless.
+<p>The equation below is used to calculate the heat Biot number.</p>
+<!--equation in table-->
+<p>The convective heat-transfer coefficient between the fluid and glass wool in this case would be in the format of assisted convection, as the convection occurs by the heat pad. The convective heat transfer coefficient varies depending on the fluid, and in forced convection of water and liquids the range of this value is 10 - 1000 Wᐧm<sup>-2</sup>ᐧk<sup>-1</sup> and it is assumed that this value is 200 Wᐧm<sup>-2</sup>ᐧk<sup>-1</sup>. The length of the glass wool will be experimentally determined, depending on the mass, volume, and length of the wool.</p>
+<p>The thermal conductivity (keff) of typical glass wool is 0.0343 Wᐧm<sup>-2</sup>ᐧk<sup>-1</sup>.</p>
+<!--formula?-->
+<p>If this number is above 1, the convection heat rate dominates conduction heat transfer. The goal is to have a consistent temperature within the reactor, and therefore this is good. Thus, a conclusion is that it will take longer for the wool to reach the temperature of 37°C as compared to a system fully composed of fluids. Some solutions to this challenge would be to make the glass wool thinner, as this would reduce the characteristic length of the glass wool.</p>
+
+</div>
+
+{% endblock %}

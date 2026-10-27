@@ -1,0 +1,463 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block body_class %}scroll-bg{% endblock %}
+{% block header_class %}d-none{% endblock %}
+{% block main_class %}page-full no-stars{% endblock %}
+
+{% block page_content %}
+
+<div class="stars-container" aria-hidden="true"></div>
+
+<p class="project-credit">Built by Linyan Zou &amp; <strong>Sofia Tala IGEM Gold</strong></p>
+
+<section class="awards-section">
+  <div class="awards-grid">
+    <!-- Column 1 -->
+    <div class="award-column">
+      <div class="award-stack">
+        <div class="meteor-holder">
+          <img
+            src="https://static.igem.wiki/teams/5717/homepage/meteorite.avif"
+            alt="Meteorite"
+            class="meteor-img"
+          />
+        </div>
+        <figure class="award-card">
+          <img src="https://static.igem.wiki/teams/5717/homepage/best-hardware.avif" alt="Best Hardware" class="award-img">
+          <figcaption class="award-caption">Best Hardware</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="award-column">
+      <div class="award-stack">
+        <div class="meteor-holder">
+          <img
+            src="https://static.igem.wiki/teams/5717/homepage/meteorite.avif"
+            alt="Meteorite"
+            class="meteor-img"
+          />
+        </div>
+        <figure class="award-card">
+          <img src="https://static.igem.wiki/teams/5717/homepage/best-space-removebg.avif" alt="Best Space Project" class="award-img">
+          <figcaption class="award-caption">Best Space Project</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="award-column">
+      <div class="award-stack">
+        <div class="meteor-holder">
+          <img
+            src="https://static.igem.wiki/teams/5717/homepage/meteorite.avif"
+            alt="Meteorite"
+            class="meteor-img"
+          />
+        </div>
+        <figure class="award-card">
+          <img src="https://static.igem.wiki/teams/5717/homepage/medal-gold-flat.avif" alt="Gold Medal" class="award-img">
+          <figcaption class="award-caption">Gold Medal</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Perchlorate Problem -->
+<section class="perchlorate-section">
+  <div class="top-image-container">
+    <img 
+      src="https://static.igem.wiki/teams/5717/homepage/toxictopimage.webp" 
+      alt="Mars regolith"
+      class="top-perchlorate-img animate-fade-in"
+    />
+  </div>
+
+  <div class="container">
+    <div class="content-with-images">
+
+      <div class="side-image left-image" aria-hidden="true">
+        <img 
+          src="https://static.igem.wiki/teams/5717/homepage/toxicbottlegreen.webp" 
+          alt="" 
+          class="animate-slide-left"
+        />
+      </div>
+
+      <div class="center-text">
+        <p class="perchlorate-text">
+          However, its regolith is full of perchlorates — a toxic compound that prevents plant growth and endangers human health.
+        </p>
+      </div>
+
+      <div class="side-image right-image" aria-hidden="true">
+        <img 
+          src="https://static.igem.wiki/teams/5717/homepage/toxicbottleyellow.webp" 
+          alt="" 
+          class="animate-slide-right"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- Intro -->
+  <section class="intro-hero" id="intro-hero">
+    <img class="intro-wave-img" src="https://static.igem.wiki/teams/5717/homepage/introducing-1.webp" alt="Wavy background" />
+    <div class="intro-content"><h2>Introducing…</h2></div>
+  </section>
+
+  <!-- Planet + Prosper -->
+<section class="planet-scene">
+  <div class="planet-wrap">
+    <img class="planet" src="https://static.igem.wiki/teams/5717/main/planet-copy.webp" alt="Rotating Mars planet" />
+  </div>
+  <div class="prosper-col">
+    <p class="prosper-subtitle">Planetary Removal of Soil Perchlorates and Enrichment Remediation!</p>
+  </div>
+</section>
+
+  <!-- ==== Alternating scroll sections (no step headings) ==== -->
+<section id="prosper-steps" class="scroll-steps">
+  <!-- 1) Expression (text only) -->
+  <article class="step only-text">
+    <div class="copy animate-fade-in">
+      <p>the project expressed pcrABCD and accessory proteins in the periplasm to reduce perchlorates in <em>E. coli</em> with lipoprotein knockouts.</p>
+    </div>
+  </article>
+
+  <!-- 2) Co-culture (image LEFT) -->
+  <article class="step left">
+    <div class="media">
+      <img class="animate-slide-left fit-contain"
+           src="https://static.igem.wiki/teams/5717/homepage/homepage/earth.webp"
+           alt="Co-culture concept" />
+    </div>
+    <div class="copy animate-fade-in">
+      <p>We developed a co-culture system with <em>E. coli</em> and <em>Synechococcus</em> PCC 7002 that creates a closed loop, recycling perchlorate byproduct into organic carbon.</p>
+    </div>
+  </article>
+
+  <!-- 3) Deployment (image RIGHT) -->
+  <article class="step right">
+    <div class="copy animate-fade-in">
+      <p>To provide a feasible, user-friendly, and energy-efficient deployment platform for this co-culture system, we developed a fully modular and highly adaptable bioreactor family — <strong>ARC</strong>.</p>
+    </div>
+    <div class="media">
+      <img class="animate-slide-right"
+           src="https://static.igem.wiki/teams/5717/homepage/homepage/saturn-2.webp"
+           alt="Modular bioreactor concept" />
+    </div>
+  </article>
+
+  <!-- 4) Treatment (image LEFT) -->
+  <article class="step left">
+    <div class="media">
+      <img class="animate-slide-left"
+           src="https://static.igem.wiki/teams/5717/homepage/homepage/moon.webp"
+           alt="Soil flow-through and treatment" />
+    </div>
+    <div class="copy animate-fade-in">
+      <p>We first used a soil flow-through system to wash out perchlorate with water. Then, we utilized <strong>ARC</strong> to immobilize bacteria into biofilm and complete degradation in the treatment chamber.</p>
+    </div>
+  </article>
+
+  
+  <article class="step left">
+    <div class="media">
+      <img class="animate-slide-left big-media-img"
+           src="https://static.igem.wiki/teams/5717/homepage/homepage/barsonearth.webp"
+           alt="Design review" />
+    </div>
+    <div class="copy animate-fade-in">
+      <p>To learn more about methodologies, perchlorates, and the ethics behind space travel, we interviewed researchers, doctors, and policy experts.</p>
+    </div>
+  </article>
+
+  <!-- 6) Outreach (image LEFT) -->
+  <article class="step left">
+    <div class="media">
+      <img class="animate-slide-left big-media-img"
+           src="https://static.igem.wiki/teams/5717/homepage/homepage/alienmuno.webp"
+           alt="Educational outreach" />
+    </div>
+    <div class="copy animate-fade-in">
+      <p>We hosted educational events for children, adults, and elders to spread awareness about space travel and its ethics.</p>
+    </div>
+  </article>
+
+  <!-- 7) Growth (text only) -->
+  <article class="step only-text">
+    <div class="copy animate-fade-in">
+      <p><strong>PRoSPER’s</strong> growth can be driven by future space exploration and the increasing focus on legacy perchlorate contamination on Earth.</p>
+    </div>
+  </article>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+
+  <!-- GSAP core + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+  // --- Stars ---
+  (function makeStars(){
+    const container = document.querySelector('.stars-container');
+    if (!container) return;
+    const STAR_COUNT = 180;
+    for (let i = 0; i < STAR_COUNT; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = (Math.random() * 100) + 'vw';
+      s.style.top  = (Math.random() * 300) + 'vh';
+      const r = Math.random();
+      let size;
+      if (r < 0.7) size = 3 + Math.random();
+      else if (r < 0.95) size = 5 + Math.random() * 2;
+      else size = 8 + Math.random() * 2;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      if (size >= 8) s.style.boxShadow = '0 0 ' + (size*1.2) + 'px rgba(255,255,255,.7)';
+      s.style.opacity = (0.3 + Math.random() * 0.7).toFixed(2);
+      s.style.animationDuration = (1.5 + Math.random() * 2.5).toFixed(2) + 's';
+      s.style.animationDelay = (Math.random() * 2).toFixed(2) + 's';
+      container.appendChild(s);
+    }
+  })();
+
+// meterioite
+document.addEventListener("DOMContentLoaded", () => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const columns = gsap.utils.toArray(".award-column");
+
+  const tlAwards = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".awards-section",
+      start: "top 75%",
+      once: true
+    }
+  });
+
+  // For each column: meteor -> impact -> fade -> medal
+  columns.forEach((col) => {
+    const meteorHolder = col.querySelector(".meteor-holder");
+    const card         = col.querySelector(".award-card");
+    if (!meteorHolder || !card) return;
+
+    // 1) Meteor flies in from top-left to center of stack
+    tlAwards.fromTo(
+      meteorHolder,
+      {
+        x: -260,          // off-screen-ish top-left
+        y: -220,
+        opacity: 0,
+        scale: 0.9,
+        rotate: 0       // keep the 45° angle
+      },
+      {
+        x: 0,
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
+        ease: "power2.in",
+        rotate: 0       // stay diagonal, don't straighten
+      }
+    );
+
+    // 2) Little impact bump just for this column
+    tlAwards.to(
+      col,
+      {
+        y: 6,
+        duration: 0.08,
+        repeat: 2,
+        yoyo: true,
+        ease: "power1.inOut"
+      },
+      "<" // overlaps with the end of the meteor flight
+    );
+
+    // 3) Meteor fades out behind the medal
+    tlAwards.to(meteorHolder, {
+      opacity: 0,
+      duration: 0.35,
+      ease: "power1.out"
+    });
+
+    // 4) Medal for this column appears
+    tlAwards.fromTo(
+      card,
+      { autoAlpha: 0, scale: 0.9 },
+      {
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.6,
+        ease: "power3.out"
+      }
+    );
+  });
+});
+
+
+  // --- Mars zoom ---
+  (function() {
+    const scene = document.getElementById('mars-scene');
+    const img = document.querySelector('.welcome-img');
+    const welcomeDiv = document.querySelector('.welcome-to-mars');
+    const nextFrame = document.querySelector('.next-frame');
+    if (!scene || !img || !nextFrame) return;
+
+    function updateAnimation() {
+      const sceneTop = scene.offsetTop;
+      const sceneHeight = scene.offsetHeight;
+      const scrollY = window.scrollY;
+      const progress = Math.max(0, Math.min(1, (scrollY - sceneTop) / (sceneHeight - window.innerHeight)));
+
+      if (progress < 0.2) {
+        const t = progress / 0.2;
+        img.style.transform = 'scale(' + (1 + 0.05*t) + ')';
+        img.style.opacity = '1';
+        welcomeDiv.style.opacity = '1';
+        nextFrame.style.opacity = '0';
+      } else if (progress < 0.7) {
+        const t = (progress - 0.2) / 0.5;
+        img.style.transform = 'scale(' + (1.05 + 1.35*t) + ')';
+        welcomeDiv.style.opacity = '1';
+        nextFrame.style.opacity = '0';
+      } else {
+        const t = (progress - 0.7) / 0.3;
+        img.style.transform = 'scale(2.4)';
+        welcomeDiv.style.opacity = String(1 - t);
+        nextFrame.style.opacity = String(t);
+      }
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => { updateAnimation(); ticking = false; });
+        ticking = true;
+      }
+    }, {passive:true});
+    updateAnimation();
+  })();
+
+  // --- Intro slide-in ---
+  (function(){
+    const sec = document.querySelector('#intro-hero');
+    if (!sec) return;
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { sec.classList.add('in-view'); io.disconnect(); }
+    }, { threshold: 0.25 });
+    io.observe(sec);
+  })();
+
+  // --- Prosper planet timing ---
+  (function(){
+    const isHome  = document.body.classList.contains('scroll-bg');
+    if (!isHome) return;
+    const planetWrap = document.querySelector('.planet-wrap');
+    const planet     = document.querySelector('.planet');
+    const col        = document.querySelector('.prosper-col');
+    const subtitle   = document.querySelector('.prosper-subtitle');
+    if (!planetWrap || !planet || !col) return;
+
+    const fadeStart = 100, fadeEnd = 400, rotateStart = 400, degPerPx = 0.12;
+    let didAppear = false;
+
+    function onScroll(){
+      const y = window.scrollY || 0;
+      if (y < fadeStart){
+        planetWrap.style.opacity = 0;
+        planetWrap.style.transform = 'translate(-20%, 20%) scale(0.6)';
+        col.style.opacity = 0;
+        col.style.transform = 'translateX(30px)';
+        planet.style.transform = 'rotate(0deg)';
+        if (didAppear) {
+          subtitle && subtitle.classList.remove('appear');
+          didAppear = false;
+        }
+        return;
+      }
+      if (y <= fadeEnd){
+        const t = (y - fadeStart) / (fadeEnd - fadeStart);
+        const tx = -20 + 20 * t, ty = 20 - 20 * t, s = 0.6 + 0.4 * t;
+        planetWrap.style.opacity = t;
+        planetWrap.style.transform = `translate(${tx}%, ${ty}%) scale(${s})`;
+        col.style.opacity = t;
+        col.style.transform = `translateX(${30 - 30*t}px)`;
+        planet.style.transform = 'rotate(0deg)';
+        if (!didAppear && t > 0.6) {
+          subtitle && subtitle.classList.add('appear');
+          didAppear = true;
+        }
+        return;
+      }
+      planetWrap.style.opacity = 1;
+      planetWrap.style.transform = 'translate(0%,0%) scale(1)';
+      col.style.opacity = 1;
+      col.style.transform = 'translateX(0)';
+      if (!didAppear) {
+        subtitle && subtitle.classList.add('appear');
+        didAppear = true;
+      }
+      const spinPx = Math.max(0, y - rotateStart);
+      planet.style.transform = `rotate(${spinPx * degPerPx}deg)`;
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('load', onScroll);
+  })();
+  
+  </script>
+  
+<!-- ✅ Single IntersectionObserver for all reveals -->
+<script>
+  (function(){
+    const targets = document.querySelectorAll([
+      '.perchlorate-section .top-perchlorate-img',
+      '.perchlorate-section .side-image img',
+      '#prosper-steps .media img',
+      '#prosper-steps .copy',
+      '.animate-fade-in',
+      '.animate-slide-left',
+      '.animate-slide-right'
+    ].join(','));
+
+    if (!targets.length) return;
+
+    // If no IO support or reduced motion, just show everything
+    if (!('IntersectionObserver' in window) ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      targets.forEach(el => el.classList.add('in-view'));
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+
+        if (el.tagName === 'IMG' && 'decode' in el) {
+          el.decode().catch(()=>{}).finally(() => el.classList.add('in-view'));
+        } else {
+          el.classList.add('in-view');
+        }
+
+        io.unobserve(el);
+      });
+    }, { rootMargin: '10% 0% -8% 0%', threshold: 0.08 });
+
+    targets.forEach(el => io.observe(el));
+  })();
+  </script>
+
+{% endblock %}

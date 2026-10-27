@@ -1,0 +1,2036 @@
+{% extends "layout.html" %}
+{% block header_class %}hardware-header{% endblock %}
+{% block page_content %}
+<div class="hardware-video">
+    <iframe
+        class="davideo"
+        src="https://video.igem.org/videos/embed/iUzNgPYSMfPWkWfg7cuJec?loop=1&amp;autoplay=1&amp;muted=1&amp;title=0&amp;warningTitle=0&amp;controlBar=0&amp;peertubeLink=0&amp;p2p=0"         frameborder="0"
+        allow="autoplay"
+        allowfullscreen="false"
+        style="border: 0px; pointer-events: none;">
+    </iframe>
+</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .star{
+            display: none;
+        }
+        .star-rail{
+            display: none;
+        }
+        @font-face { font-family: 'Poppins'; src: url('https://static.igem.wiki/teams/5717/font/poppins-light.ttf'); }
+        @font-face { font-family: 'Gugi'; src: url('https://static.igem.wiki/teams/5717/font/gugi.ttf'); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,body{
+            background-color: #000000;
+        }
+        .hero-typing::after{
+            color: transparent;
+            text-shadow: none;
+        }
+        .rocket-track{
+            visibility: hidden;
+        }
+        .rocket-container{
+            visibility: hidden;
+        }
+        .hero-typing::before{
+            color: transparent;
+            text-shadow:none;
+        }
+        .hardware-video{
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .davideo{
+            width: 100%;
+            height: auto;
+            min-height: 300px;
+            aspect-ratio: 16/9; /* Adjust this to match your video's aspect ratio */
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .hardware-video::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hardware-header{
+            height: 0vh;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            align-items: center;
+        }
+        html{
+            background-color:#000000;
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
+        .slideshow-container {
+            background-image: url('https://static.igem.wiki/teams/5717/hardware/slideshow/background-2.avif'); /* update path */
+            background-size: cover;           /* scale image to cover section */
+            background-position: center center;
+            background-repeat: no-repeat;
+            min-width: 100vw;
+            min-height: 100vh;                /* full viewport height */
+            display: flex;                    /* center content if you want */
+            align-items: center;
+            justify-content: center;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+            opacity: 0.7;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Canvas Container - Updated for proper centering */
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Canvas wrapper for sticky positioning */
+        .canvas-wrapper {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        /* .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, #641C33 0%, #24041C 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        } */
+        /* Stars background animation */
+        /* .loading-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #E2E0DE, transparent),
+                radial-gradient(2px 2px at 40px 70px, #D47484, transparent),
+                radial-gradient(1px 1px at 50px 50px, #E2E0DE, transparent),
+                radial-gradient(1px 1px at 80px 10px, #E86B55, transparent),
+                radial-gradient(2px 2px at 130px 80px, #E2E0DE, transparent),
+                radial-gradient(1px 1px at 110px 120px, #D47484, transparent);
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.3;
+            animation: stars 120s linear infinite;
+        }
+
+        @keyframes stars {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-200px);
+            }
+        }
+
+        .loading-overlay.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(228, 107, 85, 0.2);
+            border-top-color: #E86B55;
+            border-right-color: #D47484;
+            border-radius: 50%;
+            animation: marsRotate 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(232, 107, 85, 0.5);
+        }
+
+        .loader::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #E86B55, #641C33);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(232, 107, 85, 0.8);
+        }
+
+        @keyframes marsRotate {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.1);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        .loading-text {
+            font-size: 1.1rem;
+            color: #E2E0DE;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(226, 224, 222, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .progress-bar {
+            width: 250px;
+            height: 6px;
+            background: rgba(100, 28, 51, 0.5);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 116, 132, 0.3);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #E86B55, #D47484, #E86B55);
+            background-size: 200% 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            animation: shimmer 2s linear infinite;
+            box-shadow: 0 0 10px rgba(232, 107, 85, 0.7);
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        } */
+    </style>
+</head>
+<body>
+    <section class="everything-else">
+    <!-- Loading Overlay -->
+    <!-- <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+        <div class="loading-text">Mission to Mars...</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+    </div> -->
+
+
+    <div class="canvas-container" id="animationContainer"></div>
+    <div class="texts">
+        <h1>Adaptive Reaction Chamber</h1>
+        <div class="medaling">
+            <img class="medal-img" src="https://static.igem.org/websites/common/2023/icons/awards/best-hardware.svg" alt="Best hardware" loading="lazy">
+            <h1 class="medal-text">Best Hardware 2025</h1>
+        </div>
+        <p>The Product Development project group has designed and built the Adaptive Reaction Chamber (ARC) bioreactor family tailored for two coculture model organisms: E. coli and Synechococcus. To accommodate the diverse requirements of these microbes, the bioreactor features a <span class="span"><strong>fully modular assembly</strong></span>. This design not only provides an ideal deployment platform for the PRoSPER project but also serves as a comprehensive benchtop bioreactor solution synthetic biology community.</p>
+    </div>
+
+    <style>
+        .medaling {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        .medal-text {
+            padding-right: 0;
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+        }
+        .medal-img {
+            width: 5%;
+        }
+        .span {
+            position: relative;
+            font-weight: 1000;
+            color: black;                           /* text stays black */
+            background-image: linear-gradient(#ffc800cf, #FFC900);
+            background-repeat: no-repeat;
+            background-size: 0% 80%;                /* start collapsed, 80% tall */
+            background-position: 0 50%;             /* center vertically */
+            transition: background-size 0.6s ease;
+            border-radius: 10px;      
+            padding: 0 0.2em;  
+        }
+        .three-box-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            overflow: hidden;
+            padding: 40px 0;
+        }
+
+        .texts{
+            text-align: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: 'Poppins', sans-serif;
+        }
+        .texts strong{
+            font-weight: bold;
+        }
+        .texts h1{
+            color: rgb(255, 255, 255);
+            font-family: "Gugi", Gill Sans, sans-serif;
+        }
+        h2{
+            color: rgb(255, 255, 255);
+            font-family: "Gugi", Gill Sans, sans-serif;
+        }
+        .variant-button {
+            font-family: "Gugi", Gill Sans, sans-serif;
+        }
+        #three-box{
+            display: flex;
+            width: auto; /* Let width be determined by content */
+            overflow: visible; /* Allow overflow for overlapping */
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .three-box__cell{
+            flex: 0 0 auto; /* Don't flex, use natural size */
+            width: 500px; /* Set a specific width for larger images */
+            display: block;
+            height: auto;
+            position: relative;
+        }
+
+        /* Overlap the boxes significantly */
+        .three-box__cell:nth-child(1){
+            z-index: 1;
+        }
+
+        .three-box__cell:nth-child(2){
+            margin-left: -150px; /* Pull middle box to overlap left */
+            margin-right: -150px; /* Pull right box to overlap middle */
+            z-index: 2; /* Middle box on top */
+        }
+
+        .three-box__cell:nth-child(3){
+            z-index: 1;
+        }
+
+        .three-box__cell img{
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
+
+    <div class="three-box-wrapper">
+        <div id="three-box">
+            <div class="three-box__cell">
+                <img src="https://static.igem.wiki/teams/5717/hardware/3boxes/introduction-4-001.webp" alt="Image 1" loading="lazy">
+            </div>
+            <div class="three-box__cell">
+                <img src="https://static.igem.wiki/teams/5717/hardware/3boxes/introduction-4-002.webp" alt="Image 2" loading="lazy">
+            </div>
+            <div class="three-box__cell">
+                <img src="https://static.igem.wiki/teams/5717/hardware/3boxes/introduction-4-003.webp" alt="Image 3" loading="lazy">
+            </div>
+        </div>
+    </div>
+    <div class="texts">
+        <p>In response to the specific needs of the PRoSPER project and the broader demands of synthetic biology bioreactor applications, we integrated a key interview with an external advisor and independently designed and fabricated the following variants of the <span class="span"><strong>ARC bioreactor family</strong></span>.</p>
+    </div>
+
+    <style>
+        .showcase-container {
+            max-width: 1400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0px;
+            align-items: center;
+            min-height: 450px;
+            margin-bottom: 30px;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05), transparent);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .text-content {
+            padding: 20px;
+            padding-left: 0;
+        }
+
+        .text-content h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff, #a0a0a0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-content p {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #d0d0d0;
+            font-weight: 300;
+        }
+
+        .variant-section {
+            display: none;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        .variant-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 8px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            width: 50vw;
+            margin: auto;
+        }
+
+        .button-slider {
+            position: absolute;
+            height: calc(100% - 16px);
+            background: #000000;
+            border-radius: 40px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 7px rgba(255, 255, 255, 0.6);
+            z-index: 1;
+            left: 0;
+            width: 150px;
+        }
+
+        .variant-button {
+            padding: 18px 50px;
+            font-size: 24px;
+            font-weight: 500;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            border-radius: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .variant-button:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .variant-button.active {
+            color: #ffffff;
+        }
+
+        .variant-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .variant-button:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        @media (max-width: 968px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .image-container {
+                aspect-ratio: 5 / 10;
+                height: 100%;
+            }
+            
+            .text-content h2 {
+                font-size: 28px;
+            }
+            
+            .text-content p {
+                font-size: 18px;
+            }
+            
+            .variant-button {
+                padding: 14px 30px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .showcase-container {
+                padding: 20px;
+            }
+            
+            .variant-button {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+        }
+        .slideshow-container {
+            position: relative;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        .overlay-container {
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .overlay-container .inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .overlay-image {
+            position: absolute;
+            width: 100%;
+            height: 90%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            top: 0;
+            left: 0;
+        }
+
+        .overlay-image img {
+            top:100%;
+            margin-top: 7%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slideshow-scroll-spacer {
+            height: 1500vh;
+            pointer-events: none;
+            position: relative;
+            z-index: 0;
+        }
+        .overlay-text {
+            position: absolute;
+            top: 75%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            min-width: 80vw;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            opacity: inherit; /* Inherits parent's opacity for synchronized fade */
+        }
+        .overlay-text-lower {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            min-width: 80vw;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            opacity: inherit; /* Inherits parent's opacity for synchronized fade */
+        }
+        .overlay-text-left {
+            position: absolute;
+            top: 60%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            max-width: 30vw;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            opacity: inherit;
+        }
+        
+        .overlay-text-fix {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            min-width: 40vw;
+            max-width: 40vw;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            opacity: inherit;
+        } 
+        .overlay-text-left-lower {
+            position: absolute;
+            top: 70%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            max-width: 40vw;
+            min-width: 40vw;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            opacity: inherit; /* Inherits parent's opacity for synchronized fade */
+        }
+
+        .overlay-text-center {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            max-width: 30vw;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            opacity: inherit; /* Inherits parent's opacity for synchronized fade */
+        }
+
+        .overlay-text-right {
+            position: absolute;
+            top: 70%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            max-width: 35vw;
+            min-width: 35vw;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            opacity: inherit; /* Inherits parent's opacity for synchronized fade */
+        }
+
+        .overlay-text h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-family: "Gugi", sans-serif;
+        }
+        .overlay-text-lower h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-family: "Gugi", sans-serif;
+        }
+        .overlay-text-left h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-family: "Gugi", sans-serif;
+        }
+        .overlay-text-left-fix h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-family: "Gugi", sans-serif;
+        }
+        .overlay-text-left-lower h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-family: "Gugi", sans-serif;
+        }
+        .overlay-text-center h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-family: "Gugi", sans-serif;
+        }
+        .overlay-text-right h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-family: "Gugi", sans-serif;
+        }
+        .overlay-text p {
+            font-size: 24px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-weight: 400;
+        }
+        .overlay-text-lower p {
+            font-size: 24px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-weight: 400;
+        }
+        .overlay-text-left p {
+            font-size: 24px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-weight: 400;
+        }
+        .overlay-text-left-fix p {
+            font-size: 24px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-weight: 400;
+        }
+        .overlay-text-left-lower p {
+            font-size: 24px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-weight: 400;
+        }
+        .overlay-text-center p {
+            font-size: 20px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-weight: 400;
+        }
+        .overlay-text-right p {
+            font-size: 24px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-weight: 400;
+        }
+    </style>
+    <div class="showcase-container">
+        <!-- ARC-L Variant -->
+        <div id="arc-l" class="variant-section active">
+            <div class="content-wrapper">
+                <div class="image-container">
+                    <img src="https://static.igem.wiki/teams/5717/hardware/arcvariants/arcl.webp" alt="ARC-L Liquid Culture">
+                </div>
+                <div class="text-content">
+                    <h2>Liquid Culture</h2>
+                    <p>“L” stands for Liquid Culture. This variant is equivalent to continuous stirred-tank reactor (CSTR). It features a top-mounted agitator and integrated pH and temperature sensors. Peripheral units include a heating module, an air pump, and input/output water pump module.                </div>
+                </div>
+        </div>
+
+        <!-- ARC-B Variant -->
+        <div id="arc-b" class="variant-section">
+            <div class="content-wrapper">
+                <div class="image-container">
+                    <img src="https://static.igem.wiki/teams/5717/hardware/arcvariants/arc.webp" alt="ARC-B Biofilm">
+                </div>
+                <div class="text-content">
+                    <h2>Biofilm</h2>
+                    <p>“B” stands for Biofilm. Designed as a biofilm reactor. ARC-B builds upon the ARC-L and integrates four glass wool biofilm carriers.</p>                </div>
+                </div>
+        </div>
+
+        <!-- ARC-P Variant -->
+        <div id="arc-p" class="variant-section">
+            <div class="content-wrapper">
+                <div class="image-container">
+                    <img src="https://static.igem.wiki/teams/5717/hardware/arcvariants/arcp.webp" alt="ARC-P Photobioreactor">
+                </div>
+                <div class="text-content">
+                    <h2>Photobioreactor</h2>
+                    <p>“P” stands for Photobioreactor. Tailored for photoautotrophic organisms. This variant adds a Chip-On-Board (COB) LED lighting module.</p>                </div>
+                </div>
+        </div>
+
+        <!-- ARC-T Variant -->
+        <div id="arc-t" class="variant-section">
+            <div class="content-wrapper">
+                <div class="image-container">
+                    <img src="https://static.igem.wiki/teams/5717/hardware/arcvariants/arct.webp">
+                </div>
+                <div class="text-content">
+                    <h2>Treatment</h2>
+                    <p>“T” stands for Treatment. This model is made for the PRoSPER to conduct perchlorate remediation. It contains six biofilm carrier slots and a specialized Soil Flowthrough Module designed to extract perchlorate from Martian Regolith.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="button-container">
+            <div class="button-slider"></div>
+            <button class="variant-button active" data-variant="arc-l">ARC-L</button>
+            <button class="variant-button" data-variant="arc-b">ARC-B</button>
+            <button class="variant-button" data-variant="arc-p">ARC-P</button>
+            <button class="variant-button" data-variant="arc-t">ARC-T</button>
+        </div>
+    </div>
+<div class="second-canvas-container" id="secondAnimationContainer"></div>
+
+    <script type="module">
+        class CanvasScrollClip {
+            constructor(container, options) {
+                this.container = container;
+                this.options = options;
+                this.currentFrame = 0;
+                this.images = [];
+                this.canvas = document.createElement('canvas');
+                this.context = this.canvas.getContext('2d');
+                this.loadedCount = 0;
+                this.failedImages = [];
+                this.frameFormats = {}; // Store the format for each frame
+                
+                // Add sticky first frame configuration
+                this.firstFrameStickiness = options.firstFrameStickiness || 0.1;
+                
+                // Create wrapper div for sticky positioning
+                this.canvasWrapper = document.createElement('div');
+                this.canvasWrapper.className = 'canvas-wrapper';
+                
+                // Set up canvas with proper centering
+                this.canvasWrapper.appendChild(this.canvas);
+                this.container.appendChild(this.canvasWrapper);
+                
+                // Style canvas for proper centering
+                this.canvas.style.maxWidth = '100%';
+                this.canvas.style.height = 'auto';
+                this.canvas.style.display = 'block';
+                this.canvas.style.margin = '0 auto';
+                
+                // Create scroll area
+                const scrollArea = document.createElement('div');
+                scrollArea.style.height = `${options.scrollArea || 8000}px`;
+                this.container.appendChild(scrollArea);
+                
+                // Initialize
+                this.init();
+            }
+            
+            async init() {
+                console.log('Starting initialization...');
+                const success = await this.loadImages();
+                
+                if (success && this.images.length > 0) {
+                    this.setupCanvas();
+                    this.updateCanvas(0);
+                    this.addEventListeners();
+                } else {
+                    this.showError();
+                }
+            }
+            
+            setupCanvas() {
+                const firstLoadedImage = this.images.find(img => img !== undefined);
+                if (firstLoadedImage) {
+                    // Set the actual canvas resolution to match the image
+                    this.canvas.width = firstLoadedImage.width;
+                    this.canvas.height = firstLoadedImage.height;
+                    
+                    // Calculate the display size to fit within viewport while maintaining aspect ratio
+                    const aspectRatio = firstLoadedImage.width / firstLoadedImage.height;
+                    const maxHeight = window.innerHeight * 0.8;
+                    const maxWidth = Math.min(window.innerWidth * 0.9, 1200);
+                    
+                    let displayWidth, displayHeight;
+                    
+                    // Calculate dimensions to contain the full image
+                    if (maxWidth / maxHeight > aspectRatio) {
+                        displayHeight = maxHeight;
+                        displayWidth = displayHeight * aspectRatio;
+                    } else {
+                        displayWidth = maxWidth;
+                        displayHeight = displayWidth / aspectRatio;
+                    }
+                    
+                    // Apply calculated dimensions
+                    this.canvas.style.width = `${displayWidth}px`;
+                    this.canvas.style.height = `${displayHeight}px`;
+                    
+                    // Store for responsive updates
+                    this.aspectRatio = aspectRatio;
+                }
+            }
+            
+            async loadImages() {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                const progressBar = document.getElementById('progressBar');
+                const loadingStatus = document.getElementById('loadingStatus');
+                
+                const startFrame = this.options.startFrame !== undefined ? this.options.startFrame : 0;
+                
+                console.log(`Attempting to load ${this.options.frameCount} frames...`);
+                console.log(`Base URL: ${this.options.baseUrl}`);
+                console.log(`Starting from frame: ${startFrame}`);
+                
+                // Load all frames
+                const loadPromises = [];
+                
+                for (let i = 0; i < this.options.frameCount; i++) {
+                    const frameNumber = String(i + startFrame).padStart(this.options.padLength || 6, '0');
+                    loadPromises.push(this.loadSingleFrame(frameNumber, i));
+                }
+                
+                // Wait for all images to load or fail
+                const results = await Promise.allSettled(loadPromises);
+                
+                // Process results
+                results.forEach((result, index) => {
+                    if (result.status === 'fulfilled' && result.value) {
+                        this.images[index] = result.value;
+                        this.loadedCount++;
+                    } else {
+                        this.failedImages.push(index + startFrame);
+                    }
+                    
+                    const progress = ((index + 1) / this.options.frameCount) * 100;
+                    if (progressBar) {
+                        progressBar.style.width = `${progress}%`;
+                    }
+                    if (loadingStatus) {
+                        loadingStatus.textContent = `Loading frame ${index + 1} of ${this.options.frameCount}`;
+                    }
+                });
+                
+                console.log(`Loaded ${this.loadedCount} out of ${this.options.frameCount} frames`);
+                if (this.failedImages.length > 0) {
+                    console.warn(`Failed to load frames: ${this.failedImages.join(', ')}`);
+                }
+                
+                // Hide loading overlay
+                if (loadingOverlay) {
+                    setTimeout(() => {
+                        loadingOverlay.classList.add('loaded');
+                    }, 500);
+                }
+                
+                // Return success if we loaded at least 50% of frames
+                return this.loadedCount >= this.options.frameCount * 0.5;
+            }
+            
+            async loadSingleFrame(frameNumber, index) {
+                // Try both .webp and .avif formats
+                const formats = this.options.formats || ['webp', 'avif'];
+                
+                for (const format of formats) {
+                    const url = `${this.options.baseUrl}frame-${frameNumber}.${format}`;
+                    const result = await this.loadSingleImage(url, index);
+                    
+                    if (result) {
+                        this.frameFormats[index] = format;
+                        console.log(`Loaded frame ${index} as ${format}`);
+                        return result;
+                    }
+                }
+                
+                console.warn(`Failed to load frame ${index} in any format`);
+                return null;
+            }
+            
+            loadSingleImage(url, frameNumber) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    
+                    const timeout = setTimeout(() => {
+                        resolve(null);
+                    }, 10000); // 10 second timeout per image
+                    
+                    img.onload = () => {
+                        clearTimeout(timeout);
+                        resolve(img);
+                    };
+                    
+                    img.onerror = () => {
+                        clearTimeout(timeout);
+                        resolve(null);
+                    };
+                    
+                    img.src = url;
+                });
+            }
+            
+            showError() {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.innerHTML = `
+                    <h2>Animation Loading Error</h2>
+                    <p>Unable to load enough animation frames. This might be due to:</p>
+                    <ul>
+                        <li>Images not available at the expected URLs</li>
+                        <li>Network connectivity issues</li>
+                        <li>CORS restrictions</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">Successfully loaded: ${this.loadedCount}/${this.options.frameCount} frames</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.7;">
+                        Attempted formats: ${(this.options.formats || ['webp', 'avif']).join(', ')}
+                    </p>
+                `;
+                
+                // Clear container and show error
+                this.container.innerHTML = '';
+                this.container.appendChild(errorDiv);
+                
+                // Still create scroll area for layout
+                const scrollArea = document.createElement('div');
+                scrollArea.style.height = `${this.options.scrollArea || 8000}px`;
+                this.container.appendChild(scrollArea);
+            }
+            
+            addEventListeners() {
+                window.addEventListener('scroll', () => {
+                    this.handleScroll();
+                });
+                
+                window.addEventListener('resize', () => {
+                    this.setupCanvas();
+                    this.updateCanvas(this.currentFrame);
+                });
+            }
+            
+            handleScroll() {
+                const scrollTop = window.pageYOffset;
+                const containerTop = this.container.offsetTop;
+                const containerHeight = this.options.scrollArea || 8000;
+                
+                // Calculate raw scroll progress relative to the animation container
+                const rawScrollProgress = Math.max(0, Math.min(1, 
+                    (scrollTop - containerTop + window.innerHeight) / containerHeight
+                ));
+                
+                // Apply sticky first frame logic
+                let adjustedScrollProgress;
+                
+                if (rawScrollProgress < this.firstFrameStickiness) {
+                    // Keep showing frame 0 while in the sticky zone
+                    adjustedScrollProgress = 0;
+                } else {
+                    // Remap the remaining scroll range (after sticky zone) to 0-1
+                    adjustedScrollProgress = (rawScrollProgress - this.firstFrameStickiness) / (1 - this.firstFrameStickiness);
+                }
+                
+                const frameIndex = Math.min(
+                    Math.floor(adjustedScrollProgress * this.options.frameCount),
+                    this.options.frameCount - 1
+                );
+                
+                if (frameIndex !== this.currentFrame && frameIndex >= 0) {
+                    this.currentFrame = frameIndex;
+                    this.updateCanvas(frameIndex);
+                    
+                    // Optional: Log frame changes for debugging
+                    if (frameIndex === 0) {
+                        console.log('Showing first frame (sticky)');
+                    } else {
+                        console.log(`Frame changed to: ${frameIndex}`);
+                    }
+                }
+            }
+            
+            updateCanvas(frameIndex) {
+                // Find the nearest loaded frame if current frame failed to load
+                let actualFrame = frameIndex;
+                let searchRadius = 0;
+                
+                while (!this.images[actualFrame] && searchRadius < this.images.length) {
+                    searchRadius++;
+                    
+                    // Check frames before and after
+                    if (frameIndex - searchRadius >= 0 && this.images[frameIndex - searchRadius]) {
+                        actualFrame = frameIndex - searchRadius;
+                        break;
+                    }
+                    if (frameIndex + searchRadius < this.images.length && this.images[frameIndex + searchRadius]) {
+                        actualFrame = frameIndex + searchRadius;
+                        break;
+                    }
+                }
+                
+                if (this.images[actualFrame]) {
+                    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    this.context.drawImage(this.images[actualFrame], 0, 0, this.canvas.width, this.canvas.height);
+                }
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const secondAnimationContainer = document.getElementById('secondAnimationContainer');
+            
+            // Configuration for the new frame structure
+            new CanvasScrollClip(secondAnimationContainer, {
+                baseUrl: 'https://static.igem.wiki/teams/5717/hardware/frame/',
+                frameCount: 315,  
+                scrollArea: 8000,
+                padLength: 6,
+                startFrame: 0,
+                formats: ['webp', 'avif'],  
+                firstFrameStickiness: 0.15  
+            });
+        });
+    </script>
+
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get all buttons, sections, and slider
+            const buttons = document.querySelectorAll('.variant-button');
+            const sections = document.querySelectorAll('.variant-section');
+            const slider = document.querySelector('.button-slider');
+
+            // Function to update slider position
+            function updateSliderPosition(activeButton) {
+                if (!activeButton || !slider) return;
+                
+                const containerRect = activeButton.parentElement.getBoundingClientRect();
+                const buttonRect = activeButton.getBoundingClientRect();
+                
+                const left = buttonRect.left - containerRect.left;
+                const width = buttonRect.width;
+                
+                slider.style.left = `${left}px`;
+                slider.style.width = `${width}px`;
+            }
+
+            // Initialize slider position
+            setTimeout(() => {
+                const initialActiveButton = document.querySelector('.variant-button.active');
+                updateSliderPosition(initialActiveButton);
+            }, 100);
+
+            // Add click event to each button
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Get the variant from data attribute
+                    const targetVariant = button.getAttribute('data-variant');
+                    
+                    // Remove active class from all buttons and sections
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Update slider position
+                    updateSliderPosition(button);
+                    
+                    // Show the corresponding section
+                    const targetSection = document.getElementById(targetVariant);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                });
+            });
+
+            document.addEventListener('keydown', (e) => {
+                const activeButton = document.querySelector('.variant-button.active');
+                const buttonArray = Array.from(buttons);
+                const currentIndex = buttonArray.indexOf(activeButton);
+                
+                if (e.key === 'ArrowRight' && currentIndex < buttonArray.length - 1) {
+                    buttonArray[currentIndex + 1].click();
+                } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                    buttonArray[currentIndex - 1].click();
+                }
+            });
+
+            // Update slider position on window resize
+            window.addEventListener('resize', () => {
+                const activeButton = document.querySelector('.variant-button.active');
+                updateSliderPosition(activeButton);
+            });
+        });
+    </script>
+    
+    <script type="module">
+        class CanvasScrollClip {
+            constructor(container, options) {
+                this.container = container;
+                this.options = options;
+                this.currentFrame = 0;
+                this.images = [];
+                this.canvas = document.createElement('canvas');
+                this.context = this.canvas.getContext('2d');
+                this.loadedCount = 0;
+                this.failedImages = [];
+                
+                // Create wrapper div for sticky positioning
+                this.canvasWrapper = document.createElement('div');
+                this.canvasWrapper.className = 'canvas-wrapper';
+                
+                // Set up canvas with proper centering
+                this.canvasWrapper.appendChild(this.canvas);
+                this.container.appendChild(this.canvasWrapper);
+                
+                // Style canvas for proper centering
+                this.canvas.style.maxWidth = '100%';
+                this.canvas.style.height = 'auto';
+                this.canvas.style.display = 'block';
+                this.canvas.style.margin = '0 auto';
+                
+                // Create scroll area
+                const scrollArea = document.createElement('div');
+                scrollArea.style.height = `${options.scrollArea || 2000}px`;
+                this.container.appendChild(scrollArea);
+                
+                // Initialize
+                this.init();
+            }
+            
+            async init() {
+                console.log('Starting initialization...');
+                const success = await this.loadImages();
+                
+                if (success && this.images.length > 0) {
+                    this.setupCanvas();
+                    this.updateCanvas(0);
+                    this.addEventListeners();
+                } else {
+                    this.showError();
+                }
+            }
+            
+            setupCanvas() {
+                const firstLoadedImage = this.images.find(img => img !== undefined);
+                if (firstLoadedImage) {
+                    // Set the actual canvas resolution to match the image
+                    this.canvas.width = firstLoadedImage.width;
+                    this.canvas.height = firstLoadedImage.height;
+                    
+                    // Calculate the display size to fit within viewport while maintaining aspect ratio
+                    const aspectRatio = firstLoadedImage.width / firstLoadedImage.height;
+                    const maxHeight = window.innerHeight * 0.9; // Use 90% of viewport height
+                    const maxWidth = Math.min(window.innerWidth * 0.9, 1200); // Cap at container max-width
+                    
+                    let displayWidth, displayHeight;
+                    
+                    // Calculate dimensions to contain the full image
+                    if (maxWidth / maxHeight > aspectRatio) {
+                        // Window is wider than image aspect ratio
+                        displayHeight = maxHeight;
+                        displayWidth = displayHeight * aspectRatio;
+                    } else {
+                        // Window is taller than image aspect ratio
+                        displayWidth = maxWidth;
+                        displayHeight = displayWidth / aspectRatio;
+                    }
+                    
+                    // Apply calculated dimensions
+                    this.canvas.style.width = `${displayWidth}px`;
+                    this.canvas.style.height = `${displayHeight}px`;
+                    
+                    // Store for responsive updates
+                    this.aspectRatio = aspectRatio;
+                }
+            }
+            
+            async loadImages() {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                const progressBar = document.getElementById('progressBar');
+                
+                const startFrame = this.options.startFrame !== undefined ? this.options.startFrame : 1;
+                
+                console.log(`Attempting to load ${this.options.frameCount} frames...`);
+                console.log(`Base path: ${this.options.framePath}`);
+                console.log(`Starting from frame: ${startFrame}`);
+                
+                // Extract base URL more carefully
+                let baseUrl = this.options.framePath;
+                
+                // Try different URL patterns
+                const urlPatterns = [
+                    () => baseUrl.replace(/000005\.webp$/, ''),
+                    () => baseUrl.replace(/000005\.webp$/, ''),
+                    () => baseUrl.replace(/-000005\.webp$/, '-'),
+                    () => baseUrl.replace(/_000005\.webp$/, '_'),
+                ];
+                
+                let successfulPattern = null;
+                
+                // Test which pattern works by trying to load the first frame
+                for (let patternIndex = 0; patternIndex < urlPatterns.length; patternIndex++) {
+                    const testBase = urlPatterns[patternIndex]();
+                    const firstFrameNumber = String(startFrame).padStart(this.options.padLength || 6, '0');
+                    const testUrl = `${testBase}${firstFrameNumber}.webp`;
+                    
+                    console.log(`Testing URL pattern ${patternIndex + 1}: ${testUrl}`);
+                    
+                    const testImg = new Image();
+                    testImg.crossOrigin = 'anonymous';
+                    testImg.src = testUrl;
+                    
+                    try {
+                        await new Promise((resolve, reject) => {
+                            testImg.onload = resolve;
+                            testImg.onerror = reject;
+                            setTimeout(reject, 5000); // 5 second timeout
+                        });
+                        
+                        successfulPattern = patternIndex;
+                        baseUrl = testBase;
+                        console.log(`Success! Using pattern ${patternIndex + 1}`);
+                        break;
+                    } catch (e) {
+                        console.log(`Pattern ${patternIndex + 1} failed`);
+                    }
+                }
+                
+                if (successfulPattern === null) {
+                    console.error('Could not determine correct URL pattern');
+                    return false;
+                }
+                
+                // Load all frames (starting from startFrame)
+                const loadPromises = [];
+                
+                for (let i = 0; i < this.options.frameCount; i++) {
+                    const frameNumber = String(i + startFrame).padStart(this.options.padLength || 6, '0');
+                    const imgUrl = `${baseUrl}${frameNumber}.webp`;
+                    
+                    loadPromises.push(this.loadSingleImage(imgUrl, i));
+                }
+                
+                // Wait for all images to load or fail
+                const results = await Promise.allSettled(loadPromises);
+                
+                // Process results
+                results.forEach((result, index) => {
+                    if (result.status === 'fulfilled' && result.value) {
+                        this.images[index] = result.value;
+                        this.loadedCount++;
+                    } else {
+                        this.failedImages.push(index + startFrame);
+                    }
+                    
+                    const progress = ((index + 1) / this.options.frameCount) * 100;
+                    if (progressBar) {
+                        progressBar.style.width = `${progress}%`;
+                    }
+                });
+                
+                console.log(`Loaded ${this.loadedCount} out of ${this.options.frameCount} frames`);
+                if (this.failedImages.length > 0) {
+                    console.warn(`Failed to load frames: ${this.failedImages.join(', ')}`);
+                }
+                
+                // Hide loading overlay
+                if (loadingOverlay) {
+                    setTimeout(() => {
+                        loadingOverlay.classList.add('loaded');
+                    }, 500);
+                }
+                
+                // Return success if we loaded at least 50% of frames
+                return this.loadedCount >= this.options.frameCount * 0.5;
+            }
+            
+            loadSingleImage(url, frameNumber) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous'; // Handle CORS
+                    
+                    const timeout = setTimeout(() => {
+                        console.warn(`Timeout loading frame ${frameNumber}: ${url}`);
+                        resolve(null);
+                    }, 10000); // 10 second timeout per image
+                    
+                    img.onload = () => {
+                        clearTimeout(timeout);
+                        console.log(`Loaded frame ${frameNumber}`);
+                        resolve(img);
+                    };
+                    
+                    img.onerror = () => {
+                        clearTimeout(timeout);
+                        console.warn(`Failed to load frame ${frameNumber}: ${url}`);
+                        resolve(null);
+                    };
+                    
+                    img.src = url;
+                });
+            }
+            
+            showError() {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.textAlign = 'center';
+                errorDiv.style.padding = '2rem';
+                errorDiv.innerHTML = `
+                    <h2>Animation Loading Error</h2>
+                    <p>Unable to load the scroll animation frames. This might be due to:</p>
+                    <ul style="text-align: left; display: inline-block; margin-top: 1rem;">
+                        <li>Images not available at the expected URLs</li>
+                        <li>Network connectivity issues</li>
+                        <li>CORS restrictions</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">Loaded: ${this.loadedCount}/${this.options.frameCount} frames</p>
+                `;
+                
+                // Clear container and show error
+                this.container.innerHTML = '';
+                this.container.appendChild(errorDiv);
+                
+                // Still create scroll area for layout
+                const scrollArea = document.createElement('div');
+                scrollArea.style.height = `${this.options.scrollArea || 2000}px`;
+                this.container.appendChild(scrollArea);
+            }
+            
+            addEventListeners() {
+                window.addEventListener('scroll', () => {
+                    this.handleScroll();
+                });
+                
+                window.addEventListener('resize', () => {
+                    this.setupCanvas();
+                    this.updateCanvas(this.currentFrame);
+                });
+            }
+            
+            handleScroll() {
+                const scrollTop = window.pageYOffset;
+                const containerTop = this.container.offsetTop;
+                const containerHeight = this.options.scrollArea || 2000;
+                
+                const scrollProgress = Math.max(0, Math.min(1, 
+                    (scrollTop - containerTop + window.innerHeight) / containerHeight
+                ));
+                
+                const frameIndex = Math.min(
+                    Math.floor(scrollProgress * this.options.frameCount),
+                    this.options.frameCount - 1
+                );
+                
+                if (frameIndex !== this.currentFrame && frameIndex >= 0) {
+                    this.currentFrame = frameIndex;
+                    this.updateCanvas(frameIndex);
+                }
+            }
+            
+            updateCanvas(frameIndex) {
+                // Find the nearest loaded frame if current frame failed to load
+                let actualFrame = frameIndex;
+                let searchRadius = 0;
+                
+                while (!this.images[actualFrame] && searchRadius < this.images.length) {
+                    searchRadius++;
+                    
+                    // Check frames before and after
+                    if (frameIndex - searchRadius >= 0 && this.images[frameIndex - searchRadius]) {
+                        actualFrame = frameIndex - searchRadius;
+                        break;
+                    }
+                    if (frameIndex + searchRadius < this.images.length && this.images[frameIndex + searchRadius]) {
+                        actualFrame = frameIndex + searchRadius;
+                        break;
+                    }
+                }
+                
+                if (this.images[actualFrame]) {
+                    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    this.context.drawImage(this.images[actualFrame], 0, 0, this.canvas.width, this.canvas.height);
+                }
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const animationContainer = document.getElementById('animationContainer');
+            
+            // Configuration with multiple options for flexibility
+            new CanvasScrollClip(animationContainer, {
+                framePath: 'https://static.igem.wiki/teams/5717/hardware/title/title-000005.webp',
+                frameCount: 101,
+                scrollArea: 2000,
+                padLength: 6,  // How many digits for frame numbers (e.g., 000001 = 6)
+                startFrame: 0  // Start from frame 0 instead of 1
+            });
+        });
+    </script>
+    <div class="texts">
+        <h1>Build for PRoSPER - and for your own ideas</h1>
+        <p style="margin-bottom: 50px;">Mars may be distant. ARC’s compact design also makes it ideal for laboratories that require efficient bacterial culture systems.</p>
+    </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        const overlayContainer = document.getElementById('overlayContainer');
+        const overlayImages = document.querySelectorAll('.overlay-image');
+        
+        if (!overlayContainer || !slideshowContainer) return;
+        
+        // Create scroll spacer
+        const scrollSpacer = document.createElement('div');
+        scrollSpacer.className = 'slideshow-scroll-spacer';
+        slideshowContainer.appendChild(scrollSpacer);
+        
+        const config = {
+            startDelay: 0.08,      
+            fadeInDuration: 0.02,   
+            holdDuration: 0.05,     
+            fadeOutDuration: 0.01,  
+            gapBetweenImages: 0.01, 
+            endBuffer: 0.04         
+        };
+        
+        // Calculate total duration per slide
+        const totalPerSlide = config.fadeInDuration + config.holdDuration + config.fadeOutDuration + config.gapBetweenImages;
+        const imageCount = overlayImages.length;
+        const totalTimelineLength = config.startDelay + (imageCount * totalPerSlide);
+        const scaleFactor = Math.min(1, (1 - config.endBuffer) / totalTimelineLength);
+        
+        // Build timeline
+        const imageTimeline = [];
+        for (let i = 0; i < imageCount; i++) {
+            const baseStart = config.startDelay + (i * totalPerSlide * scaleFactor);
+            imageTimeline.push({
+                element: overlayImages[i],
+                fadeInStart: baseStart,
+                fadeInEnd: baseStart + (config.fadeInDuration * scaleFactor),
+                holdStart: baseStart + (config.fadeInDuration * scaleFactor),
+                holdEnd: baseStart + ((config.fadeInDuration + config.holdDuration) * scaleFactor),
+                fadeOutStart: baseStart + ((config.fadeInDuration + config.holdDuration) * scaleFactor),
+                fadeOutEnd: baseStart + ((config.fadeInDuration + config.holdDuration + config.fadeOutDuration) * scaleFactor)
+            });
+        }
+        
+        function calculateOpacity(progress, timeline) {
+            // Before fade in
+            if (progress < timeline.fadeInStart) {
+                return 0;
+            }
+            // During fade in - sharp transition
+            else if (progress < timeline.fadeInEnd) {
+                const fadeProgress = (progress - timeline.fadeInStart) / (timeline.fadeInEnd - timeline.fadeInStart);
+                // Use an easing function for snappier feel
+                return Math.pow(fadeProgress, 0.5); // Quick ease-in
+            }
+            // During hold - stable viewing zone
+            else if (progress < timeline.holdEnd) {
+                return 1;
+            }
+            // During fade out - sharp transition
+            else if (progress < timeline.fadeOutEnd) {
+                const fadeProgress = (progress - timeline.fadeOutStart) / (timeline.fadeOutEnd - timeline.fadeOutStart);
+                // Use an easing function for snappier feel
+                return Math.pow(1 - fadeProgress, 0.5); // Quick ease-out
+            }
+            // After fade out
+            else {
+                return 0;
+            }
+        }
+        
+        // Track current slide for snap behavior
+        let currentSlide = -1;
+        
+        function handleSlideshowScroll() {
+            const containerTop = slideshowContainer.offsetTop;
+            const scrollTop = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            const containerHeight = scrollSpacer.offsetHeight;
+            
+            const scrollProgress = Math.max(0, Math.min(1, 
+                (scrollTop - containerTop + windowHeight) / containerHeight
+            ));
+            
+            // Check if scrolled past
+            const containerBottom = containerTop + containerHeight;
+            const hasScrolledPast = scrollTop > containerBottom;
+            
+            if (hasScrolledPast) {
+                overlayContainer.style.visibility = 'hidden';
+                overlayContainer.style.pointerEvents = 'none';
+                return;
+            }
+            
+            overlayContainer.style.visibility = 'visible';
+            overlayContainer.style.pointerEvents = 'none';
+            
+            // Find which slide we're closest to for snap effect
+            let activeSlide = -1;
+            for (let i = 0; i < imageTimeline.length; i++) {
+                const slideCenter = (imageTimeline[i].fadeInStart + imageTimeline[i].holdEnd) / 2;
+                if (scrollProgress >= slideCenter - (totalPerSlide * scaleFactor / 2) && 
+                    scrollProgress <= slideCenter + (totalPerSlide * scaleFactor / 2)) {
+                    activeSlide = i;
+                    break;
+                }
+            }
+            
+            // Update opacities with enhanced visibility for active slide
+            imageTimeline.forEach((item, index) => {
+                if (item.element) {
+                    let opacity = calculateOpacity(scrollProgress, item);
+                    
+                    // Boost opacity for the active slide (snap effect)
+                    if (index === activeSlide && opacity > 0.3) {
+                        opacity = 1;
+                    }
+                    // Reduce opacity for non-active slides
+                    else if (index !== activeSlide && opacity > 0 && opacity < 1) {
+                        opacity = opacity * 0.8;
+                    }
+                    
+                    item.element.style.opacity = opacity;
+                    // Faster transition for snappier feel
+                    item.element.style.transition = 'opacity 0.1s ease-out';
+                }
+            });
+            
+            // Update current slide tracker
+            if (activeSlide !== currentSlide) {
+                currentSlide = activeSlide;
+            }
+        }
+        
+        // Initialize
+        window.addEventListener('scroll', handleSlideshowScroll);
+        handleSlideshowScroll();
+    });
+    </script>
+</body>
+<section class="slideshow-container">
+    <div class="overlay-container" id="overlayContainer">
+        <div class="inner">
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-001.avif" alt="">
+                <div class="overlay-text">
+                    <p>ARC achieves large-volume liquid culture within an exceptionally small footprint. This is made possible by its efficient stirring system and robust aeration, allowing more culture medium to be accommodated within the same space. With a compact 19×19×24 cm volume, ARC can cultivate approximately 800 mL of liquid medium.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-002.avif" alt="">
+                <div class="overlay-text">
+                    <p>The top section of the reactor is CNC-machined from aluminum alloy and equipped with four stainless steel hose barbs. The combination of stainless steel, aluminum alloy, and internal silicone tubing makes the entire assembly autoclavable. Based on this, we designed a dedicated autoclave configuration, which allows the sterilized components to be assembled later with non-autoclavable parts. This ensure a rigorous and contamination-free sterile workflow.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-003.avif" alt="">
+                <div class="overlay-text-left">
+                    <p>The user can add culture medium and autoclave directly in this configuration. Afterward, the remaining components including the electronic circuits, top-mounted agitator, and sensors can be installed without opening the top, ensuring a sterile environment throughout the process.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-004.avif" alt="">
+                <div class="overlay-text-center">
+                    <p>The liquid-culture configuration of ARC is equipped with a 12V BLDC motor capable of up to 500 rpm, driving a 6 cm impeller. This setup provides high torque and speed for mixing in viscous media, supported by up to four aeration inlets that deliver airflow far beyond bacterial demand. In the biofilm configuration, due to limited top space, a motor rated up to 200 rpm is used instead.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-005.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>Each module serves a different function but shares the same standardized size, allowing it to fit into any of the six slots surrounding the main reactor body. Two of these slots are dedicated to pump modules, which can be swapped between water and air pumps. The remaining four slots can be interchanged between COB LED modules and heating modules.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-006.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>Each module serves a different function but shares the same standardized size, allowing it to fit into any of the six slots surrounding the main reactor body. Two of these slots are dedicated to pump modules, which can be swapped between water and air pumps. The remaining four slots can be interchanged between COB LED modules and heating modules.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-007.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>Each module serves a different function but shares the same standardized size, allowing it to fit into any of the six slots surrounding the main reactor body. Two of these slots are dedicated to pump modules, which can be swapped between water and air pumps. The remaining four slots can be interchanged between COB LED modules and heating modules.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-008.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>Each module serves a different function but shares the same standardized size, allowing it to fit into any of the six slots surrounding the main reactor body. Two of these slots are dedicated to pump modules, which can be swapped between water and air pumps. The remaining four slots can be interchanged between COB LED modules and heating modules.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-009.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>Each module serves a different function but shares the same standardized size, allowing it to fit into any of the six slots surrounding the main reactor body. Two of these slots are dedicated to pump modules, which can be swapped between water and air pumps. The remaining four slots can be interchanged between COB LED modules and heating modules.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-010.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>Each module serves a different function but shares the same standardized size, allowing it to fit into any of the six slots surrounding the main reactor body. Two of these slots are dedicated to pump modules, which can be swapped between water and air pumps. The remaining four slots can be interchanged between COB LED modules and heating modules.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-011.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>Each module serves a different function but shares the same standardized size, allowing it to fit into any of the six slots surrounding the main reactor body. Two of these slots are dedicated to pump modules, which can be swapped between water and air pumps. The remaining four slots can be interchanged between COB LED modules and heating modules.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-012.avif" alt="">
+                <div class="overlay-text-left-fix">
+                    <p>For the most efficient configuration switching, we deeply integrated magnetic connectivity. Each module uses a MagPin connector that provides a 5-pin electrical interface. The main circuit is housed in the base, minimizing module size while enabling multifunctional interchangeability.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-013.avif" alt="">
+                <div class="overlay-text-lower">
+                    <p>With the standard established, new modules naturally follow. At this stage, we have developed COB LED modules, heating modules, and two types of pump modules — one for liquid and one for air</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-014.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>Each COB LED module is equipped with a 12V 16W COB LED panel capable of delivering up to 1000 lumens of brightness. At the working distance within ARC, a single panel can provide up to 37 klux of brightness, which is more than sufficient to support Synechococcus which requires 3000 lux. In the final tests, only 20% brightness was needed to achieve optimal illumination with 2 modules.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-014.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>During our testing with all four COB LED modules, running at 10% brightness for 10 minutes consumes only 1 Wh, and at 20% brightness, just 1.5 Wh. The total power of all four panels combined stays below 10 W, which is far less than the power draw of a phone charger.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-016.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>Each heating module is equipped with two 12V 12W heat pads, attach to the beaker via a thermal pad to ensure uniform heat distribution. It also features aerogel insulation layers to minimize heat loss. An Arduino-based control algorithm implements a negative-feedback loop with the temperature sensor to optimize power usage.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-017.avif" alt="">
+                <div class="overlay-text-right">
+                    <p>The pump module comes in two configurations: an air pump and a liquid pump. The liquid pump delivers a combined flow rate of 15 mL/s across two channels at 90% power. The air pump version is able to reach sufficient aeration for a 1 L culture at only 30–40% of the PWM output.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-018.avif" alt="">
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-019.avif" alt="">
+                <div class="overlay-text-left-lower">
+                    <p>ARC achieves full-system wireless control through via the HM-10 Bluetooth module. Building on this foundation, the Wiki project group also developed ArcDash, a companion software for real-time monitoring, control, and calibration of the bioreactor.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-020.avif" alt="">
+                <div class="overlay-text-lower">
+                    <p>HM-10 module connects to the microcontroller that drives the entire ARC bioreactor - an Arduino Mega 2560 Pro. It is soldered and wired directly to interface with the other modules.</p>
+                </div>
+            </div>
+            <div class="overlay-image" data-slide="1">
+                <img src="https://static.igem.wiki/teams/5717/hardware/slideshow/imageplustitle/hardware-copy-3-021.avif" alt="">
+            </div>
+        </div>
+    </div>  
+</section>
+<section class="table-stuff">
+    <style>
+        h1 {
+            color: rgb(255, 255, 255);
+            font-family: "Gugi", Gill Sans, sans-serif;
+        }
+        .pdf-iframe {
+            width: 75%; /* Use a percentage to scale the iframe within the container */
+            height: 85vh; /* Maintain height within the viewport height */
+            border: none;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visualization */
+            justify-content: center;
+            position: relative;
+        }
+    </style>
+    <p style="text-align: center; margin-top: 40px; margin-bottom: 40px; font-family: 'Poppins', sans-serif; font-weight: bold;"><strong>Meanwhile, we also prepared a general operating manual containing detailed assembly guidelines and operation guidelines. It contains detailed descriptions of the precautions in operation, the assembly of autoclave configuration, and the specific structural differences among different variants.</strong></p>
+    <div class="texts" style="padding-top: 40px; padding-bottom: 40px;">
+        <p style="margin-bottom: 30px;"><strong>All of these features come at a cost price of only $300.</strong></p>
+    <style>
+    :root{
+        --bg: #000000;               /* page bg (if needed) */
+        --panel: rgba(255,255,255,0.03); /* faint panel */
+        --row-even: rgba(255,255,255,0.02);
+        --row-hover: rgba(255,255,255,0.06);
+        --divider: rgba(255,255,255,0.06);
+        --accent: #ffffff;          /* subtle accent (teal) */
+        --text: #ffffff;
+    }
+    table, th, td {
+        border: 2px solid white;
+        border-bottom: 2px solid white;
+        border-collapse: collapse;
+    }
+
+
+    table.dark-table{
+        width: 100%;
+        border-collapse: collapse;
+        background: transparent;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+        font-size: 14px;
+        overflow: hidden;
+        border: 1px white;
+    }
+
+    table.dark-table thead th{
+        text-align: left;
+        padding: 10px 12px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+        color: var(--text);
+    }
+
+    table.dark-table tbody td{
+        padding: 10px 12px;
+        color: var(--text);
+        vertical-align: middle;
+        /* border-bottom: 1px dashed white; */
+    }
+
+    table.dark-table tbody tr td{
+        background: var(--row-hover);
+    }
+
+    /* Section Divider row (uses colspan) */
+    .section-divider td{
+        background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border-top: 1px solid var(--divider);
+        border-bottom: 1px solid var(--divider);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 8px 12px;
+        color: var(--accent);
+    }
+
+    /* Totals / summary row */
+    .total-row td{
+        padding: 12px;
+        font-weight: 800;
+        color: var(--text);
+        background: rgba(255,255,255,0.02);
+    }
+
+    /* Right-align numeric columns */
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    </style>
+
+    <table class="dark-table">
+    <thead>
+        <tr>
+        <th>Item</th>
+        <th class="num">Unit Price ($)</th>
+        <th class="num">Total Price ($)</th>
+        <th class="num">Quantity</th>
+        <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Section Divider -->
+        <tr class="section-divider"><td colspan="5">Main Structure</td></tr>
+
+        <tr><td>1L Beaker</td><td class="num">5.80</td><td class="num">5.80</td><td class="num">1</td><td>Main Structure</td></tr>
+        <tr><td>3D Printing Filament 1kg</td><td class="num">15.99</td><td class="num">15.99</td><td class="num">1</td><td>Main Chamber Printing</td></tr>
+        <tr><td>DC 12V Gear Motor</td><td class="num">11.24</td><td class="num">11.24</td><td class="num">1</td><td>Agitator</td></tr>
+        <tr><td>¼” Hose Barb</td><td class="num">4.99</td><td class="num">19.98</td><td class="num">4</td><td>$9.99 for 2 units, needs 4</td></tr>
+        <tr><td>The Rim CNC</td><td class="num">43.78</td><td class="num">43.78</td><td class="num">1</td><td>Top Structure in autoclave configuration</td></tr>
+        <tr><td>Top Mount CNC</td><td class="num">57.36</td><td class="num">57.36</td><td class="num">1</td><td></td></tr>
+        <tr><td>20×5×2 Magnets</td><td class="num">0.20</td><td class="num">7.20</td><td class="num">36</td><td>Each pillar has 6 magnets</td></tr>
+        <tr><td>MagPins</td><td class="num">4.99</td><td class="num">29.97</td><td class="num">6</td><td>3 pairs; main body needs 6× female connectors</td></tr>
+        <tr><td>Silicone Tubing</td><td class="num">11.99</td><td class="num">11.99</td><td class="num">1</td><td>3 m</td></tr>
+        <tr><td>Bubbler Stone</td><td class="num">6.75</td><td class="num">6.75</td><td class="num">1</td><td>$13.49 for 2 units</td></tr>
+        <tr><td>pH Sensor</td><td class="num">19.88</td><td class="num">19.88</td><td class="num">1</td><td></td></tr>
+        <tr><td>Temperature Sensor</td><td class="num">13.48</td><td class="num">4.49</td><td class="num">1</td><td>$13.48 for 3 units</td></tr>
+
+        <!-- Section Divider -->
+        <tr class="section-divider"><td colspan="5">Electronics</td></tr>
+
+        <tr><td>Arduino Mega 2560 Pro</td><td class="num">16.99</td><td class="num">16.99</td><td class="num">1</td><td></td></tr>
+        <tr><td>DRV8871</td><td class="num">3.96</td><td class="num">23.76</td><td class="num">6</td><td>$11.88 for 3 pcs, needs 6</td></tr>
+        <tr><td>Mosfet Module</td><td class="num">1.30</td><td class="num">2.60</td><td class="num">2</td><td>$12.99 for 10 pcs</td></tr>
+        <tr><td>HM-10</td><td class="num">4.66</td><td class="num">4.66</td><td class="num">1</td><td>$13.99 for 3 pcs</td></tr>
+        <tr><td>DC-DC Buck Converter</td><td class="num">2.21</td><td class="num">2.21</td><td class="num">1</td><td>$13.25 for 6 pcs</td></tr>
+        <tr><td>PCB Prototyping Board</td><td class="num">0.50</td><td class="num">0.50</td><td class="num">1</td><td></td></tr>
+
+        <!-- Section Divider -->
+        <tr class="section-divider"><td colspan="5">COB LED Module</td></tr>
+
+        <tr><td>12V 16W COB LED Panel</td><td class="num">2.60</td><td class="num">2.60</td><td class="num">1</td><td>$12.99 for 5 pcs</td></tr>
+        <tr><td>Aluminum Heat Sink</td><td class="num">0.96</td><td class="num">2.87</td><td class="num">3</td><td>$11.49 for 12 pcs</td></tr>
+        <tr><td>3D Printing Filament</td><td class="num">15.99 /kg</td><td class="num">~1.50</td><td class="num">1</td><td></td></tr>
+
+        <!-- Section Divider -->
+        <tr class="section-divider"><td colspan="5">Heating Module</td></tr>
+
+        <tr><td>12V 12W Heat Pad</td><td class="num">1.25</td><td class="num">2.49</td><td class="num">2</td><td>$14.99 for 12 pcs</td></tr>
+        <tr><td>Thermal Pad</td><td class="num">2.59</td><td class="num">2.59</td><td class="num">1</td><td>$10.39 for 4 units</td></tr>
+        <tr><td>Aerogel Insulation Tape</td><td class="num">1.59</td><td class="num">1.59</td><td class="num">1</td><td>$15.99 for 10 units</td></tr>
+        <tr><td>Aerogel Insulation Padding</td><td class="num">2.59</td><td class="num">2.59</td><td class="num">1</td><td>$25.99 for 10 units</td></tr>
+        <tr><td>3D Printing Filament</td><td class="num">15.99 /kg</td><td class="num">~1.50</td><td class="num">1</td><td></td></tr>
+
+        <!-- Section Divider -->
+        <tr class="section-divider"><td colspan="5">Pump Module</td></tr>
+
+        <tr><td>12V Water Pump / Air Pump</td><td class="num">9.45</td><td class="num">18.90</td><td class="num">2</td><td></td></tr>
+        <tr><td>MagPins</td><td class="num">4.99</td><td class="num">2.49</td><td class="num">1</td><td>4.99 is for a pair, Only needs male for module</td></tr>
+        <tr><td>Magnets</td><td class="num">0.2</td><td class="num">1.2</td><td class="num">6</td><td>9.99 for 50 pcs</td></tr>
+        <tr><td>3D Printing Filament</td><td class="num">15.99 / kg</td><td class="num">~1.5</td><td class="num">1</td><td></td></tr>
+
+        <tr class="total-row"><td colspan="5"><strong>Total Price = $285.15 | COB LED Module = $10.66 | Heating Module = $14.45 | Pump Module = $24.09</strong></td></tr>
+    </tbody>
+    </table>
+    <p style="padding: 10px; font-style: italic;">The prices listed above are for reference only. For example, the CNC-machined Top Mount refers to the ARC-B version; other versions would be less expensive, as the CNC machining of the biofilm carrier slots in ARC-B involves higher complexity and precision.</p>
+    </div>
+    <h1>Future Plans</h1>
+    <p>ARC is constantly evolving. Looking ahead, we see multiple directions for continuous development, each representing a major potential update that could solve a new problem.</p>
+    <p><strong>1. Integrated PCB Development</strong></p>
+    <p>As mentioned earlier, one of our primary goals is to develop an integrated PCB version of the control system. Compared to the current prototype, the PCB version would offer higher stability, smaller footprint, and consistent manufacturability.  This is a key step toward transitioning from a prototype to a fully productized platform.</p>
+    <p><strong>2. Expansion of Modules</strong></p>
+    <p>Although we have already open-sourced the existing module files and dimensions, we plan to continue developing new modules. The first focus is on compatibility with a broader range of model organisms and experimental workflows. For instance, a cooling module could enable finer temperature control, while new sensor modules could provide monitoring for additional parameters. </p>
+    <p>Another line of development involves adding advanced features such as an optical sensing module. We have envisioned this concept for a long time but could not yet implement due to time and precision constraints. Successfully realizing this would mark a great milestone for ARC.</p>
+    <p>Finally, an automated pipetting system is also a promising direction. Through precise control with stepper motors, this would move ARC further toward full automation.</p>
+    <p><strong>3. Scaling and Capacity Expansion</strong></p>
+    <p>Last but not least, scalability remains an important development frontier. The current design uses a 1 L beaker, but future iterations could explore larger chambers or soil flow-through setups, depending on mission requirements. Under permissible mass and volume limits for Mars missions, scaling up will be an essential step toward achieving large-scale operation.</p>
+
+</section>
+{% endblock %} 
